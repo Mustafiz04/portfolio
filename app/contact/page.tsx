@@ -27,10 +27,12 @@ export default function Contact() {
           </p>
         </div>
         {calendlyPopup && (
-          <div className="space-y-2 pb-8 pt-6 md:space-y-5" style={{ minWidth: '320px', height: '850px' }}>
+          <div
+            className="space-y-2 pb-8 pt-6 md:space-y-5"
+            style={{ minWidth: '320px', height: '850px' }}
+          >
             <InlineWidget url="https://calendly.com/mustafizkaifee" />
           </div>
-
         )}
       </div>
     </>

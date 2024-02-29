@@ -2,9 +2,9 @@ import { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
 import SocialIcon from '@/components/social-icons'
 import Image from '@/components/Image'
-import StackList from '@/components/list/StackList';
-import { WorkStack } from 'config/stack';
-import { RoughNotation } from 'react-rough-notation';
+import StackList from '@/components/list/StackList'
+import { WorkStack } from 'config/stack'
+import { RoughNotation } from 'react-rough-notation'
 
 interface Props {
   children: ReactNode
@@ -46,27 +46,25 @@ export default function AuthorLayout({ children, content }: Props) {
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
             {children}
             {/* <p className='mt-8'> */}
-              <a
-                className='!font-normal !text-black !no-underline dark:!text-white'
-                href={resume}
-                target='_blank'
-                rel='noreferrer'
+            <a
+              className="!font-normal !text-black !no-underline dark:!text-white"
+              href={resume}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <RoughNotation
+                show
+                type="box"
+                animationDelay={250}
+                animationDuration={2000}
+                strokeWidth={2}
+                // color='#fffff'
               >
-                <RoughNotation
-                  show
-                  type='box'
-                  animationDelay={250}
-                  animationDuration={2000}
-                  strokeWidth={2}
-                  // color='#fffff'
-                >
-                  Resume
-                </RoughNotation>
-              </a>
-              <h2 className='mt-8 mb-4 text-2xl font-semibold dark:text-white'>
-                Skills
-              </h2>
-              <StackList stack={WorkStack} />
+                Resume
+              </RoughNotation>
+            </a>
+            <h2 className="mb-4 mt-8 text-2xl font-semibold dark:text-white">Skills</h2>
+            <StackList stack={WorkStack} />
             {/* </p> */}
           </div>
         </div>
