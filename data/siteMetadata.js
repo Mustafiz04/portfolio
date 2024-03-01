@@ -3,7 +3,7 @@ const siteMetadata = {
   title: 'Mustafiz Kaifee',
   author: 'Mustafiz Kaifee',
   headerTitle: 'MustafizKaifee',
-  description: 'A software engineer who aim to evolve, innovates, travel and inspire through technogies',
+  description: 'A software engineer who aim to evolve, innovates, and inspire through technogies',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://mustafizkaifee.in',

@@ -31,7 +31,7 @@ export default function Contact() {
             className="space-y-2 pb-8 pt-6 md:space-y-5"
             style={{ minWidth: '320px', height: '850px' }}
           >
-            <InlineWidget url="https://calendly.com/mustafizkaifee" />
+            <InlineWidget url="https://calendly.com/mustafiz_kaifee/30min" />
           </div>
         )}
       </div>
