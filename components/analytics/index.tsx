@@ -14,7 +14,7 @@ declare global {
 const isProduction = process.env.NODE_ENV === 'production'
 
 const Analytics = () => {
-  return <>{analytics.googleAnalytics.googleAnalyticsId && <GA />}</>
+  return <>{isProduction && analytics.googleAnalytics.googleAnalyticsId && <GA />}</>
 }
 
 export default Analytics
