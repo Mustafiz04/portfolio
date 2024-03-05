@@ -31,7 +31,6 @@ export default function BlogPage() {
         pagination={pagination}
         title="All Posts"
       />
-      // <ComingSoon />
     </>
   )
 }

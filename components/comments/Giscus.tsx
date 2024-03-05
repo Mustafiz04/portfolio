@@ -43,7 +43,7 @@ const Giscus = ({ mapping }: Props) => {
       const comments = document.getElementById(COMMENTS_ID)
       if (comments) comments.innerHTML = ''
     }
-  }, [commentsTheme, mapping])
+  }, [commentsTheme])
 
   // Reload on theme change
   useEffect(() => {
