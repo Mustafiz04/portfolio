@@ -17,10 +17,11 @@ There are several design patterns, and the most important are categorized into t
 > Creational patterns are focused towards how to instantiate an object or group of related objects.
 
 Design patterns that deal with object creation processes and attempt to construct things in a situation-appropriate way are known as creational design patterns in software engineering. The simplest method of creating objects may lead to additional design complexity or design issues. This issue is resolved by creational design patterns, which in some way regulate the creation of objects.
+
 1. Simple Factory
 2. Factory Method
 3. Abstract Factory
-4. Singleton
+4. [Singleton](/blog/singleton-design-pattern)
 5. Builder
 6. Prototype
 
@@ -29,6 +30,7 @@ Design patterns that deal with object creation processes and attempt to construc
 > In software engineering, structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
 
 In software engineering, structural design patterns concentrate on grouping classes and objects into bigger structures. By establishing links between items such as inheritance, composition, and delegation, they aid in the maintenance, scalability, and reuse of code. They improve the flexibility and clarity of the code, which results in higher-quality software and simpler updates.
+
 1. Adapter
 2. Bridge
 3. Decorator
@@ -37,11 +39,12 @@ In software engineering, structural design patterns concentrate on grouping clas
 6. Flyweight
 7. Proxy
 
-
 ## Behavioral Design Pattern
+
 > In software engineering, behavioral patterns emphasize how objects communicate and collaborate to accomplish tasks efficiently, enhancing flexibility and adaptability.
 
 In software engineering, behavioral design patterns concentrate on how objects interact and cooperate to complete tasks quickly. They offer methods for setting up duties, object interactions, and algorithms. These patterns encourage loose coupling between objects and encapsulate behaviors, which enhances the flexibility, maintainability, and adaptability of the code.
+
 1. Chain of Responsibility
 2. Command
 3. Iterator
@@ -53,5 +56,4 @@ In software engineering, behavioral design patterns concentrate on how objects i
 9. State
 10. Template Method
 
-
-> *Stay tuned for detailed blog for each design pattern.*
+> _Stay tuned for detailed blog for each design pattern._
