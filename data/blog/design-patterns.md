@@ -18,7 +18,7 @@ There are several design patterns, and the most important are categorized into t
 
 Design patterns that deal with object creation processes and attempt to construct things in a situation-appropriate way are known as creational design patterns in software engineering. The simplest method of creating objects may lead to additional design complexity or design issues. This issue is resolved by creational design patterns, which in some way regulate the creation of objects.
 
-1. Simple Factory
+1. [Simple Factory](/blog/simple-factory)
 2. Factory Method
 3. Abstract Factory
 4. [Singleton](/blog/singleton-design-pattern)
