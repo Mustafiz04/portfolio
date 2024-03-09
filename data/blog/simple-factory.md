@@ -73,6 +73,36 @@ public class NotificationFactory {
 }
 ```
 
+```Java
+public class Main {
+    public static void main(String[] args) {
+        NotificationFactory notificationFactory = new NotificationFactory();
+
+        // Create an email notification
+        Notification emailNotification = notificationFactory.createNotification("Email");
+        if (emailNotification != null) {
+            emailNotification.notifyUser();
+        } else {
+            System.out.println("Invalid notification channel for email.");
+        }
+
+        // Create an SMS notification
+        Notification smsNotification = notificationFactory.createNotification("SMS");
+        if (smsNotification != null) {
+            smsNotification.notifyUser();
+        } else {
+            System.out.println("Invalid notification channel for SMS.");
+        }
+
+        // Attempt to create a notification with an unsupported channel
+        Notification invalidNotification = notificationFactory.createNotification("Push");
+        if (invalidNotification == null) {
+            System.out.println("Invalid notification channel.");
+        }
+    }
+}
+```
+
 The code defines a factory that creates and returns an EmailNotification or SMSNotification object based on the input string. This factory method streamlines the instantiation process, making the notification system easy to scale and modify.
 
 ## Pros and cons

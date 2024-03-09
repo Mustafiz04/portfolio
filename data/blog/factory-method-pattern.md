@@ -77,6 +77,32 @@ public class MacOSDialog extends Dialog {
 }
 ```
 
+```Java
+public class Main {
+    public static void main(String[] args) {
+        Dialog dialog;
+
+        // Determine the operating system style and create the appropriate dialog
+        String os = "Windows"; // or "MacOS"
+        
+        if (os.equals("Windows")) {
+            dialog = new WindowsDialog();
+        } else {
+            dialog = new MacOSDialog();
+        }
+
+        // Render the window, which in turn renders the button in the appropriate style
+        dialog.renderWindow();
+
+        // Optionally, switch to another OS dialog
+        System.out.println("Switching to macOS dialog:");
+        dialog = new MacOSDialog(); // switch to the macOS style dialog
+        dialog.renderWindow();
+    }
+}
+
+```
+
 In this example, Dialogue is the Creator, whereas WindowsDialog and MacOSDialog are Concrete Creators, making their respective Concrete Products, WindowsButton and MacOSButton.
 
 ## Pros and cons
