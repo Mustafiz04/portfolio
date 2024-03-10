@@ -10,6 +10,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { BlogSEO } from '@/components/SEO'
+import SocialSharing from '@/components/SocialSharing'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -97,7 +98,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              {banner && <img src={banner} className="object-cover object-center" alt="banner" />}
+              {banner && <Image src={banner} className="object-cover object-center" alt="banner" />}
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link href={discussUrl(path)} rel="nofollow">
@@ -117,6 +118,12 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             </div>
             <footer>
               <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
+                <div className="py-4 xl:py-8">
+                  <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    Share on
+                  </h2>
+                  <SocialSharing title={title} url={url} />
+                </div>
                 {tags && (
                   <div className="py-4 xl:py-8">
                     <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
