@@ -20,7 +20,7 @@ Design patterns that deal with object creation processes and attempt to construc
 
 1. [Simple Factory](/blog/simple-factory)
 2. [Factory Method](/blog/factory-method-pattern)
-3. Abstract Factory
+3. [Abstract Factory](/blog/abstract-factory)
 4. [Singleton](/blog/singleton-design-pattern)
 5. Builder
 6. Prototype
