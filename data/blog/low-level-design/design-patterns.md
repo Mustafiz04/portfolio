@@ -25,13 +25,13 @@ Design patterns that deal with object creation processes and attempt to construc
 5. [Builder](/blog/low-level-design/creational/builder-pattern)
 6. [Prototype](/blog/low-level-design/creational/prototype-pattern)
 
-## Structural Design Pattern   
+## Structural Design Pattern
 
 > In software engineering, structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
 
 In software engineering, structural design patterns concentrate on grouping classes and objects into bigger structures. By establishing links between items such as inheritance, composition, and delegation, they aid in the maintenance, scalability, and reuse of code. They improve the flexibility and clarity of the code, which results in higher-quality software and simpler updates.
 
-1. Adapter
+1. [Adapter](/blog/low-level-design/structural/adapter-pattern)
 2. Bridge
 3. Decorator
 4. Composite
