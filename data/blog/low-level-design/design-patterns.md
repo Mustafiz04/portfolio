@@ -32,7 +32,7 @@ Design patterns that deal with object creation processes and attempt to construc
 In software engineering, structural design patterns concentrate on grouping classes and objects into bigger structures. By establishing links between items such as inheritance, composition, and delegation, they aid in the maintenance, scalability, and reuse of code. They improve the flexibility and clarity of the code, which results in higher-quality software and simpler updates.
 
 1. [Adapter](/blog/low-level-design/structural/adapter-pattern)
-2. Bridge
+2. [Bridge](/blog/low-level-design/structural/bridge-pattern)
 3. Decorator
 4. Composite
 5. Facade
