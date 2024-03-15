@@ -21,7 +21,7 @@ const Giscus = ({ mapping }: Props) => {
 
   const COMMENTS_ID = 'comments-container'
 
-  const LoadComments = useCallback(() => {
+  const LoadComments = () => {
     setEnabledLoadComments(false)
     const script = document.createElement('script')
     script.src = 'https://giscus.app/client.js'
@@ -43,18 +43,16 @@ const Giscus = ({ mapping }: Props) => {
       const comments = document.getElementById(COMMENTS_ID)
       if (comments) comments.innerHTML = ''
     }
-  }, [commentsTheme])
+  }
 
   // Reload on theme change
   useEffect(() => {
-    const iframe = document.querySelector('iframe.giscus-frame')
-    if (!iframe) return
     LoadComments()
-  }, [LoadComments])
+  }, [])
 
   return (
     <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300">
-      {enableLoadComments && <button onClick={LoadComments}>Load Comments</button>}
+      {/* {enableLoadComments && <button onClick={LoadComments}>Load Comments</button>} */}
       <div className="giscus" id={COMMENTS_ID} />
     </div>
   )

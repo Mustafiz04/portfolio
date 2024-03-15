@@ -19,6 +19,17 @@ const siteMetadata = {
   threads: 'https://www.threads.net/mustafizkaifee',
   instagram: 'https://www.instagram.com/mustafizkaifee/',
   locale: 'en-US',
+  typewriterText: [
+    "I am living in Bengaluru, Karnataka.",
+    "My first programming language I learned was Python.",
+    "I work mostly with JS/TS technologies.",
+    "I love building scalable product.",
+    "I am currently learning System Design.",
+    "I love traveling.",
+    "I love making videos.",
+    "I love playing chess.",
+    "I'm a cat person."
+  ],
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
