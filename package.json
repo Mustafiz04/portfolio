@@ -31,6 +31,7 @@
     "react-icons": "^5.0.1",
     "react-rough-notation": "^1.0.5",
     "react-share-kit": "^1.1.0",
+    "reading-duration": "^1.1.2",
     "reading-time": "1.5.0",
     "rehype-autolink-headings": "^6.1.0",
     "rehype-citation": "^1.0.2",

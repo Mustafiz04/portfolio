@@ -11,6 +11,7 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { BlogSEO } from '@/components/SEO'
 import SocialSharing from '@/components/SocialSharing'
+import readingDuration from 'reading-duration'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -36,6 +37,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   const basePath = path.split('/')[0]
   const banner = images?.[0]
 
+  const readingTime = readingDuration(String(JSON.stringify(children)), {
+    wordsPerMinute: 100,
+    emoji: false,
+  })
+
   const url = `${siteMetadata.siteUrl}/blog/${slug}`
 
   return (
@@ -59,6 +65,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
+              <div> 🧑‍💻 {readingTime}</div>
             </div>
           </header>
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
