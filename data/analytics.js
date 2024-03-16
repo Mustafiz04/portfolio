@@ -1,6 +1,6 @@
 const analytics = {
   googleAnalytics: {
-    googleAnalyticsId: 'G-ESNTZ92D3Q', // e.g. G-XXXXXXX
+    googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID, // e.g. G-XXXXXXX
   }
 }
 
