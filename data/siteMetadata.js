@@ -3,7 +3,8 @@ const siteMetadata = {
   title: 'Mustafiz Kaifee',
   author: 'Mustafiz Kaifee',
   headerTitle: 'MustafizKaifee',
-  description: 'A software engineer who aims to evolve, innovates, and inspire through technologies',
+  description:
+    'A software engineer dedicated to continuous evolution, innovation, and inspiring others through the transformative power of technology.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://mustafizkaifee.in',
@@ -20,15 +21,19 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com/mustafizkaifee/',
   locale: 'en-US',
   typewriterText: [
-    "I am living in Bengaluru, Karnataka.",
-    "My first programming language I learned was Python.",
-    "I work mostly with JS/TS technologies.",
-    "I love building scalable product.",
-    "I am currently learning System Design.",
-    "I love traveling.",
-    "I love making videos.",
-    "I love playing chess.",
-    "I'm a cat person."
+    ' I am currently residing in Bengaluru, Karnataka.',
+    'Professionally, I am an aspiring Software Engineer with a keen interest in learning new technologies.',
+    'My primary passion lies in the creation of innovative solutions aimed at assisting and benefiting people.',
+    'Problem-solving is a skill I thoroughly enjoy and actively cultivate.',
+    'I devote time to reading a variety of books.',
+    'In my professional capacity, I predominantly work with JavaScript (JS) and TypeScript (TS) technologies.',
+    'I am particularly drawn to the challenge of building scalable products.',
+    'Currently, I am actively engaged in learning about System Design to further enhance my skills.',
+    'Outside of work, I enjoy traveling to explore new places and cultures.',
+    'Videography is another interest of mine, and I enjoy creating videos.',
+    'Gaming is a pastime I indulge in to relax and unwind.',
+    'I also have a fondness for playing chess.',
+    'On a personal note, I consider myself a cat person, appreciating the companionship of feline pets.',
   ],
   analytics: {
     // If you want to use an analytics provider you have to add it to the

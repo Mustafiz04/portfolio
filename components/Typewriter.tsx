@@ -13,7 +13,7 @@ export default function Typewriter() {
       // Speed settings, try diffrent values untill you get good results
       startDelay: 300,
       typeSpeed: 50,
-      backSpeed: 50,
+      backSpeed: 20,
       backDelay: 100,
       loop: true,
       loopCount: Infinity, // loop infinitely

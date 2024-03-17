@@ -1,7 +1,7 @@
 ---
 title: 'Builder Pattern'
 date: '2024-03-11'
-tags: ['System Design', 'Low Level Design', 'LLD']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
 draft: false
 summary: 'Streamlining Complex Constructions: The Builder Pattern for Modular and Readable Object Creation.'
 authors: ['default']

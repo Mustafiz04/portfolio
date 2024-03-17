@@ -1,7 +1,7 @@
 ---
 title: 'Prototype Pattern'
 date: '2024-03-11'
-tags: ['System Design', 'Low Level Design', 'LLD']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
 draft: false
 summary: 'Efficient Object Replication: Leverage the Prototype Pattern for Optimal Creation.'
 authors: ['default']

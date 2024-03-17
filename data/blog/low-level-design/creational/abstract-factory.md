@@ -1,7 +1,7 @@
 ---
 title: 'Abstract Factory Method'
 date: '2024-03-10'
-tags: ['System Design', 'Low Level Design', 'LLD']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
 draft: false
 summary: 'Harmonizing Object Creation: The Abstract Factory Method for Cohesive and Interchangeable Product Families.'
 authors: ['default']

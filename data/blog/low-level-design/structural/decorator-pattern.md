@@ -1,7 +1,7 @@
 ---
 title: 'Decorator Pattern'
 date: '2024-03-15'
-tags: ['System Design', 'Low Level Design', 'LLD']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
 draft: false
 summary: 'Flexible Extensions: Empowering Objects with the Decorator Pattern.'
 authors: ['default']

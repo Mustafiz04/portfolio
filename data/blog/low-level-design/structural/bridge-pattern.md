@@ -1,7 +1,7 @@
 ---
 title: 'Bridge Pattern'
 date: '2024-03-14'
-tags: ['System Design', 'Low Level Design', 'LLD']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
 draft: false
 summary: 'Spanning the Divide: The Bridge Pattern for Flexible and Independent Design.'
 authors: ['default']

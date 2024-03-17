@@ -1,7 +1,7 @@
 ---
 title: 'Design Patterns You Must Know'
 date: '2024-03-04'
-tags: ['System Design', 'Low Level Design', 'LLD']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
 draft: false
 summary: 'Learn important design patterns with Design Patterns You Must Know.'
 authors: ['default']
