@@ -3320,6 +3320,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@upstash/redis@npm:^1.28.4":
+  version: 1.28.4
+  resolution: "@upstash/redis@npm:1.28.4"
+  dependencies:
+    crypto-js: ^4.2.0
+  checksum: 5f986e9acb8d2a8c73080d967d5d25c7adef61557d864c86ff75d46bd44adb62d411f92dcb0716c47ea4e569137e2d18b0ac4999592af1b059e3927b6010f007
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -4322,6 +4331,13 @@ __metadata:
     shebang-command: ^2.0.0
     which: ^2.0.1
   checksum: 671cc7c7288c3a8406f3c69a3ae2fc85555c04169e9d611def9a675635472614f1c0ed0ef80955d5b6d4e724f6ced67f0ad1bb006c2ea643488fcfef994d7f52
+  languageName: node
+  linkType: hard
+
+"crypto-js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: f051666dbc077c8324777f44fbd3aaea2986f198fe85092535130d17026c7c2ccf2d23ee5b29b36f7a4a07312db2fae23c9094b644cc35f7858b1b4fcaf27774
   languageName: node
   linkType: hard
 
@@ -9284,13 +9300,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reading-duration@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "reading-duration@npm:1.1.2"
-  checksum: f986c1adff24dafabfc5cba164878cba607ae5471be35329efbcf51f125bc3da4056f4d93460dbfc14412ba0ab44ac730e4cc2e440f4fd4a4bb80568b9a6ba08
-  languageName: node
-  linkType: hard
-
 "reading-time@npm:1.5.0":
   version: 1.5.0
   resolution: "reading-time@npm:1.5.0"
@@ -10673,6 +10682,7 @@ __metadata:
     "@types/react": ^18.2.14
     "@typescript-eslint/eslint-plugin": ^6.1.0
     "@typescript-eslint/parser": ^6.1.0
+    "@upstash/redis": ^1.28.4
     autoprefixer: ^10.4.13
     contentlayer: 0.3.4
     cross-env: ^7.0.3
@@ -10699,7 +10709,6 @@ __metadata:
     react-icons: ^5.0.1
     react-rough-notation: ^1.0.5
     react-share-kit: ^1.1.0
-    reading-duration: ^1.1.2
     reading-time: 1.5.0
     rehype-autolink-headings: ^6.1.0
     rehype-citation: ^1.0.2

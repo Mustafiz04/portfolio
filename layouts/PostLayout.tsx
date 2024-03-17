@@ -11,7 +11,11 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { BlogSEO } from '@/components/SEO'
 import SocialSharing from '@/components/SocialSharing'
-import readingDuration from 'reading-duration'
+import { calculateReadingTime } from '../lib/utils'
+import ViewCounter from '../app/blog/[...slug]/view'
+import { Redis } from '@upstash/redis'
+
+const redis = Redis.fromEnv()
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -37,17 +41,17 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   const basePath = path.split('/')[0]
   const banner = images?.[0]
 
-  const readingTime = readingDuration(String(JSON.stringify(children)), {
-    wordsPerMinute: 100,
-    emoji: false,
-  })
+  const blogReadingTime = calculateReadingTime(String(JSON.stringify(children)))
 
   const url = `${siteMetadata.siteUrl}/blog/${slug}`
+
+  const views = redis.mget<number[]>(['pageviews', 'posts', slug].join(':'))
 
   return (
     <SectionContainer>
       {/* <BlogSEO url={url} authorDetails={authorDetails} {...content} /> */}
       <ScrollTopAndComment />
+      <ViewCounter slug={slug} />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
@@ -65,7 +69,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
-              <div> 🧑‍💻 {readingTime}</div>
+              <div>
+                <b>{views}</b> views
+                <span className="ml-1 mr-2 text-gray-500 dark:text-gray-400">&middot;</span>
+                <b>{blogReadingTime}</b> {' mins read'}
+              </div>
             </div>
           </header>
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
