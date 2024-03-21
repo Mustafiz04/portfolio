@@ -1,4 +1,4 @@
-import { Colors } from './colors';
+import { Colors } from './colors'
 
 export enum Stack {
   // Languages
@@ -52,13 +52,13 @@ export const WorkStack = [
   Stack.postgres,
   Stack.redis,
   Stack.mongo,
-  Stack.mysql
-];
+  Stack.mysql,
+]
 
 type StackInfoMap = {
-  value: string;
-  color: string;
-};
+  value: string
+  color: string
+}
 
 export const StackInfo: Record<Stack, StackInfoMap> = {
   [Stack.java]: {
@@ -66,12 +66,12 @@ export const StackInfo: Record<Stack, StackInfoMap> = {
     color: Colors.java,
   },
   [Stack.mysql]: {
-    value: 'mysql',
-    color: Colors.java,
+    value: 'MySQL',
+    color: Colors.mysql,
   },
   [Stack.nextjs]: {
-    value: 'nextjs',
-    color: Colors.java,
+    value: 'NextJs',
+    color: Colors.nextjs,
   },
   [Stack.typescript]: {
     value: 'TypeScript',
@@ -149,4 +149,4 @@ export const StackInfo: Record<Stack, StackInfoMap> = {
     value: 'Terraform',
     color: Colors.terraform,
   },
-};
+}

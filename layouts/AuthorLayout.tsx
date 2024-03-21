@@ -60,9 +60,8 @@ export default function AuthorLayout({ children, content }: Props) {
                 animationDelay={250}
                 animationDuration={2000}
                 strokeWidth={2}
-                // color='#fffff'
               >
-                Resume
+                <strong>Resume</strong>
               </RoughNotation>
             </a>
             <h2 className="mb-4 mt-8 text-2xl font-semibold dark:text-white">Skills</h2>

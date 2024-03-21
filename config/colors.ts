@@ -4,7 +4,7 @@ export const Colors = {
   go: '#00ADD8',
   python: '#4B8BBE',
   typescript: '#234A84',
-  javascript: '#F7DF1E',
+  javascript: '#987721',
 
   // Frontend
   web: '#2D2D2D',
@@ -66,4 +66,4 @@ export const Colors = {
   resume: '#EEEBFF',
   opensource: '#26BE00',
   tutorial: '#4dd0e1',
-};
+}
