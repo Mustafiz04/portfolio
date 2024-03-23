@@ -1,10 +1,10 @@
 import siteMetadata from '@/data/siteMetadata'
 import dynamic from 'next/dynamic'
-import type { Blog } from 'contentlayer/generated'
+import type { Blog, Snippet } from 'contentlayer/generated'
 import { CoreContent } from 'pliny/utils/contentlayer'
 
 interface Props {
-  frontMatter: CoreContent<Blog>
+  frontMatter: CoreContent<Blog | Snippet>
 }
 
 const GiscusComponent = dynamic(

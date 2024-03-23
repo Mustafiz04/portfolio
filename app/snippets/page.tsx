@@ -1,4 +1,4 @@
-import SnippetLayout from '@/layouts/SnippetLayout'
+import SnippetLayout from '@/layouts/SnippetListLayout'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allSnippets } from 'contentlayer/generated'
 import { genPageMetadata } from 'app/seo'
