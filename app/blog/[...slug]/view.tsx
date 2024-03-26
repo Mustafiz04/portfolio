@@ -2,7 +2,10 @@
 import { useEffect } from 'react'
 
 export default function ViewCounter({ slug }) {
+  const isProduction = process.env.NODE_ENV === 'production'
+
   useEffect(() => {
+    if (!isProduction) return
     fetch('/api/increament', {
       method: 'POST',
       headers: {
