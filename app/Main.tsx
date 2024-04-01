@@ -17,7 +17,7 @@ export default function Home({ posts }) {
         </h1>
         <p className="mt-4 max-w-3xl text-lg leading-7 text-gray-500 dark:text-gray-300 md:mt-6">
           A passionate software engineer from India 🇮🇳
-          {/* <Typewriter /> */}
+          <Typewriter />
         </p>
         <div>
           <div className="flex flex-col space-y-2">
