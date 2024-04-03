@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import GA from './GoogleAnalytics'
+import Umami from './Umami'
 
 import analytics from '@/data/analytics'
 
@@ -14,7 +15,13 @@ declare global {
 const isProduction = process.env.NODE_ENV === 'production'
 
 const Analytics = () => {
-  return <>{isProduction && analytics.googleAnalytics.googleAnalyticsId && <GA />}</>
+  const { googleAnalytics, umami } = analytics
+  return (
+    <>
+      {isProduction && googleAnalytics.googleAnalyticsId && <GA />}
+      {isProduction && umami.umamiWebsiteId && <Umami />}
+    </>
+  )
 }
 
 export default Analytics

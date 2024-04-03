@@ -20,6 +20,7 @@ const siteMetadata = {
   threads: 'https://www.threads.net/mustafizkaifee',
   instagram: 'https://www.instagram.com/mustafizkaifee/',
   locale: 'en-US',
+  analyticsUrl: 'https://us.umami.is/share/9GwDUPx8yl3UO7L6/www.mustafizkaifee.in',
   typewriterText: [
     ' I am currently residing in Bengaluru, Karnataka.',
     'Professionally, I am an aspiring Software Engineer with a keen interest in learning new technologies.',
