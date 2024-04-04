@@ -5,7 +5,7 @@ export default function Umami() {
   return (
     <script
       defer
-      src="https://umami-navy-eta.vercel.app/script.js"
+      src="https://analytics.mustafizkaifee.in/script.js"
       data-website-id={umami.umamiWebsiteId}
     ></script>
   )
