@@ -5,10 +5,13 @@ import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 import ComingSoon from '@/components/ComingSoon'
 import Typewriter from '@/components/Typewriter'
+import { Authors, allAuthors } from 'contentlayer/generated'
 
 const MAX_DISPLAY = 5
 
 export default function Home({ posts }) {
+  const author = allAuthors.find((p) => p.slug === 'default') as Authors
+
   return (
     <>
       <div className="mx-auto max-w-3xl px-2 py-16 text-center md:space-y-20 md:text-left lg:mx-auto lg:max-w-7xl lg:px-8">
@@ -40,7 +43,7 @@ export default function Home({ posts }) {
               🧐 More about me
             </Link>
             <Link
-              href="/static/mustafiz_kaifee.pdf"
+              href={`${author.resume}`}
               className="group
               text-gray-500 transition-colors
               duration-200 hover:text-green-600 hover:underline
