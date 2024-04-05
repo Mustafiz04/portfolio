@@ -19,6 +19,7 @@ const siteMetadata = {
   linkedin: 'https://www.linkedin.com/in/mustafizkaifee',
   threads: 'https://www.threads.net/mustafizkaifee',
   instagram: 'https://www.instagram.com/mustafizkaifee/',
+  leetcode: 'https://leetcode.com/kaifee000/',
   locale: 'en-US',
   analyticsUrl: 'https://analytics.mustafizkaifee.in/share/NKmMJR57vxcWZKTR/www.mustafizkaifee.in',
   typewriterText: [

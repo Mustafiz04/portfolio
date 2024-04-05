@@ -13,7 +13,8 @@ interface Props {
 }
 
 export default function AuthorLayout({ children, content }: Props) {
-  const { name, avatar, occupation, company, email, twitter, linkedin, github, resume } = content
+  const { name, avatar, occupation, company, email, twitter, linkedin, github, leetcode, resume } =
+    content
 
   return (
     <>
@@ -39,10 +40,11 @@ export default function AuthorLayout({ children, content }: Props) {
             <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
             <div className="text-gray-500 dark:text-gray-400">{company}</div>
             <div className="flex space-x-3 pt-6">
-              {/* <SocialIcon kind="mail" href={`mailto:${email}`} />
+              <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />
               <SocialIcon kind="linkedin" href={linkedin} />
-              <SocialIcon kind="twitter" href={twitter} /> */}
+              <SocialIcon kind="twitter" href={twitter} />
+              <SocialIcon kind="leetcode" href={leetcode} />
             </div>
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
