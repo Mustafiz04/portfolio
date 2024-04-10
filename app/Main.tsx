@@ -23,37 +23,6 @@ export default function Home({ posts }) {
           Passionate about creating elegant, efficient, and scalable software solutions 🚀 with a
           love for writing clean, well-documented, and well-tested code.
         </p>
-        {/* <div>
-          <div className="flex flex-col space-y-2">
-            <Link
-              href="/blog"
-              className="group
-              text-gray-500 transition-colors
-              duration-200 hover:text-green-600 hover:underline
-              dark:text-gray-400 dark:hover:text-green-600"
-            >
-              👨‍💻My writings
-            </Link>
-            <Link
-              href="/about"
-              className="group
-              text-gray-500 transition-colors
-              duration-200 hover:text-green-600 hover:underline
-              dark:text-gray-400 dark:hover:text-green-600"
-            >
-              🧐 More about me
-            </Link>
-            <Link
-              href={`${author.resume}`}
-              className="group
-              text-gray-500 transition-colors
-              duration-200 hover:text-green-600 hover:underline
-              dark:text-gray-400 dark:hover:text-green-600"
-            >
-              💼 My career
-            </Link>
-          </div>
-        </div> */}
         <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 lg:mt-16 lg:grid-cols-3 lg:space-y-0">
           <a
             href="/blog"
@@ -63,7 +32,7 @@ export default function Home({ posts }) {
             hover:border-green-600 dark:border-gray-700 
             dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My writings</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My writings 📝</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Read my thoughts on software development, design, and more.
             </p>
@@ -76,21 +45,20 @@ export default function Home({ posts }) {
             hover:border-green-600 dark:border-gray-700 
             dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">More about me</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">More about me 😊</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Learn more about who I am and what I do.
             </p>
           </a>
           <a
-            href={`${author.resume}`}
-            target="_blank"
+            href="/career"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
             px-5 py-4 transition-colors duration-200 
             hover:border-green-600 dark:border-gray-700 
             dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My career</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My career 💼</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Check out my resume for a quick overview of my professional journey.
             </p>
@@ -104,7 +72,7 @@ export default function Home({ posts }) {
             hover:border-green-600 dark:border-gray-700 
             dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">Checkout my Github</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">Checkout my Github 💻</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               My latest projects and work I'm doing.
             </p>
@@ -118,7 +86,7 @@ export default function Home({ posts }) {
             hover:border-green-600 dark:border-gray-700 
             dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">Follow me on Twitter</h3>
+            <h3 className="h4 text-green-60t0 mb-2 dark:text-green-500">Follow me on Twitter 🐦</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Get the latest news and updates from me.
             </p>
@@ -133,7 +101,7 @@ export default function Home({ posts }) {
             dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              Connect with me on LinkedIn
+              Connect with me on LinkedIn 🤝
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Learn more about my professional background.
@@ -148,7 +116,7 @@ export default function Home({ posts }) {
             hover:border-green-600 dark:border-gray-700 
             dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My Leetcode</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My LeetCode 📊</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Check out my solutions on LeetCode.
             </p>
@@ -162,7 +130,9 @@ export default function Home({ posts }) {
             hover:border-green-600 dark:border-gray-700 
             dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">Follow me on Instagram</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              Follow me on Instagram 📸{' '}
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Follow me to see the other side of my story.
             </p>
