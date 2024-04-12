@@ -78,7 +78,7 @@ public class Main {
         ComputerFacade computer = new ComputerFacade();
         computer.startComputer();
     }
-}`
+}
 ```
 
 ## Pros and cons

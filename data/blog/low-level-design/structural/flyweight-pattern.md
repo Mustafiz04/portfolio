@@ -91,15 +91,15 @@ public class Main {
 
 ### Pros:
 
-1. **Simplifies Complexity:** Provides a simple interface to a complex subsystem, making it easier to use.
-2. **Encourages Loose Coupling:** Clients interact with the subsystem through the facade, reducing dependencies.
-3. **Improves Maintainability:** Changes to the subsystem can be localized within the facade, minimizing impact on client code.
+1. **Memory Efficiency**: Reduces memory consumption by sharing common state among multiple objects.
+2. **Performance Improvement**: Improves performance by reducing the number of object instances and memory allocations.
+3. **Simplicity**: Simplifies code by separating intrinsic and extrinsic state, leading to cleaner and more modular designs.
 
 ### Cons:
 
-1. **Limited Flexibility:** The facade may not expose all capabilities of the subsystem, limiting flexibility for advanced use cases.
-2. **Increased Abstraction:** Overuse of the Facade Pattern can lead to excessive abstraction, making the system harder to understand.
+1. **Complexity**: Introduces additional complexity, especially in managing shared state and ensuring thread safety in multithreaded environments.
+2. **Potential Overhead**: The overhead of managing flyweight objects and the flyweight factory may outweigh the benefits for small-scale applications.
 
 ## Conclusion
 
-The Facade Pattern is a very effective approach for managing complexity in software systems. By simplifying the interface to complicated subsystems, it encourages loose coupling, increases maintainability, and improves overall system architecture.
+The Flyweight Pattern is an effective approach for optimising memory usage and improving speed in applications that handle a large number of similar items. It allows for effective memory management and improves overall system efficiency by sharing common state while segregating intrinsic and extrinsic state.

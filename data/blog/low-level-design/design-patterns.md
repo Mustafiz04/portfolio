@@ -36,8 +36,8 @@ In software engineering, structural design patterns concentrate on grouping clas
 3. [Decorator](/blog/low-level-design/structural/decorator-pattern)
 4. [Composite](/blog/low-level-design/structural/composite-pattern)
 5. [Facade](/blog/low-level-design/structural/facade-pattern)
-6. Flyweight
-7. Proxy
+6. [Flyweight](/blog/low-level-design/structural/flyweight-pattern)
+7. [Proxy](/blog/low-level-design/structural/proxy-pattern)
 
 ## Behavioral Design Pattern
 
