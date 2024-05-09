@@ -1,7 +1,7 @@
 ---
 title: 'Composite Pattern'
 date: '2024-03-25'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Structural Design Pattern']
 draft: false
 summary: 'Harmonizing Individuals and Compositions: The Composite Pattern for Unified Object Management.'
 authors: ['default']

@@ -1,7 +1,7 @@
 ---
 title: 'Singleton Design Pattern'
 date: '2024-03-07'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Creational Design Pattern']
 draft: false
 summary: 'Mastering the Singleton: Unveiling the Power of Unified Design in Software Architecture'
 authors: ['default']

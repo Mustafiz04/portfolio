@@ -1,7 +1,7 @@
 ---
 title: 'Simple Factory Pattern'
 date: '2024-03-08'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Creational Design Pattern']
 draft: false
 summary: 'Streamlining Object Creation: The Simple Factory Pattern for Flexible and Decoupled System Design.'
 authors: ['default']

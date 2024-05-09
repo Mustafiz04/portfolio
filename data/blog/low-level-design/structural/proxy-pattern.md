@@ -1,7 +1,7 @@
 ---
 title: 'Proxy Pattern'
 date: '2024-04-12'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Structural Design Pattern']
 draft: false
 summary: 'Enhance security and control access with the Proxy Pattern.'
 authors: ['default']

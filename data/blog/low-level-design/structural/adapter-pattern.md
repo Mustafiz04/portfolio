@@ -1,7 +1,7 @@
 ---
 title: 'Adapter Pattern'
 date: '2024-03-13'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Structural Design Pattern']
 draft: false
 summary: 'Harmonizing Interfaces: The Adapter Pattern for Smooth Integration and Improved Interoperability.'
 authors: ['default']

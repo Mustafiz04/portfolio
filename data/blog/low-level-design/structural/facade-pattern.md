@@ -1,7 +1,7 @@
 ---
 title: 'Facade Pattern'
 date: '2024-04-07'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Structural Design Pattern']
 draft: false
 summary: 'Simplify complexity and promote loose coupling with the Facade Pattern.'
 authors: ['default']

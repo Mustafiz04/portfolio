@@ -1,7 +1,7 @@
 ---
 title: 'Flyweight Pattern'
 date: '2024-04-11'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Structural Design Pattern']
 draft: false
 summary: 'Optimize memory usage and improve performance with the Flyweight Pattern.'
 authors: ['default']

@@ -1,7 +1,7 @@
 ---
 title: 'Factory Method Pattern'
 date: '2024-03-09'
-tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns']
+tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Creational Design Pattern']
 draft: false
 summary: 'Empowering Object Creation: The Factory Method Pattern for Dynamic and Scalable System Design.'
 authors: ['default']
