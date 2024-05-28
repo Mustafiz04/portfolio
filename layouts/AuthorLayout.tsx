@@ -50,6 +50,13 @@ export default function AuthorLayout({ children, content }: Props) {
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
             {children}
             {/* <p className='mt-8'> */}
+            <p className="mt-8">
+              Timeline of my career is{' '}
+              <a className="underline" href="/career" rel="noreferrer">
+                here
+              </a>
+            </p>
+
             <a
               className="!font-normal !text-black !no-underline dark:!text-white"
               href={resume}

@@ -15,6 +15,22 @@ export default function Career() {
         <div className="mt-6 space-y-1">
           <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
             <div className="md:col-span-1">
+              <h2 className="font-bold">May, 2024</h2>
+            </div>
+            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
+              <ul className="mt-2">
+                <li className="text-gray-500 dark:text-gray-400">
+                  Joined{' '}
+                  <a className="underline" href="https://www.bitgo.com/">
+                    BitGo
+                  </a>{' '}
+                  as a Software Engineer (Backend).
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
+            <div className="md:col-span-1">
               <h2 className="font-bold">Febuary, 2024</h2>
             </div>
             <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
