@@ -126,6 +126,7 @@ export const Authors = defineDocumentType(() => ({
     leetcode: { type: 'string' },
     layout: { type: 'string' },
     resume: { type: 'string' },
+    youtube: { type: 'string' },
   },
   computedFields,
 }))

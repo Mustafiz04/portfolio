@@ -15,7 +15,7 @@ const siteMetadata = {
   github: 'https://github.com/Mustafiz04',
   twitter: 'https://twitter.com/mustafiz_kaifee',
   facebook: 'https://facebook.com',
-  youtube: 'https://youtube.com',
+  youtube: 'https://www.youtube.com/@MustafizKaifee',
   linkedin: 'https://www.linkedin.com/in/mustafizkaifee',
   threads: 'https://www.threads.net/mustafizkaifee',
   instagram: 'https://www.instagram.com/mustafizkaifee/',
