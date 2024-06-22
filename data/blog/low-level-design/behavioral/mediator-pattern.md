@@ -11,26 +11,21 @@ images: []
 
 A behavioural design pattern called the Mediator pattern centralises communication between components in a system, hence promoting loose coupling. Objects interact through a mediator object rather than speaking to one other directly. By reducing the dependencies between communication components, this method improves the flexibility and maintainability of the system. When many objects need to interact in a coordinated way, the mediator pattern comes in handy in complicated systems.
 
-
 ## Current Problem
 
 Objects in complex systems frequently depend on one another for communication in order to carry out their functions. Direct object-to-object communication can result in a complex web of dependencies that make it challenging to expand and maintain the system. A single change may have repercussions that necessitate adjustments to numerous other objects. This close dependency makes testing and debugging more difficult and limits scalability.
-
 
 ## Solution through Mediator Pattern
 
 In order to overcome these difficulties, the Mediator pattern presents a mediator object that manages object-to-object communication. Instead of interacting directly, objects now communicate with one another via the mediator. By reducing the amount of dependencies and simplifying the relationships between items, this decoupling improves the flexibility and maintainability of the system. Adhering to the notion of encapsulation, the mediator can oversee intricate interactions and guarantee that objects remain oblivious of one another.
 
-
 ## Real-World Applications
 
 Consider an air traffic control system where multiple aircraft need to coordinate their actions, such as takeoff, landing, and navigating the airspace.
 
-
 1. **Centralized Coordination**: The air traffic controller acts as the mediator, coordinating communication between aircraft.
 2. **Decoupled Communication**: Aircraft do not communicate directly with each other but through the air traffic controller, reducing the complexity of interactions.
 3. **Scalability**: New aircraft can be added to the system without affecting existing ones, as they only need to interact with the mediator.
-
 
 ## Structure
 
@@ -44,7 +39,6 @@ The Mediator pattern typically includes the following components:
 ## Real-World Example with Code Snippet
 
 Let's implement an example where a chat room acts as the mediator for user communication:
-
 
 ```Java
 // Mediator Interface
@@ -144,4 +138,3 @@ public class Main {
 ## Conclusion
 
 In order to encourage loose coupling and improve maintainability, the Mediator design offers an efficient means of controlling communication between objects in a system. It streamlines the relationships between items by centralising interactions, which increases the system's scalability and manageability. But, great care must be taken to prevent overcomplication or creating a performance barrier for the mediator.
-
