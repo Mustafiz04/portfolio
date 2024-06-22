@@ -8,12 +8,11 @@
     "build": "next build && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
-    "lint": "prettier --check .",
-    "format": "prettier --write ."
+    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && git add -A ."
+      
     }
   },
   "dependencies": {

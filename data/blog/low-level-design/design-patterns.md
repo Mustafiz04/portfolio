@@ -49,7 +49,7 @@ In software engineering, behavioral design patterns concentrate on how objects i
 2. [Command](/blog/low-level-design/behavioral/command-pattern)
 3. [Iterator](/blog/low-level-design/behavioral/iterator-pattern)
 4. [Mediator](/blog/low-level-design/behavioral/mediator-pattern)
-5. Memento
+5. [Memento](/blog/low-level-design/behavioral/memento-pattern)
 6. Observer
 7. Visitor
 8. Strategy
