@@ -3,7 +3,7 @@ title: 'Template Method Pattern'
 date: '2024-06-18'
 tags: ['System Design', 'Low Level Design', 'LLD', 'Design Patterns', 'Behavioral Design Pattern']
 draft: false
-summary: 'Template Method Pattern: Defining the algorithm's skeleton while allowing step-specific customization.'
+summary: 'Template Method Pattern: Defining the algorithms skeleton while allowing step-specific customization.'
 authors: ['default']
 type: 'Blog'
 images: []
@@ -24,7 +24,7 @@ By establishing a template method in a base class that describes the structure o
 Consider a deployment system where different types of applications (e.g., web, Android, iOS) need to be deployed following a similar process but with variations in specific steps.
 
 1. **Common Steps**: The overall process of deploying an application (e.g., initialize, build, test, deploy) is defined in a template method.
-2, **Customizable Steps**: Specific steps, such as building and testing, can be customized by subclasses for different types of applications.
+2. **Customizable Steps**: Specific steps, such as building and testing, can be customized by subclasses for different types of applications.
 3. **Consistency**: The structure of the deployment process remains consistent across different types of applications.
 
 ## Structure
