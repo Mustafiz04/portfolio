@@ -53,7 +53,7 @@ In software engineering, behavioral design patterns concentrate on how objects i
 6. [Observer](/blog/low-level-design/behavioral/observer-pattern)
 7. [Visitor](/blog/low-level-design/behavioral/visitor-pattern)
 8. [Strategy](/blog/low-level-design/behavioral/strategy-pattern)
-9. State
+9. [State](/blog/low-level-design/behavioral/state-pattern)
 10. Template Method
 
 > _Stay tuned for detailed blog for each design pattern._
