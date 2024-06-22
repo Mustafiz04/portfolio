@@ -46,7 +46,7 @@ In software engineering, structural design patterns concentrate on grouping clas
 In software engineering, behavioral design patterns concentrate on how objects interact and cooperate to complete tasks quickly. They offer methods for setting up duties, object interactions, and algorithms. These patterns encourage loose coupling between objects and encapsulate behaviors, which enhances the flexibility, maintainability, and adaptability of the code.
 
 1. [Chain of Responsibility](/blog/low-level-design/behavioral/chain-of-responsibility)
-2. Command
+2. [Command](/blog/low-level-design/behavioral/command-pattern)
 3. Iterator
 4. Mediator
 5. Memento

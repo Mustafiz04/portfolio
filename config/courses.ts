@@ -1,30 +1,29 @@
 export type CourseContent = {
-  name: string;
-  slug?: string;
-  description?: string;
-  content?: CourseContent[];
-};
+  name: string
+  slug?: string
+  description?: string
+  content?: CourseContent[]
+}
 
 export interface Course {
-  title: string;
-  slug: string;
-  banner: string;
-  description: string;
-  content: CourseContent[];
+  title: string
+  slug: string
+  banner: string
+  description: string
+  content: CourseContent[]
 }
 
 export const courseSlugMap = {
   go: 'Learn Go',
   'system-design': 'System Design',
-};
+}
 
 export const courses: Course[] = [
   {
     title: 'System Design',
     slug: 'system-design',
     banner: '/static/courses/system-design/banner.png',
-    description:
-      'Learn how to design systems at scale and prepare for system design interviews',
+    description: 'Learn how to design systems at scale and prepare for system design interviews',
     content: [
       {
         name: 'Getting Started',
@@ -303,8 +302,7 @@ export const courses: Course[] = [
     title: 'Learn Go',
     slug: 'go',
     banner: '/static/courses/go/banner.png',
-    description:
-      'Master the fundamentals and advanced features of the Go programming language',
+    description: 'Master the fundamentals and advanced features of the Go programming language',
     content: [
       {
         name: 'Getting Started',
@@ -389,4 +387,4 @@ export const courses: Course[] = [
       },
     ],
   },
-];
+]

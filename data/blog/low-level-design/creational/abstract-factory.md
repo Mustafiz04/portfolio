@@ -25,7 +25,6 @@ The Abstract Factory Method tackles these complications by allowing you to creat
 2. **Database Access Layers**: Provides an abstraction layer for database operations, enabling for the seamless interchange of database types (SQL and NoSQL) while keeping the application code constant and unchanged.
 3. **Vehicle Manufacturer**: Allows a car manufacturer to build many types of vehicles (sedans, SUVs, convertibles) and associated parts (engines, tyres, windows) without tying the client code to specific vehicle or part brands.
 
-
 ## Structure
 
 The Abstract Factory typically includes the following components:
@@ -39,7 +38,6 @@ The Abstract Factory typically includes the following components:
 ## Real-World Example with Code Snippet
 
 Consider an application needing to support multiple themes, dark and light, where each theme has different types of buttons and checkboxes:
-
 
 ```Java
 public interface Button {

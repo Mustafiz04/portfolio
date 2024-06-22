@@ -28,7 +28,6 @@ The Simple Factory tackles these concerns by providing a single component that h
 5. **Resource Managers**: Oversee the construction of resource-intensive objects (data connections, file systems), ensuring seamless adaption to new resource kinds.
 6. **Toolkits and Libraries**: Enables the instantiation of various tools or library components as needed, facilitating easy toolkit extension and capability development.
 
-
 ## Structure
 
 The Simple Factory typically includes the following components:
@@ -118,7 +117,6 @@ The code defines a factory that creates and returns an EmailNotification or SMSN
 1. As the factory becomes the centre point of logic determination, it might result in complicated code architectures.
 2. If the factory method is not properly implemented, it may result in a single point of failure.
 3. As more items are introduced, the factory class may become complex and violate the open/closed concept.
-
 
 ## Conclusion
 

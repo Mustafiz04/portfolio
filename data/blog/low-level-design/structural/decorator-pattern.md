@@ -109,7 +109,6 @@ This example demonstrates adding functionality (milk) to a basic coffee object d
 2. Overuse can produce complex code that is difficult to debug and maintain.
 3. The initial setup may be more involved than utilising subclasses.
 
-
 ## Conclusion
 
 The Decorator Pattern provides a reliable approach for expanding object functionality in a flexible and scalable way. It enables developers to add responsibilities dynamically and helps keep code simple even if needs change or new features are required.

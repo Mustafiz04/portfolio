@@ -32,7 +32,6 @@ The Prototype Pattern normally has two main components:
 1. **Prototype**: An interface that defines the clone method, or a base class that implements the function.
 2. **Concrete Prototype**: A class that implements the Prototype interface by using the clone function to generate a copy of an existing object.
 
-
 ## Real-World Example with Code Snippet
 
 Consider a scenario where you have a Shape prototype, and you want to create exact copies of this shape with some modifications:

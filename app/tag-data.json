@@ -1,1 +1,14 @@
-{"data-stucture":1,"algorithm":1,"dsa":1,"system-design":12,"high-level-design":1,"hld":1,"low-level-design":11,"lld":11,"design-patterns":11}
+{
+  "data-stucture": 1,
+  "algorithm": 1,
+  "dsa": 1,
+  "system-design": 17,
+  "high-level-design": 1,
+  "hld": 1,
+  "low-level-design": 16,
+  "lld": 16,
+  "design-patterns": 16,
+  "behavioral-design-pattern": 2,
+  "creational-design-pattern": 6,
+  "structural-design-pattern": 7
+}

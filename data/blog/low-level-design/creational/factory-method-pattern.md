@@ -84,7 +84,7 @@ public class Main {
 
         // Determine the operating system style and create the appropriate dialog
         String os = "Windows"; // or "MacOS"
-        
+
         if (os.equals("Windows")) {
             dialog = new WindowsDialog();
         } else {

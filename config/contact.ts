@@ -6,10 +6,10 @@ export enum ContactType {
 }
 
 export interface Contact {
-  twitter: string;
-  site: string;
-  calendly?: string;
-  links: Record<ContactType, string>;
+  twitter: string
+  site: string
+  calendly?: string
+  links: Record<ContactType, string>
 }
 
 export const contact: Contact = {
@@ -20,6 +20,6 @@ export const contact: Contact = {
     github: 'https://github.com/Mustafiz04',
     linkedin: 'https://linkedin.com/in/mustaizkaifee',
     twitter: 'https://twitter.com/mustafiz_kaifee',
-    email: 'mailto:mustafizkaifee04@gmailcom'
+    email: 'mailto:mustafizkaifee04@gmailcom',
   },
-};
+}

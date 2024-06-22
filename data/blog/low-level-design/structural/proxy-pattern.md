@@ -31,7 +31,6 @@ The Proxy Pattern is often made up of the following components:
 2. **Real Subject**: Represents the real object that the proxy controls access to.
 3. **Proxy**: Acts as a surrogate for the real object, providing additional functionality and controlling access to it.
 
-
 ## Real-World Example with Code Snippet
 
 Let's illustrate the Proxy Pattern with a simplified example of a proxy controlling access to a sensitive resource:

@@ -27,7 +27,6 @@ Consider a real-world scenario: a customer care system that routes client inquir
 2. **Processing Logic**: Once a client query is received, it is routed through the chain. If a department can handle the question, it processes it; otherwise, the query is routed to the next department in the chain.
 3. **Scalability and flexibility**: New departments can be added to the system without changing the present code. Each department can separately establish its own processing logic.
 
-
 ## Structure
 
 The Chain of Responsibility typically includes the following components:
@@ -106,7 +105,6 @@ public class Main {
     }
 }
 ```
-
 
 ## Pros and cons
 

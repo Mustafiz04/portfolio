@@ -1,12 +1,11 @@
-
 // import { Maybe, Tuple } from '../types';
-import { Stack } from './stack';
+import { Stack } from './stack'
 
 export type Deployment = {
-  web?: string;
-  android?: string;
-  ios?: string;
-};
+  web?: string
+  android?: string
+  ios?: string
+}
 
 // export interface SubProject {
 //   title: string;
