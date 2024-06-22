@@ -24,7 +24,7 @@ These problems are resolved by the Memento pattern, which stores an object's sta
 Consider a text editor application where users can type text, format it, and undo or redo their actions.
 
 1. **State Management**: The text editor's state (e.g., the current text content, formatting) is captured in a memento.
-2.** Undo/Redo Functionality**: Users can undo or redo their actions by restoring the text editor's state from the memento.
+2. **Undo/Redo Functionality**: Users can undo or redo their actions by restoring the text editor's state from the memento.
 3. **Encapsulation**: The internal state of the text editor is not exposed, ensuring data integrity and encapsulation.
 
 
