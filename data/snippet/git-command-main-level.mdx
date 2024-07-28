@@ -1,0 +1,311 @@
+---
+heading: 'Git Main Level Commands'
+title: 'Mastering Git Main Level Commands: A Comprehensive Guide'
+date: '2024-07-29'
+type: 'Snippet'
+draft: false
+summary: 'All main level git command'
+tags: ['git']
+icon: 'Git'
+---
+
+### Introduction to Git Command
+Git is a distributed version control system that allows multiple people to work on a project simultaneously without interfering with each other. It tracks changes in source code during software development.
+
+<u>Basic Commands:</u>
+```
+# Initialize a new Git repository
+git init
+
+# Clone an existing repository
+git clone https://github.com/user/repo.git
+
+# Check the status of your repository
+git status
+
+# Add files to staging area
+git add .
+
+# Commit changes to the repository
+git commit -m "Your commit message"
+
+# Push changes to remote repository
+git push origin main
+```
+<u>Output:</u>
+```
+Initialized empty Git repository in /path/to/repo/.git/
+```
+
+### Branching in Git
+Branching allows you to diverge from the main line of development and continue to do work without messing with that main line.
+
+<u>Create and switch to a new branch:</u>
+```
+git checkout -b new-branch
+```
+
+<u>Output:</u>
+```
+Switched to a new branch 'new-branch'
+```
+
+### Merging in Git
+Merging is used to integrate changes from different branches.
+
+<u>Merge new-branch into main:</u>
+```
+git checkout main
+git merge new-branch
+```
+<u>Output:</u>
+```
+Updating abc123..def456
+Fast-forward
+ file1.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+ 
+### Rebase Introduction
+Rebasing re-applies commits on top of another base tip.
+
+<u>Rebase feature-branch onto main:</u>
+
+```
+git checkout feature-branch
+git rebase main
+```
+
+<u>Output:</u>
+```
+First, rewinding head to replay your work on top of it...
+Applying: Add new feature
+```
+
+### Detach yo' HEAD
+A detached HEAD state means Git is not on a branch but on a specific commit.
+
+<u>Checkout a specific commit:</u>
+
+```
+git checkout <commit-hash>
+```
+
+<u>Output:</u>
+```
+Note: switching to 'abc123'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+```
+
+### Relative Refs (^)
+Caret (^) is used to reference parent commits.
+
+<u>Move one commit back:</u>
+
+```
+git checkout HEAD^
+```
+
+<u>Output:</u>
+``` git
+HEAD is now at def456 Previous commit message
+```
+
+### Relative Refs (~)
+Tilde (~) is used to reference ancestor commits.
+
+<u>Move three commits back:</u>
+
+```
+git checkout HEAD~3
+```
+
+<u>Output:</u>
+```
+HEAD is now at abc123 Three commits ago message
+```
+
+### Reversing Changes in Git
+Undo changes or revert commits.
+
+<u>Revert a commit:</u>
+
+```
+git revert <commit-hash>
+```
+
+<u>Output:</u>
+```
+[main abc123] Revert "Commit message"
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+### Cherry-pick Intro
+Cherry-pick allows you to apply changes from specific commits to your current branch.
+
+<u>Cherry-pick a commit:</u>
+
+```
+git cherry-pick <commit-hash>
+```
+
+<u>Output:</u>
+```
+[main abc123] Commit message
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+### Interactive Rebase Intro
+Interactive rebase allows you to edit commits before applying them.
+
+<u>Start an interactive rebase:</u>
+
+```
+git rebase -i HEAD~3
+```
+
+<u>Output:</u>
+```
+pick abc123 Commit message
+pick def456 Another commit
+pick ghi789 Yet another commit
+
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+```
+
+### Grabbing Just 1 Commit
+Apply a single commit from another branch.
+
+<u>Cherry-pick from another branch:</u>
+
+```
+git cherry-pick <commit-hash>
+```
+
+<u>Output:</u>
+```
+[main abc123] Commit message
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+### Juggling Commits
+Reorder or modify commits using interactive rebase.
+
+<u>Rebase interactively to reorder commits:</u>
+
+```
+git rebase -i HEAD~3
+```
+<u>Output:</u>
+```
+pick abc123 Commit message
+pick def456 Another commit
+pick ghi789 Yet another commit
+
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+```
+
+### Juggling Commits #2
+Amend commits or split them.
+
+<u>Amend the last commit:</u>
+
+```
+git commit --amend
+```
+
+<u>Output:</u>
+```
+[main abc123] Commit message
+ Date: Thu Jul 28 10:00:00 2024 -0700
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+### Git Tags
+Tags mark specific points in history as important.
+
+<u>Create a tag:</u>
+```
+git tag v1.0
+```
+
+<u>Output:</u>
+```
+v1.0
+```
+
+### Git Describe
+Describe is used to find the most recent tag reachable from a commit.
+
+<u>Describe the current commit:</u>
+
+```
+git describe
+```
+
+<u>Output:</u>
+```
+v1.0-2-gabc123
+```
+
+### Rebasing Over Multiple Times
+Rebase multiple branches or commits.
+
+<u>Rebase multiple commits:</u>
+
+```
+git rebase main feature-branch
+```
+
+<u>Output:</u>
+```
+First, rewinding head to replay your work on top of it...
+Applying: Add new feature
+```
+
+### Multiple Parents
+Multiple parents refer to merge commits.
+
+<u>Merge two branches:</u>
+
+```
+git merge feature-branch
+```
+
+<u>Output:</u>
+```
+Merge made by the 'recursive' strategy.
+ file1.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+### Branch Spaghetti
+Managing a complex branch structure.
+
+<u>Visualize branch structure:</u>
+
+```
+git log --oneline --graph --all
+```
+
+<u>Output:</u>
+```
+* abc123 (HEAD -> main) Commit message
+| * def456 (feature-branch) Another commit
+|/
+* ghi789 Previous commit
+```
+
+
+With these commands, you may successfully manage numerous Git operations. Understanding these commands can help you improve your version control skills and streamline the development process.
