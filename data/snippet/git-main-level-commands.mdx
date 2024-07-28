@@ -9,7 +9,7 @@ tags: ['git']
 icon: 'Git'
 ---
 
-### Introduction to Git Command
+## Introduction to Git Command
 Git is a distributed version control system that allows multiple people to work on a project simultaneously without interfering with each other. It tracks changes in source code during software development.
 
 <u>Basic Commands:</u>
@@ -37,7 +37,7 @@ git push origin main
 Initialized empty Git repository in /path/to/repo/.git/
 ```
 
-### Branching in Git
+## Branching in Git
 Branching allows you to diverge from the main line of development and continue to do work without messing with that main line.
 
 <u>Create and switch to a new branch:</u>
@@ -50,7 +50,7 @@ git checkout -b new-branch
 Switched to a new branch 'new-branch'
 ```
 
-### Merging in Git
+## Merging in Git
 Merging is used to integrate changes from different branches.
 
 <u>Merge new-branch into main:</u>
@@ -66,7 +66,7 @@ Fast-forward
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
  
-### Rebase Introduction
+## Rebase Introduction
 Rebasing re-applies commits on top of another base tip.
 
 <u>Rebase feature-branch onto main:</u>
@@ -82,7 +82,7 @@ First, rewinding head to replay your work on top of it...
 Applying: Add new feature
 ```
 
-### Detach yo' HEAD
+## Detach yo' HEAD
 A detached HEAD state means Git is not on a branch but on a specific commit.
 
 <u>Checkout a specific commit:</u>
@@ -100,7 +100,7 @@ changes and commit them, and you can discard any commits you make in this
 state without impacting any branches by switching back to a branch.
 ```
 
-### Relative Refs (^)
+## Relative Refs (^)
 Caret (^) is used to reference parent commits.
 
 <u>Move one commit back:</u>
@@ -114,7 +114,7 @@ git checkout HEAD^
 HEAD is now at def456 Previous commit message
 ```
 
-### Relative Refs (~)
+## Relative Refs (~)
 Tilde (~) is used to reference ancestor commits.
 
 <u>Move three commits back:</u>
@@ -128,7 +128,7 @@ git checkout HEAD~3
 HEAD is now at abc123 Three commits ago message
 ```
 
-### Reversing Changes in Git
+## Reversing Changes in Git
 Undo changes or revert commits.
 
 <u>Revert a commit:</u>
@@ -143,7 +143,7 @@ git revert <commit-hash>
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
-### Cherry-pick Intro
+## Cherry-pick Intro
 Cherry-pick allows you to apply changes from specific commits to your current branch.
 
 <u>Cherry-pick a commit:</u>
@@ -158,7 +158,7 @@ git cherry-pick <commit-hash>
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
-### Interactive Rebase Intro
+## Interactive Rebase Intro
 Interactive rebase allows you to edit commits before applying them.
 
 <u>Start an interactive rebase:</u>
@@ -180,7 +180,7 @@ pick ghi789 Yet another commit
 # s, squash = use commit, but meld into previous commit
 ```
 
-### Grabbing Just 1 Commit
+## Grabbing Just 1 Commit
 Apply a single commit from another branch.
 
 <u>Cherry-pick from another branch:</u>
@@ -195,7 +195,7 @@ git cherry-pick <commit-hash>
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
-### Juggling Commits
+## Juggling Commits
 Reorder or modify commits using interactive rebase.
 
 <u>Rebase interactively to reorder commits:</u>
@@ -216,7 +216,7 @@ pick ghi789 Yet another commit
 # s, squash = use commit, but meld into previous commit
 ```
 
-### Juggling Commits #2
+## Juggling Commits #2
 Amend commits or split them.
 
 <u>Amend the last commit:</u>
@@ -232,7 +232,7 @@ git commit --amend
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
-### Git Tags
+## Git Tags
 Tags mark specific points in history as important.
 
 <u>Create a tag:</u>
@@ -245,7 +245,7 @@ git tag v1.0
 v1.0
 ```
 
-### Git Describe
+## Git Describe
 Describe is used to find the most recent tag reachable from a commit.
 
 <u>Describe the current commit:</u>
@@ -259,7 +259,7 @@ git describe
 v1.0-2-gabc123
 ```
 
-### Rebasing Over Multiple Times
+## Rebasing Over Multiple Times
 Rebase multiple branches or commits.
 
 <u>Rebase multiple commits:</u>
@@ -274,7 +274,7 @@ First, rewinding head to replay your work on top of it...
 Applying: Add new feature
 ```
 
-### Multiple Parents
+## Multiple Parents
 Multiple parents refer to merge commits.
 
 <u>Merge two branches:</u>
@@ -290,7 +290,7 @@ Merge made by the 'recursive' strategy.
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
-### Branch Spaghetti
+## Branch Spaghetti
 Managing a complex branch structure.
 
 <u>Visualize branch structure:</u>

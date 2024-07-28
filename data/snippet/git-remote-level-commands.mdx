@@ -1,0 +1,305 @@
+---
+heading: 'Git Remote Level Commands'
+title: 'Mastering Git for Remote Repositories'
+date: '2024-07-30'
+type: 'Snippet'
+draft: false
+summary: 'All remote level git command'
+tags: ['git']
+icon: 'Git'
+---
+
+## Clone Intro
+Cloning a repository creates a local copy of a remote repository.
+
+<u>Clone a repository:</u>
+```
+git clone https://github.com/user/repo.git
+```
+<u>Output:</u>
+```
+Cloning into 'repo'...
+remote: Enumerating objects: 100, done.
+remote: Counting objects: 100% (100/100), done.
+remote: Compressing objects: 100% (80/80), done.
+Receiving objects: 100% (100/100), done.
+Resolving deltas: 100% (10/10), done.
+```
+
+## Remote Branches
+Remote branches are branches in a remote repository, tracked locally.
+
+<u>List remote branches:</u>
+```
+git branch -r
+```
+
+<u>Output:</u>
+```
+  origin/HEAD -> origin/main
+  origin/feature-branch
+  origin/main
+```
+
+## Git Fetching
+Fetching downloads objects and refs from another repository.
+
+
+<u>Fetch updates from remote:</u>
+```
+git fetch origin
+```
+<u>Output:</u>
+```
+From https://github.com/user/repo
+ * [new branch]      feature-branch -> origin/feature-branch
+```
+ 
+## Git Pulling
+Pulling fetches and integrates changes from a remote repository into the current branch.
+
+<u>Pull latest changes:</u>
+
+```
+git pull origin main
+```
+
+<u>Output:</u>
+```
+Updating abc123..def456
+Fast-forward
+ file1.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+## Faking Teamwork
+Simulate teamwork by fetching and merging changes from remote.
+
+
+<u>Fetch and merge changes:</u>
+
+```
+git fetch origin
+git merge origin/main
+```
+
+<u>Output:</u>
+```
+Updating abc123..def456
+Fast-forward
+ file1.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+```
+
+## Git Pushing
+Pushing uploads local branch commits to the remote repository.
+
+
+<u>Push changes to remote:</u>
+
+```
+git push origin main
+```
+
+<u>Output:</u>
+```
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 298 bytes | 298.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+To https://github.com/user/repo.git
+   abc123..def456  main -> main
+```
+
+## Diverged History
+When your branch and remote branch have diverged, you need to integrate changes.
+
+<u>Pull changes before pushing:</u>
+
+```
+git pull origin main
+# Resolve conflicts if any
+git push origin main
+```
+
+<u>Output:</u>
+```
+Auto-merging file1.txt
+CONFLICT (content): Merge conflict in file1.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+
+## Locked Main
+If the main branch is locked, you might need permissions to push.
+
+<u>Force push (use with caution):</u>
+
+```
+git push --force origin main
+```
+
+<u>Output:</u>
+```
+To https://github.com/user/repo.git
+ + abc123...def456 main -> main (forced update)
+```
+
+## Push Main
+Push the main branch to the remote repository.
+
+<u>Push main branch:</u>
+
+```
+git push origin main
+```
+
+<u>Output:</u>
+```
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 298 bytes | 298.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+To https://github.com/user/repo.git
+   abc123..def456  main -> main
+```
+
+## Merging with Remotes
+Merge changes from the remote repository into your local branch.
+
+<u>Merge remote changes:</u>
+
+```
+git fetch origin
+git merge origin/main
+```
+
+<u>Output:</u>
+```
+Updating abc123..def456
+Fast-forward
+ file1.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+## Remote Tracking
+Remote tracking branches track the state of branches in your remote repositories.
+
+<u>View remote tracking branches:</u>
+
+```
+git branch -r
+```
+
+<u>Output:</u>
+```
+  origin/HEAD -> origin/main
+  origin/feature-branch
+  origin/main
+```
+
+## Git Push Arguments
+Push to a remote repository with specific arguments.
+
+<u>Push a branch:</u>
+
+```
+git push origin feature-branch
+```
+
+<u>Output:</u>
+```
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 298 bytes | 298.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+To https://github.com/user/repo.git
+ * [new branch]      feature-branch -> feature-branch
+```
+
+##  Git Push Arguments -- Expanded!
+Use additional arguments with git push for more control.
+
+<u>Push with force and tags:</u>
+
+```
+git push --force --tags origin main
+```
+
+<u>Output:</u>
+```
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 298 bytes | 298.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+To https://github.com/user/repo.git
+ + abc123...def456 main -> main (forced update)
+ * [new tag]         v1.0 -> v1.0
+```
+
+
+
+
+
+
+
+
+
+
+## Fetch Arguments
+Use arguments with `git fetch` to limit what is fetched.
+
+<u>Fetch a specific branch:</u>
+```
+git fetch origin feature-branch
+```
+
+<u>Output:</u>
+```
+From https://github.com/user/repo
+ * [new branch]      feature-branch -> origin/feature-branch
+```
+
+## Source of Nothing
+If nothing changes, fetch will still update refs.
+
+<u>Fetch with no changes:</u>
+
+```
+git fetch origin
+```
+
+<u>Output:</u>
+```
+From https://github.com/user/repo
+ * [up to date]      main       -> origin/main
+```
+
+## Pull Arguments
+Use arguments with `git pull` for more control over the process.
+
+<u>Pull with rebase:</u>
+
+```
+git pull --rebase origin main
+```
+
+<u>Output:</u>
+```
+From https://github.com/user/repo
+ * branch            main       -> FETCH_HEAD
+First, rewinding head to replay your work on top of it...
+Applying: Add new feature
+```
+
+
+These commands provide a robust foundation for working with remote Git repositories, enabling effective collaboration and version control.
