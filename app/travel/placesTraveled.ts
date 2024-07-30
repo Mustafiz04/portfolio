@@ -1,0 +1,96 @@
+export const allVisitedPlace: {
+  coordinates: number[]
+  name: string
+  markerColor: string
+}[] = [
+  {
+    coordinates: [28.97464, 41.01493],
+    name: 'Istanbul',
+    markerColor: 'red',
+  },
+  {
+    coordinates: [30.70274, 36.89344],
+    name: 'Antalya',
+    markerColor: 'red',
+  },
+  {
+    coordinates: [72.87184, 19.0864],
+    name: 'Mumbai',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [73.01694, 19.03053],
+    name: 'Navi Mumbai',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [75.77201, 13.31636],
+    name: 'Chikkamagaluru',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [76.65267, 12.32611],
+    name: 'Mysore',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [76.08342, 11.70326],
+    name: 'Wayanad',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [76.69509, 11.41063],
+    name: 'Ooty',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [79.80533, 11.95074],
+    name: 'Puducherry',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [77.59737, 12.98716],
+    name: 'Bengaluru',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [78.46515, 17.39275],
+    name: 'Hyderabad',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [77.20107, 28.61785],
+    name: 'New Delhi',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [80.94477, 26.83563],
+    name: 'Lucknow',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [85.16692, 25.6153],
+    name: 'Patna',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [85.00762, 24.78526],
+    name: 'Gaya',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [86.1513, 23.66943],
+    name: 'Bokaro Steel City',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [86.20237, 22.80663],
+    name: 'Jamshedpur',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [88.36322, 22.57797],
+    name: 'Kolkata',
+    markerColor: 'blue',
+  },
+]
