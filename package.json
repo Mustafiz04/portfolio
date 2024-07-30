@@ -11,9 +11,7 @@
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts"
   },
   "husky": {
-    "hooks": {
-      
-    }
+    "hooks": {}
   },
   "dependencies": {
     "@next/bundle-analyzer": "14.1.0",
@@ -27,6 +25,7 @@
     "gray-matter": "^4.0.2",
     "image-size": "1.0.0",
     "lucide-react": "^0.364.0",
+    "mapbox-gl": "^3.3.0",
     "next": "14.1.0",
     "next-contentlayer": "0.3.4",
     "next-themes": "^0.2.1",
@@ -50,8 +49,7 @@
     "remark-math": "^5.1.1",
     "tailwindcss": "^3.4.1",
     "typed.js": "^2.1.0",
-    "unist-util-visit": "^4.1.0",
-    "mapbox-gl": "^3.3.0"
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
