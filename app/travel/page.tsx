@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { allVisitedPlace } from './placesTraveled'
 
-mapboxgl.accessToken = siteMetadata.mapboxApiKey || ''
+mapboxgl.accessToken = process.env.MAPBOX_API_KEY || ''
 /* eslint-disable jsx-a11y/iframe-has-title */
 export default function Page() {
   const mapContainer = useRef(null)

@@ -23,7 +23,6 @@ const siteMetadata = {
   locale: 'en-US',
   analyticsUrl: 'https://analytics.mustafizkaifee.in/share/NKmMJR57vxcWZKTR/www.mustafizkaifee.in',
   googleTravelMap: 'https://www.google.com/maps/d/embed?mid=1viaFGwOsLrVDWjdCSzPiSaP8FD_23R8',
-  mapboxApiKey: process.env.MAPBOX_API_KEY,
   typewriterText: [
     ' I am currently residing in Bengaluru, Karnataka.',
     'Professionally, I am an aspiring Software Engineer with a keen interest in learning new technologies.',
