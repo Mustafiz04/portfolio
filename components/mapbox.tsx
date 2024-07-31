@@ -86,7 +86,11 @@ export function MapBoxGlobe({ accessToken }) {
           .addTo(map.current!)
       })
     }
-  })
+
+    return () => {
+      map.current?.off('moveend', spinGlobe)
+    }
+  }, [])
   return (
     <>
       <div ref={mapContainer} className="map-container" style={{ height: '750px' }} />
