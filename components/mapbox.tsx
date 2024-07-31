@@ -53,7 +53,7 @@ export function MapBoxGlobe({ accessToken }) {
         }
         // Smoothly animate the map over one second.
         // When this animation is complete, it calls a 'moveend' event.
-        map.current?.easeTo({ center, duration: 1000, easing: (n) => n })
+        map.current?.easeTo({ center, duration: 5000, easing: (n) => n * 5 })
       }
 
       // Pause spinning on interaction
@@ -66,9 +66,9 @@ export function MapBoxGlobe({ accessToken }) {
     }
 
     // When animation is complete, start spinning if there is no ongoing interaction
-    map.current?.on('moveend', () => {
-      spinGlobe()
-    })
+    // map.current?.on('moveend', () => {
+    //   spinGlobe()
+    // })
 
     spinGlobe()
 
