@@ -95,7 +95,7 @@ export function MapBoxGlobe({ accessToken }) {
   }, [])
   return (
     <>
-      <div ref={mapContainer} className="map-container" style={{ height: '750px' }} />
+      <div ref={mapContainer} className="map-container" style={{ height: '500px' }} />
     </>
   )
 }
