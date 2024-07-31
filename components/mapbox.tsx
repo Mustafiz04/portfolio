@@ -10,7 +10,7 @@ export function MapBoxGlobe({ accessToken }) {
   const map = useRef<mapboxgl.Map | null>(null)
   const [lng, setLng] = useState(77.575279)
   const [lat, setLat] = useState(12.97675)
-  const [zoom, setZoom] = useState(2)
+  const [zoom, setZoom] = useState(1)
 
   // The following values can be changed to control rotation speed:
 
@@ -65,10 +65,12 @@ export function MapBoxGlobe({ accessToken }) {
       })
     }
 
-    // When animation is complete, start spinning if there is no ongoing interaction
-    // map.current?.on('moveend', () => {
-    //   spinGlobe()
-    // })
+    if (window.innerWidth >= 1024) {
+      // When animation is complete, start spinning if there is no ongoing interaction
+      map.current?.on('moveend', () => {
+        spinGlobe()
+      })
+    }
 
     spinGlobe()
 
