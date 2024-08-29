@@ -93,4 +93,14 @@ export const allVisitedPlace: {
     name: 'Kolkata',
     markerColor: 'blue',
   },
+  {
+    coordinates: [101.6841, 3.1319],
+    name: 'Kuala Lumpur, Malaysia',
+    markerColor: 'Blue',
+  },
+  {
+    coordinates: [103.8198, 1.3521],
+    name: 'Singapore',
+    markerColor: 'Red',
+  },
 ]
