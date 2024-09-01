@@ -18,7 +18,7 @@ const siteMetadata = {
   youtube: 'https://www.youtube.com/@MustafizKaifee',
   linkedin: 'https://www.linkedin.com/in/mustafizkaifee',
   threads: 'https://www.threads.net/mustafizkaifee',
-  instagram: 'https://www.instagram.com/mustafizkaifee/',
+  instagram: 'https://www.instagram.com/_mustafiz__k/',
   leetcode: 'https://leetcode.com/kaifee000/',
   locale: 'en-US',
   analyticsUrl: 'https://analytics.mustafizkaifee.in/share/NKmMJR57vxcWZKTR/www.mustafizkaifee.in',
