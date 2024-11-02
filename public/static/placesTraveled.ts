@@ -103,4 +103,9 @@ export const allVisitedPlace: {
     name: 'Singapore',
     markerColor: 'Red',
   },
+  {
+    coordinates: [73.906, 15.2993],
+    name: 'Goa',
+    markerColor: 'Blue',
+  },
 ]
