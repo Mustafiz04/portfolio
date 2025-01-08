@@ -108,4 +108,24 @@ export const allVisitedPlace: {
     name: 'Goa',
     markerColor: 'Blue',
   },
+  {
+    coordinates: [54.43233, 24.43568],
+    name: 'Abu Dhabi',
+    markerColor: 'Green',
+  },
+  {
+    coordinates: [55.30472, 25.1972],
+    name: 'Dubai',
+    markerColor: 'Green',
+  },
+  {
+    coordinates: [39.82333, 21.425],
+    name: 'Mecca',
+    markerColor: 'Green',
+  },
+  {
+    coordinates: [39.615, 24.46667],
+    name: 'Medina',
+    markerColor: 'Green',
+  },
 ]
