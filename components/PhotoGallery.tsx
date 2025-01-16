@@ -23,9 +23,19 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
       const sources = await Promise.all(
         photos.map(async (photo) => {
           if (photo.src.endsWith('.heic') || photo.src.endsWith('.HEIC')) {
-            const blob = await fetch(photo.src).then((res) => res.blob())
-            const converted = (await heic2any({ blob, toType: 'image/jpeg' })) as Blob
-            return URL.createObjectURL(converted)
+            try {
+              const response = await fetch(photo.src)
+              if (!response.ok) {
+                throw new Error(`Failed to fetch image: ${response.statusText}`)
+              }
+              const blob = await response.blob()
+              console.log('Fetched blob:', blob)
+              const converted = (await heic2any({ blob, toType: 'image/jpeg' })) as Blob
+              return URL.createObjectURL(converted)
+            } catch (error) {
+              console.error('Error converting HEIC image:', error)
+              return photo.src // Fallback to original source if conversion fails
+            }
           }
           return photo.src
         })
