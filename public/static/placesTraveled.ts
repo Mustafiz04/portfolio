@@ -128,4 +128,14 @@ export const allVisitedPlace: {
     name: 'Medina',
     markerColor: 'Green',
   },
+  {
+    coordinates: [76.3388, 9.4981],
+    name: 'Alleppey',
+    markerColor: 'blue',
+  },
+  {
+    coordinates: [76.7172, 8.7378],
+    name: 'Varkala',
+    markerColor: 'blue',
+  },
 ]
