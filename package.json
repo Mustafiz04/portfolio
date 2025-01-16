@@ -25,6 +25,7 @@
     "esbuild": "0.18.11",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.2",
+    "heic-convert": "^2.1.0",
     "heic2any": "^0.0.4",
     "image-size": "1.0.0",
     "lucide-react": "^0.364.0",
