@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Dialog } from '@headlessui/react'
 import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
-import heic2any from 'heic2any'
 
 interface Photo {
   src: string
@@ -19,6 +18,7 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
 
   useEffect(() => {
     const convertImages = async () => {
+      const heic2any = (await import('heic2any')).default
       setLoading(true)
       const sources = await Promise.all(
         photos.map(async (photo) => {
