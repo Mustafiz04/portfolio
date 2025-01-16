@@ -13,49 +13,19 @@ interface Photo {
 export default function PhotoGallery({ photos }: { photos: Photo[] }) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [shuffledPhotos, setShuffledPhotos] = useState<Photo[]>([])
-  const [imageSources, setImageSources] = useState<string[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const convertImages = async () => {
-      const heic2any = (await import('heic2any')).default
-      setLoading(true)
-      const sources = await Promise.all(
-        photos.map(async (photo) => {
-          if (photo.src.endsWith('.heic') || photo.src.endsWith('.HEIC')) {
-            try {
-              const response = await fetch(photo.src)
-              if (!response.ok) {
-                throw new Error(`Failed to fetch image: ${response.statusText}`)
-              }
-              const blob = await response.blob()
-              console.log('Fetched blob:', blob)
-              const converted = (await heic2any({ blob, toType: 'image/jpeg' })) as Blob
-              return URL.createObjectURL(converted)
-            } catch (error) {
-              console.error('Error converting HEIC image:', error)
-              return photo.src // Fallback to original source if conversion fails
-            }
-          }
-          return photo.src
-        })
-      )
-      setImageSources(sources)
-
-      // Shuffle photos after converting images
-      const shuffled = [...photos].sort(() => Math.random() - 0.5)
-      setShuffledPhotos(shuffled)
-    }
-
-    convertImages()
+    // Shuffle photos whenever the photos prop changes
+    const shuffled = [...photos].sort(() => Math.random() - 0.5)
+    setShuffledPhotos(shuffled)
   }, [photos])
 
   const handlePrevious = () => {
-    setSelectedImage((prev) => (prev === 0 ? photos.length - 1 : prev! - 1))
+    setSelectedImage((prev) => (prev === 0 ? shuffledPhotos.length - 1 : prev! - 1))
   }
 
   const handleNext = () => {
-    setSelectedImage((prev) => (prev === photos.length - 1 ? 0 : prev! + 1))
+    setSelectedImage((prev) => (prev === shuffledPhotos.length - 1 ? 0 : prev! + 1))
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -81,7 +51,7 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
             tabIndex={0}
           >
             <Image
-              src={imageSources[index]}
+              src={photo.src}
               alt={photo.alt}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -110,7 +80,7 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
             {selectedImage !== null && (
               <div className="relative h-full w-full">
                 <Image
-                  src={imageSources[selectedImage]}
+                  src={shuffledPhotos[selectedImage].src}
                   alt={shuffledPhotos[selectedImage].alt}
                   fill
                   priority

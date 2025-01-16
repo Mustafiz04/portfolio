@@ -25,19 +25,19 @@ const travelPhotos: Photo[] = [
     alt: 'Top Golf in UAE',
   },
   {
-    src: '/static/images/uae/burjalarab.HEIC',
+    src: '/static/images/uae/burjalarab.jpg',
     alt: 'Burj Al Arab in UAE',
   },
   {
-    src: '/static/images/uae/burjkhalifa1.HEIC',
+    src: '/static/images/uae/burjkhalifa1.jpg',
     alt: 'Burj Khalifa in UAE',
   },
   {
-    src: '/static/images/uae/burjkhalifa2.HEIC',
+    src: '/static/images/uae/burjkhalifa2.jpg',
     alt: 'Burj Khalifa in UAE',
   },
   {
-    src: '/static/images/uae/burjkhalifa3.HEIC',
+    src: '/static/images/uae/burjkhalifa3.jpg',
     alt: 'Burj Khalifa in UAE',
   },
   // Add more photos as needed
