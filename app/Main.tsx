@@ -34,7 +34,7 @@ export default function Home({ posts }) {
             target="_blank"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              Resume 📝 - <span className="text-sm">last update: 2024-06-16</span>
+              Resume 📝 - <span className="text-sm">last update: 2025-01-19</span>
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Click here to see my professional background, skills, and work experience
