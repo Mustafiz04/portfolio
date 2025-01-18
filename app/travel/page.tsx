@@ -1,47 +1,9 @@
 import { MapBoxGlobe } from '@/components/mapbox'
 import PhotoGallery from '@/components/PhotoGallery'
 import siteMetadata from '@/data/siteMetadata'
+import { travelPhotos } from 'app/constant/travelPhotos'
 
 const accessToken = siteMetadata.mapboxAccessToken || ''
-
-// Update the interface at the top of the file
-interface Photo {
-  src: string
-  alt: string
-}
-
-// Add more photos to the array
-const travelPhotos: Photo[] = [
-  {
-    src: '/static/images/uae/zayed.jpg',
-    alt: 'Zayed Mosque in UAE',
-  },
-  {
-    src: '/static/images/uae/topgolf.jpg',
-    alt: 'Top Golf in UAE',
-  },
-  {
-    src: '/static/images/uae/topgolf1.jpg',
-    alt: 'Top Golf in UAE',
-  },
-  {
-    src: '/static/images/uae/burjalarab.jpg',
-    alt: 'Burj Al Arab in UAE',
-  },
-  {
-    src: '/static/images/uae/burjkhalifa1.jpg',
-    alt: 'Burj Khalifa in UAE',
-  },
-  {
-    src: '/static/images/uae/burjkhalifa2.jpg',
-    alt: 'Burj Khalifa in UAE',
-  },
-  {
-    src: '/static/images/uae/burjkhalifa3.jpg',
-    alt: 'Burj Khalifa in UAE',
-  },
-  // Add more photos as needed
-]
 
 /* eslint-disable jsx-a11y/iframe-has-title */
 export default function Page() {

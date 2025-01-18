@@ -33,12 +33,27 @@ export default function Home({ posts }) {
             dark:hover:border-green-500"
             target="_blank"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">Resume 📝</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              Resume 📝 - <span className="text-sm">last update: 2024-06-16</span>
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Click here to see my professional background, skills, and work experience
             </p>
           </a>
           <a
+            href="/travel"
+            rel="noopener noreferrer"
+            className="group rounded-lg border border-gray-300 
+            px-5 py-4 transition-colors duration-200 
+            hover:border-green-600 dark:border-gray-700 
+            dark:hover:border-green-500"
+          >
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My Travel Map 🌍</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Check out my travel map to see my journey around the world.
+            </p>
+          </a>
+          {/* <a
             href="/blog"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
@@ -50,7 +65,7 @@ export default function Home({ posts }) {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Read my thoughts on software development, design, and more.
             </p>
-          </a>
+          </a> */}
           <a
             href="/about"
             rel="noopener noreferrer"
