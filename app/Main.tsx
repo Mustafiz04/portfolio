@@ -7,17 +7,17 @@ import ComingSoon from '@/components/ComingSoon'
 import Typewriter from '@/components/Typewriter'
 import { Authors, allAuthors } from 'contentlayer/generated'
 import SocialIcon from '@/components/social-icons'
-import { 
-  FileText, 
-  Globe, 
-  Edit, 
-  User, 
-  Github, 
-  Twitter, 
-  Linkedin, 
-  BarChart, 
-  Instagram 
-} from 'lucide-react';
+import {
+  FileText,
+  Globe,
+  Edit,
+  User,
+  Github,
+  Twitter,
+  Linkedin,
+  BarChart,
+  Instagram,
+} from 'lucide-react'
 
 const MAX_DISPLAY = 5
 
@@ -45,14 +45,14 @@ export default function Home({ posts }) {
             target="_blank"
           >
             <div className="grid grid-cols-2">
-              <h3 className="h4 mb-2 text-green-600 dark:text-green-500 flex items-center col-span-1">
-                <FileText className="inline-block mr-2" /> Resume
+              <h3 className="h4 col-span-1 mb-2 flex items-center text-green-600 dark:text-green-500">
+                <FileText className="mr-2 inline-block" /> Resume
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 col-span-1">
+              <p className="col-span-1 text-sm text-gray-500 dark:text-gray-400">
                 Last update: <span className="text-sm">2025-01-19</span>
               </p>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Click here to see my professional background, skills, and work experience.
             </p>
           </a>
@@ -65,7 +65,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <Globe className="inline-block mr-2" /> My Travel Map
+              <Globe className="mr-2 inline-block" /> My Travel Map
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Check out my travel map to see my journey around the world.
@@ -80,7 +80,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <Edit className="inline-block mr-2" /> My writings
+              <Edit className="mr-2 inline-block" /> My writings
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Read my thoughts on software development, design, and more.
@@ -95,7 +95,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <User className="inline-block mr-2" /> More about me
+              <User className="mr-2 inline-block" /> More about me
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Learn more about who I am and what I do.
@@ -124,7 +124,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <Github className="inline-block mr-2" /> Checkout my Github
+              <Github className="mr-2 inline-block" /> Checkout my Github
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               My latest projects and work I'm doing.
@@ -140,7 +140,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <Twitter className="inline-block mr-2" /> Follow me on Twitter
+              <Twitter className="mr-2 inline-block" /> Follow me on Twitter
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Get the latest news and updates from me.
@@ -156,7 +156,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <Linkedin className="inline-block mr-2" /> Connect with me on LinkedIn
+              <Linkedin className="mr-2 inline-block" /> Connect with me on LinkedIn
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Learn more about my professional background.
@@ -172,7 +172,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <BarChart className="inline-block mr-2" /> My LeetCode
+              <BarChart className="mr-2 inline-block" /> My LeetCode
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Check out my solutions on LeetCode.
@@ -188,7 +188,7 @@ export default function Home({ posts }) {
             dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              <Instagram className="inline-block mr-2" /> Follow me on Instagram
+              <Instagram className="mr-2 inline-block" /> Follow me on Instagram
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Follow me to see the other side of my story.
