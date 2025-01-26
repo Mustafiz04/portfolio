@@ -9,6 +9,7 @@ import {
   Threads,
   Instagram,
   Leetcode,
+  Chess,
 } from './icons'
 
 const components = {
@@ -22,6 +23,7 @@ const components = {
   threads: Threads,
   instagram: Instagram,
   leetcode: Leetcode,
+  chess: Chess,
 }
 
 type SocialIconProps = {

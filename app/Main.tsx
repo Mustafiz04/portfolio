@@ -7,6 +7,17 @@ import ComingSoon from '@/components/ComingSoon'
 import Typewriter from '@/components/Typewriter'
 import { Authors, allAuthors } from 'contentlayer/generated'
 import SocialIcon from '@/components/social-icons'
+import { 
+  FileText, 
+  Globe, 
+  Edit, 
+  User, 
+  Github, 
+  Twitter, 
+  Linkedin, 
+  BarChart, 
+  Instagram 
+} from 'lucide-react';
 
 const MAX_DISPLAY = 5
 
@@ -23,63 +34,74 @@ export default function Home({ posts }) {
           Passionate about creating elegant, efficient, and scalable software solutions 🚀 with a
           love for writing clean, well-documented, and well-tested code.
         </p>
-        <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 lg:mt-16 lg:grid-cols-3 lg:space-y-0">
+        <div className="mt-12 grid grid-cols-1 gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
           <a
             href="/static/resume.pdf"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
             target="_blank"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              Resume 📝 - <span className="text-sm">last update: 2025-01-19</span>
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Click here to see my professional background, skills, and work experience
+            <div className="grid grid-cols-2">
+              <h3 className="h4 mb-2 text-green-600 dark:text-green-500 flex items-center col-span-1">
+                <FileText className="inline-block mr-2" /> Resume
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 col-span-1">
+                Last update: <span className="text-sm">2025-01-19</span>
+              </p>
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+              Click here to see my professional background, skills, and work experience.
             </p>
           </a>
           <a
             href="/travel"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My Travel Map 🌍</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              <Globe className="inline-block mr-2" /> My Travel Map
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Check out my travel map to see my journey around the world.
             </p>
           </a>
-          {/* <a
+          <a
             href="/blog"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My writings 📝</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              <Edit className="inline-block mr-2" /> My writings
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Read my thoughts on software development, design, and more.
             </p>
-          </a> */}
+          </a>
           <a
             href="/about"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">More about me 😊</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              <User className="inline-block mr-2" /> More about me
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Learn more about who I am and what I do.
             </p>
           </a>
-          <a
+          {/* <a
             href="/career"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
@@ -91,17 +113,19 @@ export default function Home({ posts }) {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Check out my resume for a quick overview of my professional journey.
             </p>
-          </a>
+          </a> */}
           <a
             href={siteMetadata.github}
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">Checkout my Github 💻</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              <Github className="inline-block mr-2" /> Checkout my Github
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               My latest projects and work I'm doing.
             </p>
@@ -111,11 +135,13 @@ export default function Home({ posts }) {
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
-            <h3 className="h4 text-green-60t0 mb-2 dark:text-green-500">Follow me on Twitter 🐦</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              <Twitter className="inline-block mr-2" /> Follow me on Twitter
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Get the latest news and updates from me.
             </p>
@@ -125,12 +151,12 @@ export default function Home({ posts }) {
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              Connect with me on LinkedIn 🤝
+              <Linkedin className="inline-block mr-2" /> Connect with me on LinkedIn
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Learn more about my professional background.
@@ -141,11 +167,13 @@ export default function Home({ posts }) {
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
-            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">My LeetCode 📊</h3>
+            <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
+              <BarChart className="inline-block mr-2" /> My LeetCode
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Check out my solutions on LeetCode.
             </p>
@@ -155,12 +183,12 @@ export default function Home({ posts }) {
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-gray-300 
-            px-5 py-4 transition-colors duration-200 
-            hover:border-green-600 dark:border-gray-700 
-            dark:hover:border-green-500"
+            bg-white p-6 shadow-md transition-transform duration-200 
+            hover:scale-105 hover:border-green-600 dark:border-gray-700 
+            dark:bg-gray-800 dark:hover:border-green-500"
           >
             <h3 className="h4 mb-2 text-green-600 dark:text-green-500">
-              Follow me on Instagram 📸{' '}
+              <Instagram className="inline-block mr-2" /> Follow me on Instagram
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Follow me to see the other side of my story.
@@ -169,14 +197,15 @@ export default function Home({ posts }) {
         </div>
       </div>
 
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      {/* Latest Post */}
+      {/* <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             Latest Post
           </h1>
-          {/* <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
             {siteMetadata.description}
-          </p> */}
+          </p>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
@@ -240,7 +269,7 @@ export default function Home({ posts }) {
             All Posts &rarr;
           </Link>
         </div>
-      )}
+      )} */}
       {/* {siteMetadata.newsletter?.provider && (
         <div className="flex items-center justify-center pt-4">
           <NewsletterForm />

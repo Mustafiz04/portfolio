@@ -20,6 +20,7 @@ const siteMetadata = {
   threads: 'https://www.threads.net/mustafizkaifee',
   instagram: 'https://www.instagram.com/_mustafiz__k/',
   leetcode: 'https://leetcode.com/kaifee000/',
+  chess: 'https://www.chess.com/stats/overview/mustafizkaifee',
   locale: 'en-US',
   analyticsUrl: 'https://analytics.mustafizkaifee.in/share/NKmMJR57vxcWZKTR/www.mustafizkaifee.in',
   googleTravelMap: 'https://www.google.com/maps/d/embed?mid=1viaFGwOsLrVDWjdCSzPiSaP8FD_23R8',
