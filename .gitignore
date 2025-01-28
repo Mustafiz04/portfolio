@@ -46,3 +46,10 @@ yarn-error.log*
 
 # Contentlayer
 .contentlayer
+
+# Ignore these directories
+.git
+.github
+.vscode
+.husky
+.yarn
