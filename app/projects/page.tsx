@@ -17,8 +17,8 @@ export default function Projects() {
             {/* Showcase your projects with a hero image (16 x 9) */}
           </p>
         </div>
-        <ComingSoon />
-        {/* <div className="container py-12">
+        {/* <ComingSoon /> */}
+        <div className="container py-12">
           <div className="-m-4 flex flex-wrap">
             {projectsData.map((d) => (
               <Card
@@ -27,10 +27,11 @@ export default function Projects() {
                 description={d.description}
                 imgSrc={d.imgSrc}
                 href={d.href}
+                github={d.github}
               />
             ))}
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   )
