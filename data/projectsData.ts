@@ -14,6 +14,13 @@ const projectsData: Project[] = [
     href: 'https://moneymind.mustafizkaifee.in/',
     github: 'https://github.com/Mustafiz04/moneymind',
   },
+  {
+    title: 'Geo Quiz',
+    description: `Geo Quiz is a quiz game that tests your knowledge of the world. It is a simple and fun way to learn about the world around you.`,
+    imgSrc: '/static/images/geoquiz.png',
+    href: 'https://longitudechallenge.mustafizkaifee.in/',
+    github: 'https://github.com/Mustafiz04/longitudechallenge',
+  },
 ]
 
 export default projectsData

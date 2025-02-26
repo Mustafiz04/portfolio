@@ -6,7 +6,7 @@ import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 
 export default function Contact() {
-  const [calendlyPopup, setCalendlyPopup] = useState(false)
+  const [calendlyPopup, setCalendlyPopup] = useState(true)
 
   function onScheduleMeeting(): void {
     setCalendlyPopup(true)
