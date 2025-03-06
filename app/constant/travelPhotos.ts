@@ -263,7 +263,7 @@ export const travelPhotos: Photo[] = [
   },
   { src: '/static/images/malaysia/twintower.jpg', alt: 'Petronas Twin Towers 🇲🇾' },
   { src: '/static/images/malaysia/twintower1.jpg', alt: 'Petronas Twin Towers 🇲🇾' },
-  { src: '/static/images/malaysia/kl.jpg', alt: 'Batik Bintang in Kuala Lumpur 🇲🇾' },
+  { src: '/static/images/malaysia/batikBintang.jpg', alt: 'Batik Bintang in Kuala Lumpur 🇲🇾' },
   {
     src: '/static/images/saudiarabia/clockTower.jpg',
     alt: 'Clock Tower in Makkah',
