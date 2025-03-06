@@ -175,7 +175,7 @@ export const travelPhotos: Photo[] = [
     alt: 'Galata Bridge in Istanbul, Turkey',
   },
   {
-    src: '/static/images/turkiye/hagiaSofia.jpg',
+    src: '/static/images/turkiye/meWithHagiaSofia.jpg',
     alt: 'Me with Hagia Sophia',
   },
   {
