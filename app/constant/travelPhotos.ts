@@ -8,208 +8,295 @@ export interface Photo {
 export const travelPhotos: Photo[] = [
   {
     src: '/static/images/uae/zayed.jpg',
-    alt: 'Zayed Mosque in UAE',
+    alt: 'Sheikh Zayed Grand Mosque in Abu Dhabi 🇦🇪',
   },
   {
     src: '/static/images/uae/topgolf.jpg',
-    alt: 'Top Golf in UAE',
+    alt: 'Topgolf in Dubai 🇦🇪',
   },
   {
     src: '/static/images/uae/topgolf1.jpg',
-    alt: 'Top Golf in UAE',
+    alt: 'Showcasing my golf skills',
   },
   {
     src: '/static/images/uae/burjalarab.jpg',
-    alt: 'Burj Al Arab in UAE',
+    alt: 'Burj Al Arab in Dubai 🇦🇪',
   },
   {
     src: '/static/images/uae/burjkhalifa1.jpg',
-    alt: 'Burj Khalifa in UAE',
+    alt: 'Burj Khalifa in Dubai 🇦🇪',
   },
   {
     src: '/static/images/uae/burjkhalifa2.jpg',
-    alt: 'Burj Khalifa in UAE',
+    alt: 'Burj Khalifa in Dubai 🇦🇪',
   },
   {
     src: '/static/images/uae/burjkhalifa3.jpg',
-    alt: 'Burj Khalifa in UAE',
+    alt: 'Burj Khalifa in Dubai 🇦🇪',
   },
   {
     src: '/static/images/turkiye/istanbulstreet.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Beautiful street of Istanbul',
   },
   {
     src: '/static/images/turkiye/istanbulstreet1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Taskim Square in Istanbul',
   },
   {
     src: '/static/images/turkiye/istanbulstreet2.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Istanbul street view',
   },
   {
     src: '/static/images/turkiye/bluemosque.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Blue Mosque in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/grandbazaar1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Spice Bazaar in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/grandbazar.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Grand Bazaar in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/hagiasofia.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Hagia Sophia in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/hagiasofia1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Inside view of Hagia Sophia',
   },
   {
     src: '/static/images/turkiye/hagiasofia2.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Hagia Sophia from gate of Blue Mosque',
   },
   {
     src: '/static/images/turkiye/hagiasofia3.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Friday Prayer at Hagia Sophia 🇹🇷',
   },
   {
     src: '/static/images/turkiye/hagiasofia4.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Hagia Sophia in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/hagiasofia5.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'After Friday Prayer at Hagia Sophia',
   },
   {
     src: '/static/images/turkiye/hagiasofia6.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Hagia Sophia in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/hagiasofia7.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Hagia Sophia in night view',
   },
   {
     src: '/static/images/turkiye/istanbul.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Beautiful view of Istanbul from the top of the Galata Tower',
   },
   {
     src: '/static/images/turkiye/istanbul1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Bosphorus Strait from terrace of my hotel',
   },
   {
     src: '/static/images/turkiye/istanbul2.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Fishing on the Bosphorus Strait',
   },
   {
     src: '/static/images/turkiye/istanbulairport.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'New Istanbul International Airport',
   },
   {
     src: '/static/images/turkiye/dolmabache.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Dolmabahçe Mosque',
   },
   {
     src: '/static/images/turkiye/bluemosque1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Night view of Blue Mosque in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/galatatower.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Galata Tower 🇹🇷',
   },
   {
     src: '/static/images/turkiye/galatatower1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Me with Galata Tower 🇹🇷',
   },
   {
     src: '/static/images/turkiye/bosphorus.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Bosphorus Strait in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/istanbulbridge.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Temmuz Sehitler Bridge in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/istanbulbridge1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Uskudar side of the Bosphorus Strait',
   },
   {
     src: '/static/images/turkiye/lighttower.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: "Maiden's Tower in Istanbul, Turkey",
   },
   {
     src: '/static/images/turkiye/istanbulbeach.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Bakirkoy Beach in Istanbul, Turkey',
   },
   {
     src: '/static/images/turkiye/istanbulmetro.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Bakirkoy Atakoy Metro Station',
   },
   {
     src: '/static/images/turkiye/istanbulmetro1.jpg',
-    alt: 'Istanbul Street in Turkey',
+    alt: 'Bakirkoy Atakoy Metro Station',
   },
-  { src: '/static/images/singapore/cairo.jpg', alt: 'cairo' },
-  { src: '/static/images/singapore/cave.jpg', alt: 'cave' },
-  { src: '/static/images/singapore/chinatown.jpg', alt: 'chinatown' },
-  { src: '/static/images/singapore/diving.jpg', alt: 'diving' },
+  {
+    src: '/static/images/turkiye/konyaaltiBeach.jpg',
+    alt: 'Konyaalti Beach in Antalya, Turkey',
+  },
+  {
+    src: '/static/images/turkiye/mediterraneanSea.jpg',
+    alt: 'Mediterranean Sea',
+  },
+  {
+    src: '/static/images/turkiye/mirror.jpg',
+    alt: 'Rare mirror selfie',
+  },
+  {
+    src: '/static/images/turkiye/DudenWaterfall.jpg',
+    alt: 'Duden Waterfalls in Antalya, Turkey',
+  },
+  {
+    src: '/static/images/turkiye/eminonuSquare.jpg',
+    alt: 'Eminonu Square in Istanbul, Turkey',
+  },
+  {
+    src: '/static/images/turkiye/galataBridge.jpg',
+    alt: 'Galata Bridge in Istanbul, Turkey',
+  },
+  {
+    src: '/static/images/turkiye/hagiaSofia.jpg',
+    alt: 'Me with Hagia Sophia',
+  },
+  {
+    src: '/static/images/turkiye/meAtBlueMosque.jpg',
+    alt: 'Me at Blue Mosque in Istanbul, Turkey',
+  },
+  { src: '/static/images/singapore/cairo.jpg', alt: 'Egyptian cuisine in Singapore 🇸🇬' },
+  { src: '/static/images/singapore/cave.jpg', alt: 'Fort Canning Park in Singapore 🇸🇬' },
+  { src: '/static/images/singapore/chinatown.jpg', alt: 'Chinatown in Singapore 🇸🇬' },
+  { src: '/static/images/singapore/diving.jpg', alt: 'Diving experience' },
   {
     src: '/static/images/singapore/gardenByTheBay.jpg',
-    alt: 'gardenByTheBay',
+    alt: 'Garden by the Bay in Singapore 🇸🇬',
   },
   {
     src: '/static/images/singapore/gardenByTheBay2.jpg',
-    alt: 'gardenByTheBay2',
+    alt: 'Garden by the Bay Light Show',
   },
-  { src: '/static/images/singapore/grand_prix.jpg', alt: 'grand_prix' },
-  { src: '/static/images/singapore/jewel.jpg', alt: 'jewel' },
-  { src: '/static/images/singapore/marina_bay.jpg', alt: 'marina_bay' },
+  {
+    src: '/static/images/singapore/grand_prix.jpg',
+    alt: 'Singapore Grand Prix Night Race',
+  },
+  {
+    src: '/static/images/singapore/jewel.jpg',
+    alt: 'Jewel in Singapore 🇸🇬 - One of the best airports in the world',
+  },
+  { src: '/static/images/singapore/marina_bay.jpg', alt: 'Marina Bay Sands' },
   {
     src: '/static/images/singapore/marina_bay_2.jpg',
-    alt: 'marina_bay_2',
+    alt: 'Another view of Marina Bay Sands',
   },
-  { src: '/static/images/singapore/merlion.jpg', alt: 'merlion' },
-  { src: '/static/images/singapore/sentosa.jpg', alt: 'sentosa' },
-  { src: '/static/images/singapore/siloso.jpg', alt: 'siloso' },
-  { src: '/static/images/singapore/skyline.jpg', alt: 'skyline' },
+  { src: '/static/images/singapore/merlion.jpg', alt: 'Merlion in Singapore 🇸🇬' },
+  { src: '/static/images/singapore/sentosa.jpg', alt: 'Sentosa Island Cable Car' },
+  { src: '/static/images/singapore/siloso.jpg', alt: 'Siloso Beach' },
+  { src: '/static/images/singapore/skyline.jpg', alt: 'Singapore Skyline' },
   {
     src: '/static/images/singapore/universal_studio.jpg',
-    alt: 'universal_studio',
+    alt: 'Roaring with tigers at Universal Studios 🇸🇬',
   },
   {
     src: '/static/images/singapore/universal_studio_2.jpg',
-    alt: 'universal_studio_2',
+    alt: 'Teaching dance steps to Singaporean friends',
   },
   {
     src: '/static/images/singapore/universal_studio_3.jpg',
-    alt: 'universal_studio_3',
+    alt: 'No seats available in the taxi',
   },
   {
     src: '/static/images/singapore/universal_studio_4.jpg',
-    alt: 'universal_studio_4',
+    alt: 'Is anyone inside?',
   },
   {
     src: '/static/images/singapore/universal_studio_5.jpg',
-    alt: 'universal_studio_5',
+    alt: 'I got arrested at Universal Studios 🇸🇬',
   },
-  { src: '/static/images/singapore/wheel.jpg', alt: 'wheel' },
-  { src: '/static/images/malaysia/batucave.jpg', alt: 'batucave' },
-  { src: '/static/images/malaysia/batucave1.jpg', alt: 'batucave1' },
-  { src: '/static/images/malaysia/chinatown.jpg', alt: 'chinatown' },
-  { src: '/static/images/malaysia/market.jpg', alt: 'market' },
-  { src: '/static/images/malaysia/monorail.jpg', alt: 'monorail' },
+  { src: '/static/images/singapore/wheel.jpg', alt: 'Singapore Flyer' },
+  { src: '/static/images/malaysia/batucave.jpg', alt: 'Batu Caves in Malaysia' },
+  { src: '/static/images/malaysia/batucave1.jpg', alt: 'Batu Caves with friends in Malaysia' },
+  {
+    src: '/static/images/malaysia/chinatown.jpg',
+    alt: 'These are the night never forget',
+  },
+  { src: '/static/images/malaysia/market.jpg', alt: 'Chinatown Market in Kuala Lumpur' },
+  {
+    src: '/static/images/malaysia/medreka.jpg',
+    alt: 'Merdeka 118 Tower - 2nd Tallest Building in the World',
+  },
+  { src: '/static/images/malaysia/monorail.jpg', alt: 'Monorail in Kuala Lumpur' },
   {
     src: '/static/images/malaysia/nationalmosque.jpg',
-    alt: 'nationalmosque',
+    alt: 'Friday Prayer at the National Mosque of Malaysia 🇲🇾',
   },
-  { src: '/static/images/malaysia/petronas.jpg', alt: 'petronas' },
-  { src: '/static/images/malaysia/petronas2.jpg', alt: 'petronas2' },
+  { src: '/static/images/malaysia/petronas.jpg', alt: 'Water show at KLCC 🇲🇾' },
+  {
+    src: '/static/images/malaysia/petronas2.jpg',
+    alt: 'Kuala Lumpur from the 34th Floor Penthouse at Night',
+  },
+  {
+    src: '/static/images/malaysia/kualaLumpur.jpg',
+    alt: 'Kuala Lumpur from the 34th Floor Penthouse in the Morning',
+  },
   {
     src: '/static/images/malaysia/petronastwin.jpg',
-    alt: 'petronastwin',
+    alt: 'When you ask a stranger to take your photo and it turns out great',
   },
-  { src: '/static/images/malaysia/twintower.jpg', alt: 'twintower' },
-  { src: '/static/images/malaysia/twintower1.jpg', alt: 'twintower1' },
+  { src: '/static/images/malaysia/twintower.jpg', alt: 'Petronas Twin Towers 🇲🇾' },
+  { src: '/static/images/malaysia/twintower1.jpg', alt: 'Petronas Twin Towers 🇲🇾' },
+  { src: '/static/images/malaysia/kl.jpg', alt: 'Batik Bintang in Kuala Lumpur 🇲🇾' },
+  {
+    src: '/static/images/saudiarabia/clockTower.jpg',
+    alt: 'Clock Tower in Makkah',
+  },
+  {
+    src: '/static/images/saudiarabia/harmaimTrain.jpg',
+    alt: 'Haramain Train in from Makkah to Madina',
+  },
+  { src: '/static/images/saudiarabia/kaaba.jpg', alt: 'Masjid Al-Haram' },
+  {
+    src: '/static/images/saudiarabia/kaabashareef.jpg',
+    alt: 'Masjid Al-Haram',
+  },
+  { src: '/static/images/saudiarabia/madina.jpg', alt: 'Masjid An-Nabawi' },
+  {
+    src: '/static/images/saudiarabia/madinaTower.jpg',
+    alt: 'Masjid An-Nabawi',
+  },
+  {
+    src: '/static/images/saudiarabia/makkastreet.jpg',
+    alt: 'Makkah Street',
+  },
+  {
+    src: '/static/images/saudiarabia/nightAtKaabaComplex.jpg',
+    alt: 'Night view of Kaaba Complex',
+  },
+  {
+    src: '/static/images/saudiarabia/prophetMosqu.jpg',
+    alt: 'Prophet Muhammad Mosque',
+  },
+  {
+    src: '/static/images/saudiarabia/umrah.jpg',
+    alt: 'Perform my first Umrah in 2nd January 2025',
+  },
   // Add more photos as needed
 ]
