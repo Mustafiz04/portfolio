@@ -21,6 +21,13 @@ const projectsData: Project[] = [
     href: 'https://longitudechallenge.mustafizkaifee.in/',
     github: 'https://github.com/Mustafiz04/longitudechallenge',
   },
+  {
+    title: 'Dark Marine',
+    description: 'A simple dark theme for VS Code with a touch of marine vibes',
+    imgSrc: '/static/images/darkmarine.png',
+    href: 'https://marketplace.visualstudio.com/items?itemName=MustafizKaifee.dark-marine',
+    github: 'https://github.com/Mustafiz04/vs-colour-theme/tree/main/dark-marine',
+  },
 ]
 
 export default projectsData
