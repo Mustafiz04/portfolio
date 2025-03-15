@@ -6,12 +6,12 @@ export const allVisitedPlace: {
   {
     coordinates: [28.97464, 41.01493],
     name: 'Istanbul',
-    markerColor: 'red',
+    markerColor: '#C8102E',
   },
   {
     coordinates: [30.70274, 36.89344],
     name: 'Antalya',
-    markerColor: 'red',
+    markerColor: '#C8102E',
   },
   {
     coordinates: [72.87184, 19.0864],
@@ -137,5 +137,10 @@ export const allVisitedPlace: {
     coordinates: [76.7172, 8.7378],
     name: 'Varkala',
     markerColor: 'blue',
+  },
+  {
+    coordinates: [50.636539, 26.270276],
+    name: 'Bahrain',
+    markerColor: '#DA291C',
   },
 ]
