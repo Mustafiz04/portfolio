@@ -15,7 +15,7 @@ The Decorator Pattern is a structural design pattern that allows behaviour to be
 
 Subclassing is a common technique used in object-oriented design to extend an object's capabilities. However, subclassing creates rigidity because it is static and applies to the entire class rather to individual objects. It can result in a proliferation of subclasses, making a system too complex and difficult to understand, particularly when adding various functionalities.
 
-## Solution through Adapter Pattern
+## Solution through Decorator Pattern
 
 The Decorator Pattern addresses these concerns by allowing additional functionality to be added to objects without inheriting from them. It accomplishes this by defining a collection of decorator classes that are used to surround concrete components. This technique allows you to dynamically and transparently add responsibilities to objects without changing their code.
 
