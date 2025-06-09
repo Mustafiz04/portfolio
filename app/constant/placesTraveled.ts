@@ -143,4 +143,9 @@ export const allVisitedPlace: {
     name: 'Bahrain',
     markerColor: '#DA291C',
   },
+  {
+    coordinates: [78.0081, 27.1767],
+    name: 'Agra',
+    markerColor: 'Blue',
+  },
 ]
