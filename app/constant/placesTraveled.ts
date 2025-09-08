@@ -148,4 +148,19 @@ export const allVisitedPlace: {
     name: 'Agra',
     markerColor: 'Blue',
   },
+  {
+    coordinates: [59.2434, 22.8305],
+    name: 'Wadi Shab',
+    markerColor: 'Green',
+  },
+  {
+    coordinates: [58.4059, 23.588],
+    name: 'Muscat',
+    markerColor: 'Green',
+  },
+  {
+    coordinates: [57.533, 22.933],
+    name: 'Nizwa',
+    markerColor: 'Green',
+  },
 ]
