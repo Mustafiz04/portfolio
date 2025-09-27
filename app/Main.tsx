@@ -30,9 +30,16 @@ export default function Home({ posts }) {
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
           Hi, I'm <span className="text-green-600">{siteMetadata.title}</span>.
         </h1>
-        <p className="mt-4 max-w-3xl text-lg leading-7 text-gray-500 dark:text-gray-300 md:mt-6">
-          Passionate about creating elegant, efficient, and scalable software solutions 🚀 with a
-          love for writing clean, well-documented, and well-tested code.
+        <p className="mt-4 max-w-5xl text-lg leading-7 text-gray-500 dark:text-gray-300 md:mt-6">
+          I build software that scales and travels that inspire. As a Senior Software Engineer, I
+          thrive on turning complex problems into simple, elegant solutions. When I'm not immersed
+          in code, you'll find me chasing adventures around the world, playing sports, or diving
+          into something new just for the thrill of learning. <br />
+          <span>
+            <b>
+              <i>Life's too short to stick to one lane, so I don't.</i>
+            </b>
+          </span>
         </p>
         <div className="mt-12 grid grid-cols-1 gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
           <a

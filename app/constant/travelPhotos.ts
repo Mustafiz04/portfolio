@@ -236,7 +236,7 @@ export const travelPhotos: Photo[] = [
   { src: '/static/images/malaysia/batucave1.jpg', alt: 'Batu Caves with friends in Malaysia' },
   {
     src: '/static/images/malaysia/chinatown.jpg',
-    alt: 'These are the night never forget',
+    alt: 'These are the nights I will never forget',
   },
   { src: '/static/images/malaysia/market.jpg', alt: 'Chinatown Market in Kuala Lumpur' },
   {
@@ -270,7 +270,7 @@ export const travelPhotos: Photo[] = [
   },
   {
     src: '/static/images/saudiarabia/harmaimTrain.jpg',
-    alt: 'Haramain Train in from Makkah to Madina',
+    alt: 'Haramain Train from Makkah to Madina',
   },
   { src: '/static/images/saudiarabia/kaaba.jpg', alt: 'Masjid Al-Haram' },
   {
@@ -296,7 +296,44 @@ export const travelPhotos: Photo[] = [
   },
   {
     src: '/static/images/saudiarabia/umrah.jpg',
-    alt: 'Perform my first Umrah in 2nd January 2025',
+    alt: 'Performing my first Umrah on January 2nd, 2025',
   },
-  // Add more photos as needed
+  // OMAN
+  { src: '/static/images/oman/snorkel_1.JPG', alt: 'Family of Sea Turtle' },
+  { src: '/static/images/oman/snorkel_2.JPG', alt: 'Filming a sea turtle, turtle is actor here' },
+  { src: '/static/images/oman/snorkel_3.JPG', alt: 'Sea Turtle' },
+  {
+    src: '/static/images/oman/wadis_1.JPG',
+    alt: 'Between the wadis of Shab',
+  },
+  {
+    src: '/static/images/oman/wadis_2.JPG',
+    alt: 'Wadi Shab',
+  },
+  {
+    src: '/static/images/oman/wadis_3.JPG',
+    alt: 'Hiking through these mountains of Wadi Shab',
+  },
+  {
+    src: '/static/images/oman/wadis_4.JPG',
+    alt: 'Ready to hike and swim through Wadi Shab',
+  },
+  { src: '/static/images/oman/mutrah_fort_1.jpg', alt: 'Me, sunset and Mutrah Fort' },
+  { src: '/static/images/oman/mutrah_fort_2.jpg', alt: 'On Mutrah Fort' },
+  { src: '/static/images/oman/nizwa_fort_1.jpg', alt: 'Nizwa Fort' },
+  { src: '/static/images/oman/nizwa_fort_2.jpg', alt: 'Nizwa Fort gate' },
+  { src: '/static/images/oman/city_1.jpg', alt: 'Scenic view while driving to Nizwa' },
+  { src: '/static/images/oman/tiwi_1.jpg', alt: 'Tiwi city' },
+  { src: '/static/images/oman/mutrah_3.jpg', alt: 'Mutrah' },
+  { src: '/static/images/oman/mutrah_corniche.jpg', alt: 'Mutrah Corniche' },
+  { src: '/static/images/oman/mutrah_1.jpg', alt: 'Mutrah during sunset' },
+  { src: '/static/images/oman/mutrah_2.jpg', alt: 'Mutrah Muscat, Oman' },
+  { src: '/static/images/oman/date_tree.jpg', alt: 'Date tree' },
+  { src: '/static/images/oman/driving.jpg', alt: 'Driving through the cities and highways' },
+  { src: '/static/images/oman/bimmah_sinkhole.jpg', alt: 'Bimmah Sinkhole' },
+  { src: '/static/images/oman/sinkhole.jpg', alt: 'Bimmah Sinkhole' },
+  { src: '/static/images/oman/moutains.jpg', alt: 'Somewhere in nowhere' },
+  { src: '/static/images/oman/sultan_qaboos_mosque.jpg', alt: 'Sultan Qaboos Grand Mosque' },
+  { src: '/static/images/oman/royal_opera_house.jpg', alt: 'Royal Opera House' },
+  { src: '/static/images/oman/hongqi_h5.jpg', alt: 'Car I drove over 1000km' },
 ]

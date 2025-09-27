@@ -27,10 +27,10 @@ export default function Page() {
         share your experiences, cultures, and viewpoints, which is incredibly valuable.
       </p>
       <p className="pb-8 pt-2 text-base text-gray-500 dark:text-gray-400">
-        To date, I have had the privilege of visiting five remarkable countries: Turkey, Singapore,
-        Malaysia, the UAE, and Saudi Arabia. Each journey has enriched my life in unique ways, and I
-        am driven by a profound goal—to explore every country at least once in my lifetime. The
-        world is vast and filled with diverse cultures, landscapes, and stories waiting to be
+        To date, I have had the privilege of visiting six remarkable countries: Turkey, Singapore,
+        Malaysia, the UAE, Saudi Arabia and Oman. Each journey has enriched my life in unique ways,
+        and I am driven by a profound goal to explore every country at least once in my lifetime.
+        The world is vast and filled with diverse cultures, landscapes, and stories waiting to be
         discovered, and I am eager to embrace every opportunity that comes my way.
       </p>
       <p className="pb-8 pt-2 text-base text-gray-500 dark:text-gray-400">
