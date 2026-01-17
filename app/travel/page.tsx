@@ -18,20 +18,20 @@ export default function Page() {
         The Wanderland!
       </p>
       <p className="text-base text-gray-500 dark:text-gray-400">
-        I never anticipated how much I would enjoy traveling until June 2022, when I moved to
-        Bangalore and began exploring nearby regions through various treks. In September 2023, I
-        embarked on my first solo international trip to Turkey. It was a new experience for me,
-        filled with both excitement and apprehension. After my journey to Turkey, I discovered how
-        travel can profoundly enrich your life by broadening your knowledge, connecting with new
-        people, and offering fresh perspectives. You meet individuals, engage in conversations, and
-        share your experiences, cultures, and viewpoints, which is incredibly valuable.
+        My passion for travel ignited unexpectedly in June 2022, shortly after I moved to Bangalore.
+        What started as weekend treks in nearby regions quickly blossomed into a deep-seated love
+        for exploration. In September 2023, I took a leap of faith with my first solo international
+        trip to Turkey—a journey mixed with excitement and nervousness that ultimately transformed
+        my perspective. I realized that travel is more than just sightseeing; it's about broadening
+        horizons, connecting with diverse souls, and exchanging stories that enrich our
+        understanding of the world.
       </p>
       <p className="pb-8 pt-2 text-base text-gray-500 dark:text-gray-400">
-        To date, I have had the privilege of visiting six remarkable countries: Turkey, Singapore,
-        Malaysia, the UAE, Saudi Arabia and Oman. Each journey has enriched my life in unique ways,
-        and I am driven by a profound goal to explore every country at least once in my lifetime.
-        The world is vast and filled with diverse cultures, landscapes, and stories waiting to be
-        discovered, and I am eager to embrace every opportunity that comes my way.
+        So far, my adventures have taken me to seven incredible nations: Turkey, Singapore,
+        Malaysia, the UAE, Saudi Arabia, Oman, and most recently, the historic lands of Egypt. Each
+        destination has left an indelible mark on me, fueling my ambition to visit every country on
+        this planet at least once. The world is a tapestry of cultures and landscapes waiting to be
+        explored, and I am committed to seizing every opportunity to wander and wonder.
       </p>
       <p className="pb-8 pt-2 text-base text-gray-500 dark:text-gray-400">
         This page is designed to showcase all the places I've visited so far, and you can also check

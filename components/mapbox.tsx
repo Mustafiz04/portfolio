@@ -34,6 +34,26 @@ export function MapBoxGlobe({ accessToken }) {
         zoom: zoom,
         projection: 'globe',
       })
+
+      map.current.on('load', () => {
+        map.current?.addSource('countries', {
+          type: 'geojson',
+          data: 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson',
+        })
+
+        const visitedCountries = Array.from(new Set(allVisitedPlace.map((p) => p.country)))
+
+        map.current?.addLayer({
+          id: 'countries-highlighted',
+          type: 'fill',
+          source: 'countries',
+          paint: {
+            'fill-color': '#d2361e',
+            'fill-opacity': 0.3,
+          },
+          filter: ['in', 'name', ...visitedCountries],
+        })
+      })
     } else {
       console.error('mapContainer.current is not defined')
     }
