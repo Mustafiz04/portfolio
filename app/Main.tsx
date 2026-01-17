@@ -3,7 +3,6 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
-import { Authors, allAuthors } from 'contentlayer/generated'
 import {
   FileText,
   Globe,
@@ -83,8 +82,6 @@ export default function Home({ posts }) {
         </div>
       </div>
 
-
-
       {/* Tech Stack
       <div className="py-12">
         <h2 className="mb-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
@@ -155,7 +152,7 @@ export default function Home({ posts }) {
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
                         <Link
                           href={`/blog/${slug}`}
-                          className="text-gray-900 dark:text-gray-100 group-hover:text-green-600 dark:group-hover:text-green-500 transition-colors"
+                          className="text-gray-900 transition-colors group-hover:text-green-600 dark:text-gray-100 dark:group-hover:text-green-500"
                         >
                           {title}
                         </Link>
@@ -218,7 +215,12 @@ function ProjectCard({ project }) {
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all hover:border-green-500 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-green-500">
       <div className="flex flex-1 flex-col p-6">
         <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">
-          <a href={project.href} target="_blank" rel="noopener noreferrer" className="focus:outline-none">
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus:outline-none"
+          >
             <span className="absolute inset-0" aria-hidden="true" />
             {project.title}
           </a>
