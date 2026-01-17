@@ -3,8 +3,7 @@ const siteMetadata = {
   title: 'Mustafiz Kaifee',
   author: 'Mustafiz Kaifee',
   headerTitle: 'MustafizKaifee',
-  description:
-    'A software engineer dedicated to continuous evolution, innovation, and inspiring others through the transformative power of technology.',
+  description: 'Software Engineer based in Bengaluru. Specialized in building scalable applications, exploring system design, and sharing my journey in tech and travel.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://mustafizkaifee.in',
