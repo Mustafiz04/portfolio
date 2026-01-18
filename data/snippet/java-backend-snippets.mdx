@@ -1,0 +1,150 @@
+---
+heading: 'Java Backend'
+title: 'Java Backend Snippets for Modern Development'
+date: '2024-08-01'
+type: 'Snippet'
+draft: false
+summary: 'Useful Java snippets for Spring Boot, Streams API, Concurrency, and common backend tasks.'
+tags: ['java', 'spring-boot', 'backend', 'microservices']
+icon: 'Java'
+---
+
+## Streams API
+
+### Filter and Map
+```java
+List<String> names = users.stream()
+    .filter(u -> u.getAge() > 18)
+    .map(User::getName)
+    .collect(Collectors.toList());
+```
+
+### Group By
+```java
+Map<Department, List<Employee>> byDept = employees.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment));
+```
+
+### Find First or Default
+```java
+User user = users.stream()
+    .filter(u -> u.getId() == id)
+    .findFirst()
+    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+```
+
+### Summing Values
+```java
+double total = orders.stream()
+    .mapToDouble(Order::getAmount)
+    .sum();
+```
+
+## Spring Boot
+
+### Custom Exception Handler
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> handleNotFound(ResourceNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorDetails(ex.getMessage()), HttpStatus.NOT_FOUND);
+    }
+}
+```
+
+### RestTemplate with Timeout
+```java
+@Bean
+public RestTemplate restTemplate(RestTemplateBuilder builder) {
+    return builder
+        .setConnectTimeout(Duration.ofMillis(3000))
+        .setReadTimeout(Duration.ofMillis(3000))
+        .build();
+}
+```
+
+### Scheduling Tasks
+```java
+@Component
+public class ScheduledTasks {
+    @Scheduled(fixedRate = 5000)
+    public void reportCurrentTime() {
+        System.out.println("The time is now " + LocalDateTime.now());
+    }
+}
+```
+
+### Async Method
+```java
+@Service
+public class EmailService {
+    @Async
+    public CompletableFuture<String> sendEmail(String to) {
+        // logic
+        return CompletableFuture.completedFuture("Sent");
+    }
+}
+```
+
+## Concurrency
+
+### ExecutorService
+```java
+ExecutorService executor = Executors.newFixedThreadPool(10);
+executor.submit(() -> {
+    // task logic
+});
+executor.shutdown();
+```
+
+### CompletableFuture (Parallel Execution)
+```java
+CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> "Hello");
+CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> "World");
+
+String result = future1.thenCombine(future2, (s1, s2) -> s1 + " " + s2).join();
+```
+
+### Thread-Safe Singleton
+```java
+public class Singleton {
+    private static volatile Singleton instance;
+    private Singleton() {}
+    public static Singleton getInstance() {
+        if (instance == null) {
+            synchronized (Singleton.class) {
+                if (instance == null) instance = new Singleton();
+            }
+        }
+        return instance;
+    }
+}
+```
+
+## Utilities
+
+### Read File to String (Java 11+)
+```java
+String content = Files.readString(Path.of("file.txt"));
+```
+
+### Write String to File
+```java
+Files.writeString(Path.of("file.txt"), "Hello World");
+```
+
+### JSON Serialization (Jackson)
+```java
+ObjectMapper mapper = new ObjectMapper();
+String json = mapper.writeValueAsString(myObject);
+MyClass obj = mapper.readValue(json, MyClass.class);
+```
+
+### Optional Usage
+```java
+Optional.ofNullable(user)
+    .map(User::getAddress)
+    .map(Address::getCity)
+    .ifPresent(System.out::println);
+```

@@ -1,0 +1,513 @@
+---
+heading: 'API Design'
+title: 'REST and gRPC API Design Best Practices (2026 Edition)'
+date: '2026-01-18'
+type: 'Comprehensive Guide'
+draft: false
+summary: 'Complete guide to RESTful API design principles, gRPC Protocol Buffer best practices, security patterns, performance optimization, and production deployment strategies for modern microservices.'
+tags: ['api', 'rest', 'grpc', 'microservices', 'backend', 'design', 'protobuf', 'performance', 'security', 'scalability']
+icon: 'Database'
+author: 'API Architecture Team'
+---
+
+# REST and gRPC API Design Best Practices
+
+> Comprehensive API design ensures scalability, security, maintainability, and excellent developer experience across distributed systems. Perfect for NextJS + Supabase travel platforms and sports booking systems.
+
+## REST API Design Principles
+
+### 1. Resource-Oriented Design
+Treat everything as **nouns (resources)**, never verbs in URIs.
+
+**✅ Correct Patterns:**
+```http
+GET    /users                    # List users
+GET    /users/123                # Get specific user
+POST   /users                    # Create user
+PUT    /users/123                # Replace user completely
+PATCH  /users/123                # Partial update user
+DELETE /users/123                # Delete user
+GET    /users/123/orders         # Nested resources (shallow)
+GET    /products?category=travel # Filtering
+```
+
+**❌ Avoid These Anti-Patterns:**
+```text
+GET    /getUsers              # Verbs in URI
+POST   /createUser            # Action-based endpoints
+GET    /users/search?q=john   # Search logic in path
+PUT    /users/123/activate    # State change in URI
+```
+
+### 2. HTTP Methods & Semantic Correctness
+
+| Method | Idempotent | Safe | Use Case | Status Code | Response Body |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| GET | ✅ Yes | ✅ Yes | Retrieve | 200 OK | Resource(s) |
+| POST | ❌ No | ❌ No | Create | 201 Created | Created resource |
+| PUT | ✅ Yes | ❌ No | Replace/Create | 200 OK / 201 | Updated resource |
+| PATCH | ⚠️ Maybe | ❌ No | Partial Update | 200 OK | Updated resource |
+| DELETE | ✅ Yes | ❌ No | Delete | 204 No Content | None |
+
+**Golden Rules:**
+- Always return `Location: /users/123` header on `201 Created`.
+- `GET` responses can be cached, `POST/PUT/PATCH/DELETE` typically cannot.
+- Use `202 Accepted` for async operations (email sending, file processing).
+
+### 3. Standardized Response Envelope
+Consistent structure across ALL endpoints:
+
+```json
+{
+  "data": {
+    "id": "user-123",
+    "email": "john@example.com",
+    "name": "John Doe"
+  },
+  "meta": {
+    "pagination": {
+      "total": 150,
+      "page": 2,
+      "limit": 25,
+      "pages": 6,
+      "has_next": true,
+      "has_prev": true
+    },
+    "trace_id": "req-abc123def456",
+    "rate_limit": {
+      "remaining": 998,
+      "reset": 1642497600
+    }
+  },
+  "links": {
+    "self": "/v1/users?page=2&limit=25",
+    "next": "/v1/users?page=3&limit=25",
+    "first": "/v1/users?page=1&limit=25",
+    "last": "/v1/users?page=6&limit=25"
+  }
+}
+```
+
+**Error Response Format:**
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input provided",
+    "details": {
+      "field_errors": {
+        "email": ["Invalid email format"],
+        "age": ["Must be greater than 18"],
+        "password": ["Must be at least 8 characters"]
+      }
+    },
+    "request_id": "req-abc123def456",
+    "timestamp": "2026-01-18T14:30:00Z",
+    "retry_after": 60,
+    "docs": "/docs/errors/VALIDATION_ERROR"
+  }
+}
+```
+
+### 4. Query Parameter Conventions
+Standardize ALL filtering, sorting, and pagination:
+
+```text
+GET /v1/products?category=electronics&min_price=100&max_price=1000
+                   &sort=-price,created_at&limit=20&offset=40
+                   &fields=id,name,price&include=category,reviews
+                   &status=active,pending&search=iphone
+```
+
+**Parameter Reference:**
+
+| Parameter | Purpose | Example |
+| :--- | :--- | :--- |
+| category | Filter | `?category=electronics` |
+| min_price, max_price | Range filter | `?min_price=100&max_price=1000` |
+| sort | Multi-field sort | `?sort=-price,created_at` (- = DESC) |
+| limit/offset | Offset pagination | `?limit=20&offset=40` |
+| after/before | Cursor pagination | `?after=user_456` |
+| fields | Sparse fieldsets | `?fields=id,name,price` |
+| include | Relationship inclusion | `?include=category,reviews` |
+| status | Enum filter | `?status=active,pending` |
+| search | Full-text search | `?search=iphone` |
+
+### 5. HTTP Status Codes Reference
+
+**2xx Success:**
+```text
+200 OK - GET success
+201 Created - POST/PUT success (new resource)
+202 Accepted - Async operation accepted
+204 No Content - DELETE success
+```
+
+**4xx Client Error:**
+```text
+400 Bad Request - Malformed request
+401 Unauthorized - Missing/wrong auth
+403 Forbidden - Authenticated but no permission
+404 Not Found - Resource doesn't exist
+409 Conflict - Business rule violation
+422 Unprocessable Entity - Valid JSON, invalid data
+429 Too Many Requests - Rate limited
+```
+
+**5xx Server Error:**
+```text
+500 Internal Server Error - Unexpected error
+503 Service Unavailable - Maintenance/overload
+```
+
+## REST Advanced Patterns
+
+### 6. API Versioning Strategies
+
+**URI Versioning (Recommended for Public APIs):**
+```text
+GET /v1/users/123
+GET /v2/users/123  # Breaking changes only
+```
+
+**Header Versioning (Internal APIs):**
+```text
+Accept: application/vnd.myapi.v1+json
+Accept: application/vnd.myapi.v2+json
+```
+
+**Deprecation Headers (Graceful Migration):**
+```text
+Sunset: Sun, 31 Dec 2026 23:59:59 GMT
+Deprecation: Wed, 01 Jan 2026 00:00:00 GMT
+Link: </v2/migrate>; rel="upgrade"
+```
+
+### 7. HATEOAS (Hypermedia as Engine of Application State)
+Self-discoverable APIs:
+
+```json
+{
+  "id": "user-123",
+  "name": "John Doe",
+  "status": "active",
+  "_links": {
+    "self": { 
+      "href": "/v1/users/user-123",
+      "method": "GET",
+      "title": "Get user details"
+    },
+    "profile": { 
+      "href": "/v1/users/user-123/profile",
+      "method": "GET"
+    },
+    "orders": { 
+      "href": "/v1/users/user-123/orders",
+      "method": "GET",
+      "title": "View orders",
+      "deprecated": false
+    },
+    "update": {
+      "href": "/v1/users/user-123",
+      "method": "PATCH",
+      "title": "Update profile",
+      "required_scopes": ["users:write"]
+    },
+    "suspend": {
+      "href": "/v1/users/user-123/suspend",
+      "method": "POST",
+      "title": "Suspend account",
+      "required_scopes": ["users:admin"]
+    }
+  }
+}
+```
+
+### 8. Caching & Performance Optimization
+
+**Cache-Control Headers:**
+```text
+Cache-Control: public, max-age=3600, stale-while-revalidate=86400, stale-if-error=86400
+ETag: "686897696a7c876b7e"
+Last-Modified: Wed, 18 Jan 2026 14:30:00 GMT
+Vary: Accept-Encoding, Accept-Language
+```
+
+**Conditional Requests:**
+```text
+If-None-Match: "686897696a7c876b7e"
+If-Modified-Since: Wed, 18 Jan 2026 14:30:00 GMT
+```
+
+## gRPC Design Principles
+
+### 9. Protocol Buffer (.proto) Best Practices
+1-1-1 Rule: One message/service per file
+
+```protobuf
+// File: api/v1/users.proto
+syntax = "proto3";
+package api.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+// User Service
+service UserService {
+  rpc GetUser(GetUserRequest) returns (User) {
+    option (google.api.http) = {
+      get: "/v1/users/{id}"
+    };
+  }
+  
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc CreateUser(CreateUserRequest) returns (User);
+  rpc BatchUpdateUsers(stream UpdateUserRequest) returns (BatchUpdateUsersResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+}
+
+// Requests
+message GetUserRequest {
+  string id = 1;
+}
+
+message ListUsersRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+  repeated string status = 3;
+}
+
+message CreateUserRequest {
+  CreateUserPayload user = 1;
+}
+
+message CreateUserPayload {
+  string email = 1;
+  string name = 2;
+  string phone = 3;
+}
+
+// Responses
+message User {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  UserStatus status = 6;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+  string next_page_token = 2;
+}
+
+enum UserStatus {
+  USER_STATUS_UNSPECIFIED = 0;
+  USER_STATUS_ACTIVE = 1;
+  USER_STATUS_INACTIVE = 2;
+  USER_STATUS_SUSPENDED = 3;
+  USER_STATUS_DELETED = 4;
+}
+```
+
+### 10. Backward/Forward Compatibility Rules
+
+**✅ Safe Changes:**
+```text
+✓ Add new fields (unique field numbers)
+✓ Delete fields (mark as `reserved`)
+✓ Add new enum values
+✓ Change enum value names
+✓ Add new messages/services
+```
+
+**❌ Breaking Changes:**
+```text
+✗ Remove fields without `reserved`
+✗ Change field numbers
+✗ Change field types
+✗ Remove enum values
+✗ Rename messages/services
+```
+
+**Field Evolution Example:**
+```protobuf
+// v1: users.proto
+message User {
+  string id = 1;
+  string name = 2;        // Will be deprecated
+  string email = 3;
+}
+
+// v2: users.proto (backward compatible)
+message User {
+  string id = 1;
+  reserved 2;             // Deprecated field
+  reserved "name";        // Also reserve by name
+  string full_name = 4;   // New field
+  string email = 3;
+}
+```
+
+### 11. gRPC Service Patterns
+
+**Method Types:**
+```protobuf
+// 1. Unary RPC (REST equivalent)
+rpc GetUser(GetUserRequest) returns (User);
+
+// 2. Server Streaming (Paginated lists)
+rpc ListUsers(ListUsersRequest) returns (stream User);
+
+// 3. Client Streaming (Bulk operations)
+rpc BatchCreateUsers(stream CreateUserRequest) returns (BatchResponse);
+
+// 4. Bidirectional Streaming (Real-time)
+rpc Chat(stream ChatMessage) returns (stream ChatMessage);
+```
+
+## Production Security Patterns
+
+### 12. Authentication & Authorization
+
+**REST (Stateless JWT + OAuth2):**
+```text
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9...
+X-Requested-With: XMLHttpRequest
+X-Client-ID: travel-app-v1.2.3
+```
+
+**gRPC (Metadata + mTLS):**
+```text
+Metadata Headers:
+authorization: Bearer <jwt_token>
+traceparent: 00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01
+user-agent: TravelApp/1.2.3
+```
+
+### 13. Rate Limiting & Throttling
+
+**Standard Headers:**
+```text
+X-RateLimit-Limit: 1000              # Max requests per window
+X-RateLimit-Remaining: 999           # Remaining requests
+X-RateLimit-Reset: 1642497600        # Unix timestamp
+Retry-After: 3600                    # Seconds until reset
+X-RateLimit-Interval: 3600           # Window size in seconds
+```
+
+**429 Response:**
+```json
+{
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "Too many requests",
+    "retry_after": 3600,
+    "rate_limit": {
+      "limit": 1000,
+      "remaining": 0,
+      "reset": 1642497600
+    }
+  }
+}
+```
+
+### 14. CORS Configuration
+```text
+Access-Control-Allow-Origin: https://travel-app.com
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
+Access-Control-Allow-Headers: Content-Type,Authorization,X-Requested-With
+Access-Control-Max-Age: 86400
+Access-Control-Expose-Headers: X-RateLimit-Remaining,ETag
+```
+
+## Performance Optimization
+
+### 15. Compression & Encoding
+
+**REST:**
+```text
+Accept-Encoding: gzip, deflate, br
+Content-Encoding: br
+Transfer-Encoding: chunked
+```
+
+**gRPC (Automatic):**
+- Protocol Buffers: 3-10x smaller than JSON
+- HTTP/2 HPACK header compression
+- Built-in message compression
+
+### 16. HTTP/2 Benefits for Both
+```text
+✅ Multiple requests over single TCP connection (Multiplexing)
+✅ Binary framing + Header compression (HPACK)
+✅ Server push capability
+✅ Stream prioritization
+✅ Flow control
+```
+
+## Documentation Standards
+
+### 17. REST - OpenAPI 3.1
+```yaml
+openapi: 3.1.0
+info:
+  title: Travel Platform API
+  description: Travel booking and management API
+  version: 1.0.0
+servers:
+  - url: https://api.travelapp.com/v1
+    description: Production
+  - url: https://staging-api.travelapp.com/v1
+    description: Staging
+paths:
+  /users/{id}:
+    get:
+      summary: Get user profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "user-123"
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+```
+
+### 18. gRPC Documentation
+```bash
+# Generate Markdown docs from .proto
+protoc --doc_out=./docs --doc_opt=markdown,api.md api/v1/*.proto
+
+# Generate OpenAPI from gRPC (gateway)
+protoc --openapi_out=./docs --proto_path=. api/v1/*.proto
+```

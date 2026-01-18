@@ -1,0 +1,114 @@
+---
+heading: 'Python One-Liners'
+title: 'Python Snippets for Backend Efficiency'
+date: '2024-08-02'
+type: 'Snippet'
+draft: false
+summary: 'Concise Python snippets for data processing, scripting, and backend tasks.'
+tags: ['python', 'backend', 'scripts', 'data']
+icon: 'Python'
+---
+
+## Data Manipulation
+
+### List Comprehension (Filtering)
+```python
+evens = [x for x in range(10) if x % 2 == 0]
+```
+
+### Dictionary Comprehension
+```python
+my_dict = {k: v for k, v in zip(['a', 'b'], [1, 2])}
+```
+
+### Flatten List of Lists
+```python
+flat = [item for sublist in [[1, 2], [3, 4]] for item in sublist]
+```
+
+### Unique Elements (Preserving Order)
+```python
+unique = list(dict.fromkeys([1, 2, 2, 3, 1]))
+```
+
+### Most Frequent Element
+```python
+most_frequent = max(set(data), key=data.count)
+```
+
+## File & System
+
+### Read File into List
+```python
+lines = [line.strip() for line in open('file.txt')]
+```
+
+### Write List to File
+```python
+with open('file.txt', 'w') as f: f.writelines(my_list)
+```
+
+### Simple HTTP Server
+```bash
+python -m http.server 8000
+```
+
+### Measure Execution Time
+```python
+import time
+start = time.time(); # code here; 
+print(f"Time: {time.time() - start}")
+```
+
+## Networking & API
+
+### Send GET Request (Requests)
+```python
+import requests
+response = requests.get('https://api.github.com').json()
+```
+
+### Pretty Print JSON
+```python
+import json
+print(json.dumps(my_dict, indent=4))
+```
+
+### Download Image
+```python
+import urllib.request
+urllib.request.urlretrieve("http://example.com/img.jpg", "local.jpg")
+```
+
+## Advanced Logic
+
+### Merge Two Dictionaries
+```python
+merged = {**dict1, **dict2}
+# Python 3.9+
+merged = dict1 | dict2
+```
+
+### Sort Dictionary by Value
+```python
+sorted_d = dict(sorted(d.items(), key=lambda item: item[1]))
+```
+
+### Anagram Check
+```python
+is_anagram = lambda s1, s2: sorted(s1) == sorted(s2)
+```
+
+### Palindrome Check
+```python
+is_palindrome = lambda s: s == s[::-1]
+```
+
+### Fibonacci Generator
+```python
+def fib(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+```

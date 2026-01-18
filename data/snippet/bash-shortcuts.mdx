@@ -1,0 +1,153 @@
+---
+heading: 'Bash & Terminal'
+title: 'Bash Snippets for Terminal Productivity'
+date: '2024-08-05'
+type: 'Snippet'
+draft: false
+summary: 'Essential terminal commands, shell scripting tricks, and productivity aliases for backend engineers.'
+tags: ['bash', 'linux', 'terminal', 'backend']
+icon: 'Bash'
+---
+
+## File & Directory Operations
+
+### Find and Replace in Files (sed)
+Replace 'old_text' with 'new_text' in all files in the current directory.
+```bash
+sed -i 's/old_text/new_text/g' *
+```
+
+### Search Text Recursively (grep)
+Find a string in all files within a directory, showing line numbers.
+```bash
+grep -rnw './path' -e 'search_term'
+```
+
+### List Files by Size
+Sort files in the current directory by size in human-readable format.
+```bash
+ls -lhS
+```
+
+### Create Directory and Enter (Function)
+Add this to your `.bashrc` or `.zshrc`.
+```bash
+mkcd() {
+  mkdir -p "$1" && cd "$1"
+}
+```
+
+### Find Large Files
+Find files larger than 100MB in the current directory.
+```bash
+find . -type f -size +100M
+```
+
+### Tree View of Directory
+```bash
+find . -maxdepth 2 -not -path '*/.*'
+```
+
+## Process & System Monitoring
+
+### Check Disk Usage
+Show disk usage of folders in the current directory.
+```bash
+du -sh * | sort -h
+```
+
+### Kill Process by Name
+```bash
+pkill -f process_name
+```
+
+### Find Process on Port
+Find what is running on port 8080.
+```bash
+lsof -i :8080
+# Or
+netstat -nlp | grep :8080
+```
+
+### Monitor Logs in Real-time
+```bash
+tail -f /var/log/syslog
+```
+
+### Watch Command Output
+Run a command every 2 seconds and highlight changes.
+```bash
+watch -d 'ls -l'
+```
+
+## Networking
+
+### Check Public IP
+```bash
+curl ifconfig.me
+```
+
+### Test Port Connectivity
+```bash
+nc -zv 127.0.0.1 8080
+```
+
+### Download File with Resume
+```bash
+curl -C - -O http://example.com/largefile.zip
+```
+
+## Archiving
+
+### Extract tar.gz
+```bash
+tar -xzvf archive.tar.gz
+```
+
+### Create tar.gz
+```bash
+tar -czvf archive.tar.gz folder_name/
+```
+
+### Extract Zip
+```bash
+unzip archive.zip -d destination_folder/
+```
+
+## Shell Scripting Tricks
+
+### Loop Over Files
+```bash
+for file in *.log; do
+    echo "Processing $file"
+    cat "$file" | grep "ERROR" >> errors.txt
+done
+```
+
+### Check if File Exists
+```bash
+if [ -f "config.json" ]; then
+    echo "Config found."
+else
+    echo "Config missing."
+fi
+```
+
+### Read Input with Default
+```bash
+read -p "Enter environment [dev]: " env
+env=${env:-dev}
+echo "Deploying to $env"
+```
+
+## Useful Aliases
+Add these to your shell profile for speed.
+```bash
+alias gs='git status'
+alias gp='git pull'
+alias gcm='git commit -m'
+alias ll='ls -lah'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ports='netstat -tulanp'
+```

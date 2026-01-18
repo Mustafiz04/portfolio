@@ -1,0 +1,255 @@
+---
+heading: 'Challenging Algorithms'
+title: 'Challenging Algorithms in Java'
+date: '2024-08-08'
+type: 'Snippet'
+draft: false
+summary: 'Classic algorithms and data structures implemented in Java for backend interviews and logic building.'
+tags: ['algorithms', 'java', 'backend', 'interviews']
+icon: 'Java'
+---
+
+## 1. LRU Cache Implementation
+Using `LinkedHashMap` for a clean and efficient Least Recently Used cache.
+
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+class LRUCache<K, V> extends LinkedHashMap<K, V> {
+    private final int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true);
+        this.capacity = capacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        return size() > capacity;
+    }
+}
+```
+
+## 2. Trie (Prefix Tree)
+Efficiently store and search strings, commonly used for autocomplete.
+
+```java
+class TrieNode {
+    TrieNode[] children = new TrieNode[26];
+    boolean isEndOfWord;
+}
+
+class Trie {
+    private TrieNode root = new TrieNode();
+
+    public void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) node.children[index] = new TrieNode();
+            node = node.children[index];
+        }
+        node.isEndOfWord = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) return false;
+            node = node.children[index];
+        }
+        return node.isEndOfWord;
+    }
+}
+```
+
+## 3. Binary Search
+Classic recursive implementation.
+
+```java
+public int binarySearch(int[] arr, int target, int low, int high) {
+    if (low > high) return -1;
+    int mid = low + (high - low) / 2;
+    if (arr[mid] == target) return mid;
+    if (arr[mid] > target) return binarySearch(arr, target, low, mid - 1);
+    return binarySearch(arr, target, mid + 1, high);
+}
+```
+
+## 4. Quick Sort
+Divide and conquer sorting.
+
+```java
+public void quickSort(int[] arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+private int partition(int[] arr, int low, int high) {
+    int pivot = arr[high];
+    int i = (low - 1);
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+    int temp = arr[i + 1];
+    arr[i + 1] = arr[high];
+    arr[high] = temp;
+    return i + 1;
+}
+```
+
+## 5. Merge Sort
+Stable sorting algorithm.
+
+```java
+public void mergeSort(int[] arr, int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+}
+
+private void merge(int[] arr, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    int[] L = new int[n1];
+    int[] R = new int[n2];
+    System.arraycopy(arr, l, L, 0, n1);
+    System.arraycopy(arr, m + 1, R, 0, n2);
+    int i = 0, j = 0, k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) arr[k++] = L[i++];
+        else arr[k++] = R[j++];
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+```
+
+## 6. Dijkstra's Shortest Path
+Finding the shortest path in a weighted graph.
+
+```java
+import java.util.*;
+
+class Graph {
+    private int V;
+    private List<List<Node>> adj;
+
+    class Node implements Comparable<Node> {
+        int target, weight;
+        Node(int t, int w) { target = t; weight = w; }
+        public int compareTo(Node other) { return Integer.compare(this.weight, other.weight); }
+    }
+
+    public int[] dijkstra(int src) {
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
+        PriorityQueue<Node> pq = new PriorityQueue<>();
+        pq.add(new Node(src, 0));
+
+        while (!pq.isEmpty()) {
+            int u = pq.poll().target;
+            for (Node neighbor : adj.get(u)) {
+                if (dist[u] + neighbor.weight < dist[neighbor.target]) {
+                    dist[neighbor.target] = dist[u] + neighbor.weight;
+                    pq.add(new Node(neighbor.target, dist[neighbor.target]));
+                }
+            }
+        }
+        return dist;
+    }
+}
+```
+
+## 7. Detect Cycle in Directed Graph
+Using DFS and recursion stack.
+
+```java
+public boolean isCyclic(int V, List<List<Integer>> adj) {
+    boolean[] visited = new boolean[V];
+    boolean[] recStack = new boolean[V];
+    for (int i = 0; i < V; i++) {
+        if (dfs(i, adj, visited, recStack)) return true;
+    }
+    return false;
+}
+
+private boolean dfs(int u, List<List<Integer>> adj, boolean[] visited, boolean[] recStack) {
+    if (recStack[u]) return true;
+    if (visited[u]) return false;
+    visited[u] = true;
+    recStack[u] = true;
+    for (int v : adj.get(u)) {
+        if (dfs(v, adj, visited, recStack)) return true;
+    }
+    recStack[u] = false;
+    return false;
+}
+```
+
+## 8. Longest Common Subsequence (DP)
+```java
+public int lcs(String s1, String s2) {
+    int m = s1.length(), n = s2.length();
+    int[][] dp = new int[m + 1][n + 1];
+    for (int i = 1; i <= m; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (s1.charAt(i - 1) == s2.charAt(j - 1))
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            else
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp[m][n];
+}
+```
+
+## 9. Knapsack Problem (0/1)
+```java
+public int knapsack(int W, int[] wt, int[] val, int n) {
+    int[][] dp = new int[n + 1][W + 1];
+    for (int i = 0; i <= n; i++) {
+        for (int w = 0; w <= W; w++) {
+            if (i == 0 || w == 0) dp[i][w] = 0;
+            else if (wt[i - 1] <= w)
+                dp[i][w] = Math.max(val[i - 1] + dp[i - 1][w - wt[i - 1]], dp[i - 1][w]);
+            else
+                dp[i][w] = dp[i - 1][w];
+        }
+    }
+    return dp[n][W];
+}
+```
+
+## 10. Sliding Window Maximum
+```java
+import java.util.*;
+
+public int[] maxSlidingWindow(int[] nums, int k) {
+    if (nums == null || k <= 0) return new int[0];
+    int n = nums.length;
+    int[] result = new int[n - k + 1];
+    Deque<Integer> deque = new ArrayDeque<>();
+    for (int i = 0; i < n; i++) {
+        if (!deque.isEmpty() && deque.peekFirst() < i - k + 1) deque.pollFirst();
+        while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) deque.pollLast();
+        deque.offerLast(i);
+        if (i >= k - 1) result[i - k + 1] = nums[deque.peekFirst()];
+    }
+    return result;
+}
+```

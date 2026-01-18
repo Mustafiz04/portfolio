@@ -1,0 +1,65 @@
+---
+heading: 'System Design'
+title: 'System Design Patterns and Backend Architecture'
+date: '2024-08-10'
+type: 'Snippet'
+draft: false
+summary: 'Core concepts and patterns for building scalable and resilient backend systems.'
+tags: ['system-design', 'architecture', 'scalability', 'backend']
+icon: 'Database'
+---
+
+## Scalability Patterns
+
+### Horizontal vs Vertical Scaling
+- **Vertical Scaling (Scaling Up):** Adding more power (CPU, RAM) to an existing server.
+- **Horizontal Scaling (Scaling Out):** Adding more servers to your pool of resources.
+
+### Load Balancing Strategies
+- **Round Robin:** Requests are distributed sequentially.
+- **Least Connections:** Requests go to the server with the fewest active connections.
+- **IP Hash:** The client's IP address determines which server receives the request.
+
+## Data Consistency
+
+### CAP Theorem
+- **Consistency:** Every read receives the most recent write or an error.
+- **Availability:** Every request receives a (non-error) response.
+- **Partition Tolerance:** The system continues to operate despite an arbitrary number of messages being dropped or delayed by the network between nodes.
+*Note: You can only pick two.*
+
+### ACID vs BASE
+- **ACID (RDBMS):** Atomicity, Consistency, Isolation, Durability.
+- **BASE (NoSQL):** Basically Available, Soft state, Eventual consistency.
+
+## Communication Patterns
+
+### Synchronous (REST, gRPC)
+- Client waits for a response.
+- Good for immediate feedback but can lead to cascading failures.
+
+### Asynchronous (Message Queues, Pub/Sub)
+- Client sends a message and continues its work.
+- Decouples services and improves system resilience.
+
+## Resiliency Patterns
+
+### Circuit Breaker
+Prevents a network or service failure from cascading to other services.
+
+### Bulkhead
+Isolates elements of an application into pools so that if one fails, the others will continue to function.
+
+### CQRS (Command Query Responsibility Segregation)
+Separates read and update operations for a data store.
+
+## Caching Strategies
+
+### Cache-Aside
+The application code is responsible for loading data into the cache and keeping it in sync with the database.
+
+### Write-Through
+The application writes data to the cache, which then synchronously updates the database.
+
+### Write-Behind (Write-Back)
+The application writes data to the cache, and the cache asynchronously updates the database after a delay.

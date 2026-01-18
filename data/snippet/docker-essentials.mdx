@@ -1,0 +1,151 @@
+---
+heading: 'Docker Essentials'
+title: 'Docker Snippets for Container Management'
+date: '2024-08-06'
+type: 'Snippet'
+draft: false
+summary: 'Comprehensive Docker commands for development, debugging, and orchestration.'
+tags: ['docker', 'devops', 'containers', 'backend']
+icon: 'Docker'
+---
+
+## Container Management
+
+### Remove All Stopped Containers
+Clean up your environment by removing containers that are not running.
+```bash
+docker container prune
+```
+
+### Stop All Running Containers
+Stop every container currently running on your host.
+```bash
+docker stop $(docker ps -q)
+```
+
+### Remove All Containers
+Forcefully remove all containers (running or stopped).
+```bash
+docker rm -f $(docker ps -aq)
+```
+
+### View Container Logs
+Stream logs from a specific container to your terminal.
+```bash
+docker logs -f <container_id_or_name>
+```
+
+### Execute Command in Running Container
+Open an interactive shell inside a running container.
+```bash
+docker exec -it <container_id_or_name> /bin/bash
+# Or for alpine-based images
+docker exec -it <container_id_or_name> /bin/sh
+```
+
+### Inspect Container Details
+Get detailed JSON information about a container's configuration.
+```bash
+docker inspect <container_id_or_name>
+```
+
+### Copy Files to/from Container
+```bash
+# From host to container
+docker cp ./local-file.txt <container_id>:/path/in/container
+
+# From container to host
+docker cp <container_id>:/path/in/container ./local-file.txt
+```
+
+## Image Management
+
+### Remove All Unused Images
+Free up disk space by removing dangling images.
+```bash
+docker image prune -a
+```
+
+### Build Image from Dockerfile
+```bash
+docker build -t my-app:latest .
+```
+
+### Tag an Image
+```bash
+docker tag my-app:latest my-repo/my-app:v1.0
+```
+
+### Push Image to Registry
+```bash
+docker push my-repo/my-app:v1.0
+```
+
+### List Images by Size
+```bash
+docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
+```
+
+## Volumes & Networks
+
+### Remove Unused Volumes
+```bash
+docker volume prune
+```
+
+### List All Networks
+```bash
+docker network ls
+```
+
+### Create a Custom Network
+```bash
+docker network create my-network
+```
+
+## Docker Compose
+
+### Start Services in Background
+```bash
+docker-compose up -d
+```
+
+### Stop and Remove Resources
+```bash
+docker-compose down
+```
+
+### View Compose Logs
+```bash
+docker-compose logs -f
+```
+
+### Rebuild and Restart
+```bash
+docker-compose up -d --build
+```
+
+### Run a One-off Command
+```bash
+docker-compose run --rm web-service npm test
+```
+
+## Advanced Debugging
+
+### Check Resource Usage (Stats)
+Monitor CPU, memory, and network usage in real-time.
+```bash
+docker stats
+```
+
+### Check Disk Usage
+See how much space Docker is using for images, containers, and volumes.
+```bash
+docker system df
+```
+
+### Deep Clean (System Prune)
+Remove all unused containers, networks, images (both dangling and unreferenced), and optionally, volumes.
+```bash
+docker system prune -a --volumes
+```

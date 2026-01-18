@@ -1,0 +1,128 @@
+---
+heading: 'SQL Cheat Sheet'
+title: 'SQL Queries for Data Analysis and Backend'
+date: '2024-08-03'
+type: 'Snippet'
+draft: false
+summary: 'Essential SQL queries for data manipulation, retrieval, and database management.'
+tags: ['sql', 'database', 'backend', 'data']
+icon: 'Sql'
+---
+
+## Data Retrieval
+
+### Select Unique Records
+```sql
+SELECT DISTINCT category FROM products;
+```
+
+### Join Multiple Tables
+```sql
+SELECT o.id, c.name, p.title
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+JOIN products p ON o.product_id = p.id;
+```
+
+### Group By and Having
+```sql
+SELECT category, COUNT(*) as total
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 5;
+```
+
+## Data Modification
+
+### Update with Join
+```sql
+UPDATE products
+SET price = price * 1.1
+FROM categories
+WHERE products.category_id = categories.id
+AND categories.name = 'Electronics';
+```
+
+### Delete Duplicates
+```sql
+DELETE FROM users
+WHERE id NOT IN (
+  SELECT MIN(id)
+  FROM users
+  GROUP BY email
+);
+```
+
+## Advanced Queries
+
+### Find Second Highest Salary
+```sql
+SELECT MAX(salary)
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+```
+
+### Window Functions (Rank)
+```sql
+SELECT name, department, salary,
+RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank
+FROM employees;
+```
+
+### Case Statements
+```sql
+SELECT name,
+CASE
+  WHEN score >= 90 THEN 'A'
+  WHEN score >= 80 THEN 'B'
+  ELSE 'C'
+END as grade
+FROM students;
+```
+
+### Coalesce (Null Handling)
+```sql
+SELECT name, COALESCE(phone, 'N/A') as contact
+FROM users;
+```
+
+### Recursive CTE (Hierarchy)
+```sql
+WITH RECURSIVE subordinates AS (
+  SELECT id, name, manager_id
+  FROM employees WHERE name = 'Alice'
+  UNION ALL
+  SELECT e.id, e.name, e.manager_id
+  FROM employees e
+  JOIN subordinates s ON s.id = e.manager_id
+)
+SELECT * FROM subordinates;
+```
+
+## Database Management
+
+### Create Index
+```sql
+CREATE INDEX idx_user_email ON users(email);
+```
+
+### Add Column with Default
+```sql
+ALTER TABLE users ADD COLUMN status VARCHAR(20) DEFAULT 'active';
+```
+
+### Copy Table Structure
+```sql
+CREATE TABLE users_backup AS SELECT * FROM users WHERE 1=0;
+```
+
+### Find Table Constraints
+```sql
+SELECT * FROM information_schema.table_constraints
+WHERE table_name = 'users';
+```
+
+### Check Database Size
+```sql
+SELECT pg_size_pretty(pg_database_size('my_database'));
+```

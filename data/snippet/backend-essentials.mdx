@@ -1,0 +1,125 @@
+---
+heading: 'Backend Essentials'
+title: 'Backend Engineering Snippets (Redis, Kafka, SQL)'
+date: '2024-08-03'
+type: 'Snippet'
+draft: false
+summary: 'Commonly used snippets for caching, messaging, and database optimization.'
+tags: ['redis', 'kafka', 'postgres', 'backend', 'architecture']
+icon: 'Database'
+---
+
+## Redis Caching
+
+### Basic Set/Get (CLI)
+```bash
+redis-cli SET user:1 '{"name": "John"}' EX 3600
+redis-cli GET user:1
+```
+
+### Check Memory Usage
+```bash
+redis-cli info memory
+```
+
+### Clear All Cache
+```bash
+redis-cli flushall
+```
+
+### Monitor Commands in Real-time
+```bash
+redis-cli monitor
+```
+
+## Apache Kafka
+
+### Create a Topic
+```bash
+kafka-topics.sh --create --topic my-topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+```
+
+### Produce Messages (CLI)
+```bash
+kafka-console-producer.sh --topic my-topic --bootstrap-server localhost:9092
+```
+
+### Consume Messages (CLI)
+```bash
+kafka-console-consumer.sh --topic my-topic --from-beginning --bootstrap-server localhost:9092
+```
+
+### Check Consumer Group Offsets
+```bash
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-group --describe
+```
+
+## PostgreSQL Optimization
+
+### Explain Analyze
+Understand how a query is executed.
+```sql
+EXPLAIN ANALYZE SELECT * FROM orders WHERE customer_id = 123;
+```
+
+### Find Slow Queries
+```sql
+SELECT query, calls, total_exec_time, rows
+FROM pg_stat_statements
+ORDER BY total_exec_time DESC
+LIMIT 10;
+```
+
+### Check Table Size
+```sql
+SELECT relname AS "Table",
+       pg_size_pretty(pg_total_relation_size(relid)) AS "Size"
+FROM pg_catalog.pg_statio_user_tables
+ORDER BY pg_total_relation_size(relid) DESC;
+```
+
+### Kill Long Running Query
+```sql
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE state = 'active'
+  AND now() - query_start > interval '5 minutes';
+```
+
+## Microservices Patterns
+
+### Circuit Breaker (Resilience4j)
+```java
+CircuitBreakerConfig config = CircuitBreakerConfig.custom()
+    .failureRateThreshold(50)
+    .waitDurationInOpenState(Duration.ofMillis(1000))
+    .build();
+
+CircuitBreaker registry = CircuitBreaker.of("myService", config);
+```
+
+### Retry Pattern
+```java
+RetryConfig config = RetryConfig.custom()
+    .maxAttempts(3)
+    .waitDuration(Duration.ofMillis(500))
+    .build();
+
+Retry retry = Retry.of("myService", config);
+```
+
+## Security
+
+### Generate Secure Random String
+```java
+SecureRandom random = new SecureRandom();
+byte[] bytes = new byte[32];
+random.nextBytes(bytes);
+String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+```
+
+### BCrypt Password Hashing
+```java
+String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
+boolean matches = BCrypt.checkpw(password, hashed);
+```

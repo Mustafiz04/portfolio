@@ -1,0 +1,120 @@
+---
+heading: 'Git Advanced'
+title: 'Git Snippets for Power Users'
+date: '2024-08-09'
+type: 'Snippet'
+draft: false
+summary: 'Advanced Git commands to master version control and streamline your development workflow.'
+tags: ['git', 'workflow', 'devops', 'backend']
+icon: 'Git'
+---
+
+## History & Commits
+
+### Fixup and Autosquash
+Clean up your commit history by marking a commit as a fixup for a previous one.
+```bash
+# Commit as a fixup
+git commit --fixup <commit-hash>
+
+# Rebase and automatically squash fixups
+git rebase -i --autosquash <base-branch>
+```
+
+### Git Reflog
+Find lost commits or undo a hard reset.
+```bash
+git reflog
+# Reset to a specific state from reflog
+git reset --hard HEAD@{index}
+```
+
+### Search Commit Messages
+```bash
+git log --grep="bug fix"
+```
+
+### Search Code in History
+Find when a specific string was added or removed.
+```bash
+git log -S "secret_key"
+```
+
+### Beautiful Log Graph
+```bash
+git log --graph --oneline --all --decorate
+```
+
+## Branching & Stashing
+
+### Stash Specific Files
+```bash
+git stash push path/to/file1 path/to/file2 -m "partial stash"
+```
+
+### Git Worktree
+Work on multiple branches at once in different directories.
+```bash
+git worktree add ../new-feature-dir feature-branch
+```
+
+### Delete Merged Branches
+```bash
+git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
+```
+
+## Debugging
+
+### Git Bisect
+Find the commit that introduced a bug.
+```bash
+git bisect start
+git bisect bad          # Current is bad
+git bisect good v1.0    # v1.0 was good
+# Test and repeat:
+git bisect good/bad
+# Finish:
+git bisect reset
+```
+
+### Git Blame
+See who changed each line of a file.
+```bash
+git blame -L 10,20 path/to/file
+```
+
+## Configuration
+
+### Conditional Config
+Use different emails for work and personal projects.
+```bash
+# In ~/.gitconfig
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
+```
+
+### Global Gitignore
+```bash
+git config --global core.excludesfile ~/.gitignore_global
+```
+
+## Maintenance
+
+### Clean Untracked Files
+```bash
+# Dry run
+git clean -fdn
+# Real delete
+git clean -fd
+```
+
+### Prune Remote Branches
+Remove local references to branches that were deleted on remote.
+```bash
+git fetch --prune
+```
+
+### Change Last Commit Message
+```bash
+git commit --amend -m "New message"
+```

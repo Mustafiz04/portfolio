@@ -16,6 +16,12 @@ import TailwindCSS from '../public/static/icons/tailwind.svg'
 import Typescript from '../public/static/icons/typescript.svg'
 import Umami from '../public/static/icons/umami.svg'
 import Vercel from '../public/static/icons/vercel.svg'
+import Docker from '../public/static/icons/docker.svg'
+import Java from '../public/static/icons/java.svg'
+import Python from '../public/static/icons/python.svg'
+import Sql from '../public/static/icons/sql.svg'
+import Database from '../public/static/icons/database.svg'
+
 
 export const BrandIconsMap = {
   React,
@@ -36,6 +42,11 @@ export const BrandIconsMap = {
   Vercel,
   Railway,
   Spotify,
+  Docker,
+  Java,
+  Python,
+  Sql,
+  Database,
 }
 
 export function BrandIcon(props: { type: keyof typeof BrandIconsMap; className?: string }) {
