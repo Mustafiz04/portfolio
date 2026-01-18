@@ -22,7 +22,6 @@ import Python from '../public/static/icons/python.svg'
 import Sql from '../public/static/icons/sql.svg'
 import Database from '../public/static/icons/database.svg'
 
-
 export const BrandIconsMap = {
   React,
   Remix,

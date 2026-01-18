@@ -21,7 +21,7 @@ export function MapBoxGlobe({ accessToken }) {
   // Rotate at intermediate speeds between zoom levels 3 and 5.
   const slowSpinZoom = 3
 
-  let userInteracting = false
+  const userInteracting = useRef(false)
   const spinEnabled = true
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export function MapBoxGlobe({ accessToken }) {
 
     function spinGlobe() {
       const zoom = map.current?.getZoom()
-      if (spinEnabled && !userInteracting && (zoom ?? 0) < maxSpinZoom) {
+      if (spinEnabled && !userInteracting.current && (zoom ?? 0) < maxSpinZoom) {
         let distancePerSecond = 360 / secondsPerRevolution
         if ((zoom ?? 0) > slowSpinZoom) {
           // Slow spinning at higher zooms
@@ -78,10 +78,10 @@ export function MapBoxGlobe({ accessToken }) {
 
       // Pause spinning on interaction
       map.current?.on('mousedown', () => {
-        userInteracting = true
+        userInteracting.current = true
       })
       map.current?.on('dragstart', () => {
-        userInteracting = true
+        userInteracting.current = true
       })
     }
 

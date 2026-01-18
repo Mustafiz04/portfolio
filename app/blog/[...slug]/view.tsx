@@ -13,6 +13,6 @@ export default function ViewCounter({ slug }) {
       },
       body: JSON.stringify({ slug }),
     })
-  }, [slug])
+  }, [slug, isProduction])
   return null
 }
