@@ -112,7 +112,7 @@ export function MapBoxGlobe({ accessToken }) {
     return () => {
       map.current?.off('moveend', spinGlobe)
     }
-  }, [])
+  }, [accessToken, lat, lng, spinEnabled, zoom])
   return (
     <>
       <div ref={mapContainer} className="map-container" style={{ height: '500px' }} />

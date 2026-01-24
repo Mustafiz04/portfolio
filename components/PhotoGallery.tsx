@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import { Dialog } from '@headlessui/react'
 import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
@@ -10,9 +10,34 @@ interface Photo {
   alt: string
 }
 
+function useColumns() {
+  const [columns, setColumns] = useState(1)
+
+  useEffect(() => {
+    const updateColumns = () => {
+      if (window.matchMedia('(min-width: 1024px)').matches) {
+        setColumns(4)
+      } else if (window.matchMedia('(min-width: 768px)').matches) {
+        setColumns(3)
+      } else if (window.matchMedia('(min-width: 640px)').matches) {
+        setColumns(2)
+      } else {
+        setColumns(1)
+      }
+    }
+
+    updateColumns()
+    window.addEventListener('resize', updateColumns)
+    return () => window.removeEventListener('resize', updateColumns)
+  }, [])
+
+  return columns
+}
+
 export default function PhotoGallery({ photos }: { photos: Photo[] }) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [shuffledPhotos, setShuffledPhotos] = useState<Photo[]>([])
+  const columns = useColumns()
 
   useEffect(() => {
     // Shuffle photos whenever the photos prop changes
@@ -20,47 +45,66 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
     setShuffledPhotos(shuffled)
   }, [photos])
 
-  const handlePrevious = () => {
+  const columnPhotos = useMemo(() => {
+    const cols = Array.from({ length: columns }, () => [] as { photo: Photo; index: number }[])
+    shuffledPhotos.forEach((photo, index) => {
+      cols[index % columns].push({ photo, index })
+    })
+    return cols
+  }, [shuffledPhotos, columns])
+
+  const handlePrevious = useCallback(() => {
     setSelectedImage((prev) => (prev === 0 ? shuffledPhotos.length - 1 : prev! - 1))
-  }
+  }, [shuffledPhotos.length])
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setSelectedImage((prev) => (prev === shuffledPhotos.length - 1 ? 0 : prev! + 1))
-  }
+  }, [shuffledPhotos.length])
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === 'ArrowLeft') handlePrevious()
-    if (e.key === 'ArrowRight') handleNext()
-    if (e.key === 'Escape') setSelectedImage(null)
-  }
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImage === null) return
+      if (e.key === 'ArrowLeft') handlePrevious()
+      if (e.key === 'ArrowRight') handleNext()
+      if (e.key === 'Escape') setSelectedImage(null)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedImage, handlePrevious, handleNext])
 
   return (
-    <button onKeyDown={handleKeyDown} tabIndex={0} className="w-full">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {shuffledPhotos.map((photo, index) => (
-          <button
-            key={photo.src}
-            className="group relative h-72 cursor-pointer overflow-hidden rounded-lg"
-            onClick={() => setSelectedImage(index)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                setSelectedImage(index)
-              }
-            }}
-            tabIndex={0}
-          >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover transition-transform duration-300"
-            />
-            <div className="absolute inset-0 flex items-end bg-black/30 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <p className="text-sm sm:text-white">{photo.alt}</p>
-            </div>
-          </button>
+    <div className="my-8 w-full outline-none">
+      <div className="flex gap-4">
+        {columnPhotos.map((col, colIndex) => (
+          <div key={colIndex} className="flex flex-1 flex-col gap-4">
+            {col.map(({ photo, index }) => (
+              <div key={photo.src} className="break-inside-avoid">
+                <button
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800"
+                  onClick={() => setSelectedImage(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      setSelectedImage(index)
+                    }
+                  }}
+                  tabIndex={0}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={500}
+                    height={500}
+                    className="h-auto w-full transition-all duration-500 group-hover:scale-110 group-hover:brightness-90"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <p className="line-clamp-2 text-sm font-medium text-white">{photo.alt}</p>
+                  </div>
+                </button>
+              </div>
+            ))}
+          </div>
         ))}
       </div>
 
@@ -115,6 +159,6 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
           </Dialog.Panel>
         </div>
       </Dialog>
-    </button>
+    </div>
   )
 }
