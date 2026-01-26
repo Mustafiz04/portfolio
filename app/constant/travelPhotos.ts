@@ -1,7 +1,8 @@
 // Update the interface at the top of the file
-export interface Photo {
+export interface MediaItem {
   src: string
   alt: string
+  type?: 'image' | 'video'
   width?: number
   height?: number
 }
@@ -16,7 +17,7 @@ export const travelStats = [
 ]
 
 // Add more photos to the array
-export const travelPhotos: Photo[] = [
+export const travelPhotos: MediaItem[] = [
   {
     src: '/static/images/uae/zayed.jpg',
     width: 4032,
@@ -486,6 +487,11 @@ export const travelPhotos: Photo[] = [
     alt: 'Performing my first Umrah on January 2nd, 2025',
   },
   // OMAN
+  // {
+  //   src: '/static/images/oman/GX011772.mp4',
+  //   type: 'video',
+  //   alt: 'Driving through Muscat',
+  // },
   {
     src: '/static/images/oman/snorkel_1.JPG',
     width: 5568,
