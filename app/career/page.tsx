@@ -6,251 +6,130 @@ import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 
 export default function Career() {
+  const careerData = [
+    {
+      date: 'September, 2025 - Present',
+      title: 'Senior Software Engineer',
+      company: 'PhonePe',
+      companyUrl: 'https://www.phonepe.com/',
+      description: 'Building large-scale fintech solutions.',
+    },
+    {
+      date: 'May, 2024 - September, 2025',
+      title: 'Software Engineer (Backend)',
+      company: 'BitGo',
+      companyUrl: 'https://www.bitgo.com/',
+      description: 'Worked on digital asset infrastructure and backend services.',
+    },
+    {
+      date: 'February, 2024',
+      title: 'Software Developer (Freelance)',
+      company: 'micro1',
+      companyUrl: 'https://www.micro1.ai/',
+      description: 'Delivered high-quality software solutions as a specialized freelancer.',
+    },
+    {
+      date: 'April, 2022 - February, 2024',
+      title: 'Software Development Engineer',
+      company: 'MediBuddy',
+      companyUrl: 'https://www.medibuddy.in/',
+      description: 'Contributed to the development of primary healthcare delivery systems.',
+    },
+    {
+      date: 'January, 2021 - April, 2022',
+      title: 'Software Development Engineer',
+      company: 'Freecharge',
+      companyUrl: 'https://www.freecharge.in/',
+      description: 'Part of the digital savings account team, building financial products.',
+    },
+    {
+      date: 'May, 2021',
+      title: 'B.Tech Graduation',
+      company: 'NIT Jamshedpur',
+      companyUrl: 'https://www.nitjsr.ac.in/',
+      description:
+        'Completed my Bachelor of Technology from National Institute of Technology, Jamshedpur.',
+    },
+    {
+      date: 'January, 2021 - June, 2021',
+      title: 'Software Developer Intern',
+      company: 'Freecharge',
+      companyUrl: 'https://www.freecharge.in/',
+      description: '6-month intensive internship focusing on digital banking infrastructure.',
+    },
+    {
+      date: 'July, 2017',
+      title: 'Enrolled in B.Tech',
+      company: 'NIT Jamshedpur',
+      companyUrl: 'https://www.nitjsr.ac.in/',
+      description: 'Began my engineering journey in the Bachelor of Technology programme.',
+    },
+  ]
+
   return (
-    <>
-      <div className="mx-auto mt-8 max-w-5xl">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <PageSEO
+        title={`Career - ${siteMetadata.author}`}
+        description="My professional journey and career timeline."
+      />
+
+      <div className="space-y-4 pb-16 text-center">
+        <h1 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl sm:leading-10 md:text-6xl md:leading-14">
           Career Timeline
         </h1>
-        <div className="mt-6 space-y-1">
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">September, 2025</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Joined{' '}
-                  <a className="underline" href="https://www.phonepe.com/">
-                    PhonePe
-                  </a>{' '}
-                  as a Senior Software Engineer.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">May, 2024 - September, 2025</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Worked at{' '}
-                  <a className="underline" href="https://www.bitgo.com/">
-                    BitGo
-                  </a>{' '}
-                  as a Software Engineer (Backend).
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">Febuary, 2024</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Joined{' '}
-                  <a className="underline" href="https://www.micro1.ai/">
-                    micro1
-                  </a>{' '}
-                  as a freelancer Software Developer.
-                </li>
-              </ul>
-            </div>
-          </div>
+        <p className="mx-auto max-w-2xl text-lg leading-7 text-gray-500 dark:text-gray-400">
+          A visual journey of my professional milestones, engineering roles, and educational
+          background.
+        </p>
+      </div>
 
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">April, 2022</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Joined{' '}
-                  <a className="underline" href="https://www.medibuddy.in/">
-                    MediBuddy
-                  </a>{' '}
-                  as a Software Development Engineer.
-                </li>
-              </ul>
-            </div>
-          </div>
+      <div className="relative mx-auto max-w-3xl">
+        {/* Vertical Line */}
+        <div className="absolute left-4 top-0 h-full w-0.5 bg-gray-100 dark:bg-gray-800 md:left-1/2 md:-translate-x-1/2" />
 
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">January, 2021</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Completed my 6 months internship as a Software Developer Intern and joined as a
-                  full time Software Development Engineer at{' '}
-                  <a className="underline" href="https://www.freecharge.in/">
-                    Freecharge
-                  </a>{' '}
-                  .
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div className="space-y-12">
+          {careerData.map((item, index) => (
+            <div key={index} className="relative flex flex-col md:flex-row md:justify-between">
+              {/* Timeline Node */}
+              <div className="absolute left-4 z-10 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-primary-500 ring-4 ring-primary-500/10 dark:border-gray-950 md:left-1/2" />
 
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">May, 2021</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Graduated from{' '}
-                  <a className="underline" href="https://www.medibuddy.in/">
-                    National Institute of Technology, Jamshedpur
-                  </a>{' '}
-                </li>
-              </ul>
-            </div>
-          </div>
+              {/* Date Column (Left on Desktop) */}
+              <div
+                className={`pl-12 md:w-[45%] md:pl-0 ${index % 2 === 0 ? 'md:text-right' : 'md:order-last'}`}
+              >
+                <time className="text-sm font-bold uppercase tracking-widest text-primary-500">
+                  {item.date}
+                </time>
+              </div>
 
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">January, 2021</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Started a 6 months internship at{' '}
-                  <a className="underline" href="https://www.freecharge.in/">
-                    Freecharge
-                  </a>{' '}
-                  as a Software Developer Intern in the digital savings account team.
-                </li>
-              </ul>
-            </div>
-          </div>
+              {/* Spacer for Desktop */}
+              <div className="hidden md:block md:w-[5%]" />
 
-          <div className="pb-4 md:grid md:grid-cols-3 md:gap-4">
-            <div className="md:col-span-1">
-              <h2 className="font-bold">July, 2017</h2>
-            </div>
-            <div className="rounded-md bg-gray-50 p-3 dark:bg-gray-900 md:col-span-2">
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Enrolled in the Bachelor of Technology programme at{' '}
-                  <a className="underline" href="https://www.medibuddy.in/">
-                    National Institute of Technology, Jamshedpur
-                  </a>{' '}
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* <div className="flex space-x-3">
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2014</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Started my first full-time job as a Junior Software Developer at{' '}
-                  <a className="underline" href="https://www.dynatrace.com/">
-                    Dynatrace
-                  </a>
-                  .
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2015</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Joined{' '}
-                  <a className="underline" href="https://www.keenan.co/">
-                    Keenan
-                  </a>{' '}
-                  as a Junior Software Developer.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="flex space-x-3">
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2016</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Started working on my first open-source project:{' '}
-                  <a className="underline" href="https://github.com/muratgozel/nextjs-starter-kit">
-                    Next.js starter kit
-                  </a>
-                  .
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2017</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Joined{' '}
-                  <a className="underline" href="https://www.jamify.org/">
-                    Jamify
-                  </a>{' '}
-                  as a Full-Stack Software Developer.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="flex space-x-3">
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2018</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Started working on my second open-source project:{' '}
-                  <a className="underline" href="https://github.com/muratgozel/nextjs-starter-kit">
-                    Next.js starter kit
-                  </a>
-                  .
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2019</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Published my first article on{' '}
-                  <a className="underline" href="https://dev.to/muratgozel">
-                    DEV
-                  </a>
-                  .
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="flex space-x-3">
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2020</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Started working on my third open-source project:{' '}
+              {/* Content Card (Right on Desktop) */}
+              <div
+                className={`mt-4 pl-12 md:mt-0 md:w-[45%] md:pl-0 ${index % 2 === 0 ? 'md:order-last' : 'md:text-right'}`}
+              >
+                <div className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-300 hover:border-primary-500/30 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/40">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                    {item.title}
+                  </h3>
                   <a
-                    className="underline"
-                    href="https://github.com/muratgozel/tailwind-nextjs-starter-blog"
+                    href={item.companyUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 inline-block font-medium text-gray-500 underline-offset-4 hover:text-primary-500 hover:underline dark:text-gray-400"
                   >
-                    Tailwind Next.js blog template
+                    {item.company}
                   </a>
-                  .
-                </li>
-              </ul>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="flex-1 rounded-md bg-gray-50 p-3 dark:bg-gray-900">
-              <h2 className="font-bold">2021</h2>
-              <ul className="mt-2">
-                <li className="text-gray-500 dark:text-gray-400">
-                  Started working on my personal website.
-                </li>
-              </ul>
-            </div>
-          </div> */}
+          ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }

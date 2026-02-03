@@ -76,83 +76,121 @@ export default function ListLayoutWithTags({
   const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (
-    <>
-      <div>
-        <div className="space-y-4 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            {title.toUpperCase()}
-          </h1>
-          <p className="text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7">
-            I write mostly about web development, tech related, and sometime about my personal life.
-          </p>
-        </div>
-        <hr className="border-b-1 my-6 border-gray-200 dark:border-gray-700" />
-        <div className="flex sm:space-x-14">
-          {/* <div className="hidden h-full max-h-screen min-w-[280px] max-w-[280px] flex-wrap overflow-auto rounded bg-gray-50 pt-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40 sm:flex">
-            <div className="px-6 py-4">
-              {pathname.startsWith('/blog') ? (
-                <h3 className="font-bold uppercase text-primary-500">All Posts</h3>
-              ) : (
+    <div className="mx-auto max-w-6xl">
+      <div className="space-y-4 py-12 text-center md:space-y-5 md:py-20">
+        <h1 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl sm:leading-10 md:text-6xl md:leading-14">
+          {title}
+        </h1>
+        <p className="mx-auto max-w-2xl text-lg leading-7 text-gray-500 dark:text-gray-400">
+          I write about software engineering, system design, and my adventures across the globe.
+          Expect deep dives and occasional life updates.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-12 lg:flex-row">
+        {/* Sidebar for Tags */}
+        <aside className="lg:w-1/4">
+          <div className="sticky top-24 space-y-8">
+            <div>
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Browse by Topic
+              </h3>
+              <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
                 <Link
-                  href={`/blog`}
-                  className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
+                  href="/blog"
+                  className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                    pathname === '/blog'
+                      ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/20 dark:text-primary-400'
+                      : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800/50'
+                  }`}
                 >
                   All Posts
                 </Link>
-              )}
-              <ul>
-                {sortedTags.map((t) => {
+                {sortedTags.slice(0, 10).map((t) => {
+                  const isActive = pathname.split('/tags/')[1] === slug(t)
                   return (
-                    <li key={t} className="my-3">
-                      {pathname.split('/tags/')[1] === slug(t) ? (
-                        <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
-                          {`${t} (${tagCounts[t]})`}
-                        </h3>
-                      ) : (
-                        <Link
-                          href={`/tags/${slug(t)}`}
-                          className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                          aria-label={`View posts tagged ${t}`}
-                        >
-                          {`${t} (${tagCounts[t]})`}
-                        </Link>
-                      )}
-                    </li>
+                    <Link
+                      key={t}
+                      href={`/tags/${slug(t)}`}
+                      className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                        isActive
+                          ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/20 dark:text-primary-400'
+                          : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800/50'
+                      }`}
+                    >
+                      <span>{t}</span>
+                      <span className="text-xs text-gray-400">({tagCounts[t]})</span>
+                    </Link>
                   )
                 })}
-              </ul>
+              </div>
             </div>
-          </div> */}
-          <div className="w-full">
-            <ul>
+          </div>
+        </aside>
+
+        {/* Main Feed */}
+        <main className="flex-1">
+          <div className="space-y-12">
+            {!displayPosts.length && (
+              <p className="py-10 text-center text-gray-500">No posts found.</p>
+            )}
+            <ul className="divide-y divide-gray-100 dark:divide-gray-800">
               {displayPosts.map((post) => {
                 const { path, date, title, summary, tags } = post
                 return (
-                  <li key={path} className="py-5">
-                    <article className="flex flex-col space-y-2 xl:space-y-0">
-                      <dl>
-                        <dt className="sr-only">Published on</dt>
-                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                          <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                        </dd>
-                      </dl>
+                  <li key={path} className="group py-10 transition-all">
+                    <article className="flex flex-col gap-4">
                       <div className="space-y-3">
-                        <div>
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
-                              {title}
-                            </Link>
-                          </h2>
-                          <div className="flex flex-wrap">
-                            {tags?.map((tag) => (
-                              <Tag key={tag} text={tag} />
+                        <div className="flex items-center gap-3">
+                          <time
+                            dateTime={date}
+                            className="text-sm font-medium text-primary-500 dark:text-primary-400"
+                          >
+                            {formatDate(date, siteMetadata.locale)}
+                          </time>
+                          <span className="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-600" />
+                          <div className="flex gap-2">
+                            {tags?.slice(0, 2).map((tag) => (
+                              <span
+                                key={tag}
+                                className="text-xs font-semibold uppercase tracking-tighter text-gray-400 dark:text-gray-500"
+                              >
+                                #{tag}
+                              </span>
                             ))}
                           </div>
                         </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                        <h2 className="text-3xl font-bold leading-tight tracking-tight">
+                          <Link
+                            href={`/${path}`}
+                            className="text-gray-900 transition-colors group-hover:text-primary-500 dark:text-gray-100 dark:group-hover:text-primary-400"
+                          >
+                            {title}
+                          </Link>
+                        </h2>
+                        <p className="prose max-w-none text-base leading-7 text-gray-500 dark:text-gray-400 md:text-lg">
                           {summary}
-                        </div>
+                        </p>
                       </div>
+                      <Link
+                        href={`/${path}`}
+                        className="inline-flex items-center text-sm font-bold text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300"
+                      >
+                        Read article
+                        <svg
+                          className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </svg>
+                      </Link>
                     </article>
                   </li>
                 )
@@ -162,8 +200,8 @@ export default function ListLayoutWithTags({
               <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
             )}
           </div>
-        </div>
+        </main>
       </div>
-    </>
+    </div>
   )
 }

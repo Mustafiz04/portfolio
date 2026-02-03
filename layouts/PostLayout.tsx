@@ -42,150 +42,126 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   const banner = images?.[0]
 
   const blogReadingTime = calculateReadingTime(String(JSON.stringify(children)))
-
   const url = `${siteMetadata.siteUrl}/blog/${slug}`
-
-  const views = redis.mget<number[]>(['pageviews', 'posts', slug].join(':'))
 
   return (
     <SectionContainer>
-      {/* <BlogSEO url={url} authorDetails={authorDetails} {...content} /> */}
       <ScrollTopAndComment />
       <ViewCounter slug={slug} />
-      <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-          <header className="pt-6 xl:pb-6">
-            <div className="space-y-1 text-center">
-              <dl className="space-y-10">
-                <div>
-                  <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                    </time>
-                  </dd>
-                </div>
-              </dl>
-              <div>
-                <PageTitle>{title}</PageTitle>
-              </div>
-              <div>
-                <b>{views}</b> views
-                <span className="ml-1 mr-2 text-gray-500 dark:text-gray-400">&middot;</span>
-                <b>{blogReadingTime}</b> {' mins read'}
-              </div>
-            </div>
-          </header>
-          <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
-            <dl className="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-              <dt className="sr-only">Authors</dt>
-              <dd>
-                <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
-                  {authorDetails.map((author) => (
-                    <li className="flex items-center space-x-2" key={author.name}>
-                      {author.avatar && (
-                        <Image
-                          src={author.avatar}
-                          width={38}
-                          height={38}
-                          alt="avatar"
-                          className="h-10 w-10 rounded-full"
-                        />
+      <article className="mx-auto max-w-4xl pt-10">
+        <header className="space-y-4 pb-12 text-center">
+          <dl className="flex items-center justify-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <dt className="sr-only">Published on</dt>
+            <dd>
+              <time dateTime={date}>
+                {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+              </time>
+            </dd>
+            <span className="text-gray-300 dark:text-gray-700">|</span>
+            <dd>{blogReadingTime} min read</dd>
+          </dl>
+          <div>
+            <PageTitle>{title}</PageTitle>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2 pt-2">
+            {tags?.map((tag) => (
+              <Tag key={tag} text={tag} />
+            ))}
+          </div>
+        </header>
+
+        {banner && (
+          <div className="mb-12 overflow-hidden rounded-2xl shadow-xl">
+            <Image
+              src={banner}
+              className="aspect-video w-full object-cover object-center"
+              alt={title}
+              width={1200}
+              height={630}
+            />
+          </div>
+        )}
+
+        <div className="relative">
+          <div className="prose prose-lg max-w-none pb-12 pt-10 dark:prose-invert">{children}</div>
+
+          <hr className="border-gray-200 dark:border-gray-800" />
+
+          <div className="py-10">
+            <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+              <div className="flex items-center gap-4">
+                {authorDetails.map((author) => (
+                  <div key={author.name} className="flex items-center gap-3">
+                    {author.avatar && (
+                      <Image
+                        src={author.avatar}
+                        width={48}
+                        height={48}
+                        alt={author.name}
+                        className="h-12 w-12 rounded-full ring-2 ring-primary-500/20"
+                      />
+                    )}
+                    <div className="text-sm font-medium">
+                      <p className="text-gray-900 dark:text-gray-100">{author.name}</p>
+                      {author.twitter && (
+                        <Link
+                          href={author.twitter}
+                          className="text-primary-500 hover:text-primary-600"
+                        >
+                          {author.twitter.replace('https://twitter.com/', '@')}
+                        </Link>
                       )}
-                      <dl className="whitespace-nowrap text-sm font-medium leading-5">
-                        <dt className="sr-only">Name</dt>
-                        <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
-                        <dt className="sr-only">Twitter</dt>
-                        <dd>
-                          {author.twitter && (
-                            <Link
-                              href={author.twitter}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            >
-                              {author.twitter.replace('https://twitter.com/', '@')}
-                            </Link>
-                          )}
-                        </dd>
-                      </dl>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </dl>
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              {banner && <Image src={banner} className="object-cover object-center" alt="banner" />}
-              <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
-              <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-                <Link href={discussUrl(path)} rel="nofollow">
-                  Discuss on Twitter
-                </Link>
-                {` • `}
-                <Link href={editUrl(filePath)}>View on GitHub</Link>
-              </div>
-              {siteMetadata.comments && (
-                <div
-                  className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300"
-                  id="comment"
-                >
-                  <Comments frontMatter={content} />
-                </div>
-              )}
-            </div>
-            <footer>
-              <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-                <div className="py-4 xl:py-8">
-                  <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                    Share on
-                  </h2>
-                  <SocialSharing title={title} url={url} />
-                </div>
-                {tags && (
-                  <div className="py-4 xl:py-8">
-                    <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                      Tags
-                    </h2>
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
                     </div>
                   </div>
-                )}
-                {(next || prev) && (
-                  <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-                    {prev && prev.path && (
-                      <div>
-                        <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                          Previous Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${prev.path}`}>{prev.title}</Link>
-                        </div>
-                      </div>
-                    )}
-                    {next && next.path && (
-                      <div>
-                        <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                          Next Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${next.path}`}>{next.title}</Link>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
+                ))}
               </div>
-              <div className="pt-4 xl:pt-8">
-                <Link
-                  href={`/${basePath}`}
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                  aria-label="Back to the blog"
-                >
-                  &larr; Back to the blog
-                </Link>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-semibold uppercase tracking-wider text-gray-400">
+                  Share
+                </span>
+                <SocialSharing title={title} url={url} />
               </div>
-            </footer>
+            </div>
+          </div>
+
+          <div className="grid gap-8 border-t border-gray-100 py-10 dark:border-gray-800 md:grid-cols-2">
+            {prev && (
+              <Link
+                href={`/${prev.path}`}
+                className="group flex flex-col items-start gap-2 rounded-2xl border border-gray-100 p-6 transition-all hover:border-primary-500/30 hover:bg-primary-50/20 dark:border-gray-800 dark:hover:bg-primary-900/10"
+              >
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+                  &larr; Previous Article
+                </span>
+                <span className="text-lg font-bold group-hover:text-primary-500">{prev.title}</span>
+              </Link>
+            )}
+            {next && (
+              <Link
+                href={`/${next.path}`}
+                className="group flex flex-col items-end gap-2 rounded-2xl border border-gray-100 p-6 text-right transition-all hover:border-primary-500/30 hover:bg-primary-50/20 dark:border-gray-800 dark:hover:bg-primary-900/10"
+              >
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Next Article &rarr;
+                </span>
+                <span className="text-lg font-bold group-hover:text-primary-500">{next.title}</span>
+              </Link>
+            )}
+          </div>
+
+          {siteMetadata.comments && (
+            <div className="pt-10" id="comment">
+              <Comments frontMatter={content} />
+            </div>
+          )}
+
+          <div className="py-10">
+            <Link
+              href={`/${basePath}`}
+              className="inline-flex items-center text-sm font-bold text-primary-500 hover:text-primary-600"
+            >
+              &larr; Back to the blog
+            </Link>
           </div>
         </div>
       </article>

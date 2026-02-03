@@ -22,31 +22,24 @@ interface ListLayoutProps {
 }
 
 export default function SnippetLayoutWithTags({ snippets, title }: ListLayoutProps) {
-  const pathname = usePathname()
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
-
   return (
-    <>
-      <div>
-        <div className="space-y-4 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            {title.toUpperCase()}
-          </h1>
-          <p className="text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7">
-            My snippets collection
-          </p>
-        </div>
-        <hr className="border-b-1 my-6 border-gray-200 dark:border-gray-700" />
-        <div className="container py-12">
-          <div className="grid-cols-2 gap-6 lg:grid">
-            {snippets.map((snippet) => (
-              <SnippetCard key={snippet.title} snippet={snippet} />
-            ))}
-          </div>
+    <div className="mx-auto max-w-6xl">
+      <div className="space-y-4 py-12 text-center md:space-y-5 md:py-20">
+        <h1 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl sm:leading-10 md:text-6xl md:leading-14">
+          {title}
+        </h1>
+        <p className="mx-auto max-w-2xl text-lg leading-7 text-gray-500 dark:text-gray-400">
+          A collection of small scripts, configurations, and helpful code blocks I use in my daily
+          workflow.
+        </p>
+      </div>
+      <div className="pb-12 md:pb-24">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {snippets.map((snippet) => (
+            <SnippetCard key={snippet.title} snippet={snippet} />
+          ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
