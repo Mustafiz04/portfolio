@@ -1,0 +1,454 @@
+---
+title: "Indexing 101: How to Make Your Slow Queries Lightning Fast"
+date: '2025-02-10'
+tags: ['Database', 'SQL', 'Performance', 'PostgreSQL', 'MySQL', 'Database Optimization', 'System Design', 'Backend Development']
+draft: false
+summary: "Stop running full table scans that kill your database. Learn how B-Tree indexes, composite indexes, and covering indexes can transform 10-second queries into 10-millisecond responses."
+authors: ['default']
+type: 'Blog'
+---
+
+# The $50,000 Query: When a Missing Index Costs Real Money
+
+In 2019, a fintech startup was losing $50,000/month in AWS costs because their user dashboard loaded in **8 seconds**. Their CTO spent three weeks optimizing application code. A database consultant added **one index** and the query dropped to **40ms**.
+
+That's the power of indexing. It's not magic—it's data structures. And if you don't understand how they work, you're either paying with money (bigger servers) or users (slow experiences).
+
+This is your complete guide to transforming slow queries into production grade performance.
+
+---
+
+## Part 1: Why Queries Are Slow (The Full Table Scan Problem)
+
+### 1.1 The Sequential Scan: Database's Worst Nightmare
+
+When you run a query without an index, the database performs a **sequential scan** (also called a full table scan). It reads **every single row** from disk to find matches.
+
+#### Real-World Example: Finding a User by Email
+
+**Table Structure:**
+```sql
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  email VARCHAR(255),
+  full_name VARCHAR(255),
+  created_at TIMESTAMP
+);
+
+-- 10 million users
+INSERT INTO users (email, full_name, created_at)
+SELECT 
+  'user' || i || '@example.com',
+  'User ' || i,
+  NOW() - (i || ' days')::INTERVAL
+FROM generate_series(1, 10000000) AS i;
+```
+
+**Query Without Index:**
+```sql
+SELECT * FROM users WHERE email = 'user5000000@example.com';
+```
+
+**What Happens Under the Hood:**
+```
+1. Database reads row 1: "user1@example.com" → No match → Keep going
+2. Database reads row 2: "user2@example.com" → No match → Keep going
+3. Database reads row 3: "user3@example.com" → No match → Keep going
+...
+4,999,999 disk reads later...
+5. Database reads row 5,000,000: "user5000000@example.com" → MATCH!
+```
+
+**Performance:**
+- **Time:** 6,200ms (over 6 seconds!)
+- **Rows Scanned:** 10,000,000
+- **Disk I/O:** ~1.5GB read from disk
+
+### 1.2 The Index Solution: Binary Search on Steroids
+
+An **index** is a separate data structure that maintains a sorted copy of specific columns. Instead of reading every row, the database uses a **B-Tree** (Balanced Tree) to find the data in logarithmic time.
+
+**Creating the Index:**
+```sql
+CREATE INDEX idx_users_email ON users(email);
+```
+
+**Same Query With Index:**
+```sql
+SELECT * FROM users WHERE email = 'user5000000@example.com';
+```
+
+**Performance:**
+- **Time:** 0.8ms (7,750x faster!)
+- **Rows Scanned:** 1
+- **How it works:** The B-Tree uses binary search: Log₂(10,000,000) = ~24 comparisons
+
+---
+
+## Part 2: Index Types - The Complete Arsenal
+
+### 2.1 B-Tree Indexes: The Swiss Army Knife
+
+**B-Tree** (Balanced Tree) is the default index type in PostgreSQL and MySQL. It's fast for:
+- Equality comparisons (`WHERE email = '...'`)
+- Range queries (`WHERE age BETWEEN 18 AND 65`)
+- Sorting (`ORDER BY created_at DESC`)
+- Prefix matching (`WHERE name LIKE 'John%'`)
+
+#### Internal Structure:
+```
+              [M - Z]
+            /         \
+      [A - L]         [N - Z]
+     /      \         /      \
+  [A-F]  [G-L]    [N-R]   [S-Z]
+  /  \    /  \     /  \     /  \
+Leaf Leaf Leaf Leaf Leaf Leaf Leaf Leaf
+(Actual row pointers)
+```
+
+### 2.2 Hash Indexes: Fast Equality Only
+
+**Use Case:** When you only need exact matches and never ranges.
+
+```sql
+-- Good for hash index
+CREATE INDEX idx_users_email_hash ON users USING HASH (email);
+SELECT * FROM users WHERE email = 'exact@match.com';
+
+-- BAD for hash index (won't use it)
+SELECT * FROM users WHERE email LIKE 'user%';
+```
+
+**Trade off:** 
+- ✅ Slightly faster for equality (`=`)
+- ❌ Can't handle ranges, sorting, or LIKE patterns
+- ❌ Not crash safe in older PostgreSQL versions
+
+### 2.3 GIN (Generalized Inverted Index): For Arrays and Full-Text Search
+
+**Use Case:** JSONB columns, arrays, or full text search.
+
+```sql
+-- Indexing JSONB data
+CREATE TABLE products (
+  product_id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  tags JSONB
+);
+
+CREATE INDEX idx_products_tags ON products USING GIN (tags);
+
+-- Fast lookup
+SELECT * FROM products WHERE tags @> '["electronics", "laptop"]';
+```
+
+### 2.4 BRIN (Block Range Index): For Time Series Data
+
+**Use Case:** Large tables where data is naturally sorted (logs, time series).
+
+```sql
+CREATE INDEX idx_logs_created_at ON logs USING BRIN (created_at);
+```
+
+**Why BRIN Wins:**
+- **Storage:** 1000x smaller than B-Tree
+- **Perfect for:** Append only logs with timestamps
+- **Bad for:** Randomly distributed data
+
+---
+
+## Part 3: Composite Indexes - Column Order Matters
+
+### 3.1 The Left to Right Rule
+
+Composite indexes work left to right. If your index is `(A, B, C)`, it can speed up:
+- ✅ `WHERE A = 1`
+- ✅ `WHERE A = 1 AND B = 2`
+- ✅ `WHERE A = 1 AND B = 2 AND C = 3`
+- ❌ `WHERE B = 2` (skips first column)
+- ❌ `WHERE C = 3` (skips first column)
+
+#### Real World Example: E Commerce Order Search
+
+```sql
+-- Table: 50 million orders
+CREATE TABLE orders (
+  order_id SERIAL PRIMARY KEY,
+  user_id INT,
+  status VARCHAR(50),
+  created_at TIMESTAMP
+);
+
+-- Common query: Get pending orders for a user
+SELECT * FROM orders 
+WHERE user_id = 12345 
+  AND status = 'pending' 
+ORDER BY created_at DESC;
+```
+
+**Bad Index (wrong order):**
+```sql
+CREATE INDEX idx_orders_wrong ON orders(status, user_id, created_at);
+-- Won't optimize the query effectively
+```
+
+**Good Index (query optimized order):**
+```sql
+CREATE INDEX idx_orders_optimized ON orders(user_id, status, created_at);
+-- Perfect! Filters by user_id first (high selectivity), then status, then sorts
+```
+
+**Performance:**
+- Without index: 4,200ms
+- With wrong index: 1,800ms
+- With optimized index: 12ms
+
+### 3.2 Selectivity: Order by Uniqueness
+
+**Rule:** Put the most selective (unique) columns first.
+
+```sql
+-- 10M orders across 100K users
+-- user_id has ~100 orders per value (high selectivity)
+-- status has only 5 values: pending, processing, shipped, delivered, cancelled (low selectivity)
+
+-- GOOD: High selectivity first
+CREATE INDEX idx_orders_best ON orders(user_id, status, created_at);
+
+-- BAD: Low selectivity first
+CREATE INDEX idx_orders_worst ON orders(status, user_id, created_at);
+```
+
+---
+
+## Part 4: Covering Indexes - The Zero Disk Access Trick
+
+### 4.1 What is a Covering Index?
+
+A **covering index** contains all the columns needed by a query, so the database never has to access the actual table.
+
+#### Example: User Dashboard
+
+```sql
+-- Query: Dashboard shows email and name
+SELECT user_id, email, full_name 
+FROM users 
+WHERE email = 'john@example.com';
+
+-- Regular index (includes only email)
+CREATE INDEX idx_users_email ON users(email);
+-- Steps: 1) Find row in index, 2) Go to table to get full_name
+
+-- Covering index (includes email AND full_name)
+CREATE INDEX idx_users_email_covering ON users(email, full_name);
+-- Steps: 1) Find row in index, 2) Done! (No table access needed)
+```
+
+**Performance Gain:**
+- Regular index: 0.8ms
+- Covering index: 0.3ms (2.6x faster!)
+
+**PostgreSQL Syntax (INCLUDE):**
+```sql
+CREATE INDEX idx_users_email_include ON users(email) INCLUDE (full_name);
+```
+
+---
+
+## Part 5: Partial Indexes - Index Only What You Query
+
+**Problem:** Indexing the entire table wastes space if you only query a subset.
+
+### 5.1 Real World Example: Active Users Only
+
+```sql
+-- Table: 10M users, but only 1M are active
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  email VARCHAR(255),
+  is_active BOOLEAN,
+  last_login TIMESTAMP
+);
+
+-- Bad: Index all 10M users
+CREATE INDEX idx_users_email_full ON users(email);
+-- Size: 500MB
+
+-- Good: Index only active users (1M)
+CREATE INDEX idx_users_email_active ON users(email) 
+WHERE is_active = true;
+-- Size: 50MB (10x smaller!)
+```
+
+**Query:**
+```sql
+-- This will use the partial index
+SELECT * FROM users 
+WHERE email = 'active@user.com' 
+  AND is_active = true;
+```
+
+---
+
+## Part 6: When Indexes Hurt Performance
+
+### 6.1 The Write Penalty
+
+Every index adds overhead to `INSERT`, `UPDATE`, and `DELETE` operations.
+
+**Benchmark:**
+```sql
+-- No indexes
+INSERT INTO users (email, full_name) VALUES (...);
+-- Time: 0.2ms
+
+-- With 5 indexes
+INSERT INTO users (email, full_name) VALUES (...);
+-- Time: 1.8ms (9x slower!)
+```
+
+**Rule of Thumb:** Don't create indexes "just in case." Only index columns actively used in WHERE, JOIN, or ORDER BY.
+
+### 6.2 When NOT to Index
+
+❌ **Small tables** (< 1,000 rows): Sequential scan is faster  
+❌ **Low selectivity columns** (gender: M/F/Other)  
+❌ **Columns with frequent updates**: Index maintenance becomes expensive  
+❌ **Write heavy tables**: If 90% of operations are writes, indexes slow you down  
+
+---
+
+## Part 7: Real World Case Studies
+
+### 7.1 Case Study: Reddit's Comment Tree
+
+**Problem:** Loading a Reddit thread with 10,000 comments took 5 seconds.
+
+**Schema:**
+```sql
+CREATE TABLE comments (
+  comment_id BIGSERIAL PRIMARY KEY,
+  parent_id BIGINT,
+  thread_id BIGINT,
+  body TEXT,
+  created_at TIMESTAMP
+);
+```
+
+**Query (slow):**
+```sql
+-- Get all comments in a thread, sorted by parent
+SELECT * FROM comments 
+WHERE thread_id = 12345 
+ORDER BY parent_id, created_at;
+```
+
+**Solution:**
+```sql
+CREATE INDEX idx_comments_thread_tree 
+ON comments(thread_id, parent_id, created_at);
+```
+
+**Result:** 5,000ms → 18ms
+
+### 7.2 Case Study: Stripe's Payment Lookup
+
+**Problem:** Looking up payments by customer_id AND status was slow.
+
+**Before:**
+```sql
+-- Two separate indexes
+CREATE INDEX idx_payments_customer ON payments(customer_id);
+CREATE INDEX idx_payments_status ON payments(status);
+
+-- Query uses only one index (customer_id), then filters status
+SELECT * FROM payments 
+WHERE customer_id = 'cust_123' 
+  AND status = 'succeeded';
+-- Time: 340ms
+```
+
+**After:**
+```sql
+-- Composite index
+CREATE INDEX idx_payments_customer_status 
+ON payments(customer_id, status);
+-- Time: 8ms (42x faster!)
+```
+
+---
+
+## Part 8: Advanced Techniques
+
+### 8.1 Index Only Scans with EXPLAIN
+
+**Always use EXPLAIN ANALYZE to verify index usage:**
+
+```sql
+EXPLAIN ANALYZE
+SELECT email FROM users WHERE user_id = 12345;
+
+-- Output:
+-- Index Only Scan using idx_users_id_email on users (cost=0.43..8.45)
+--   Index Cond: (user_id = 12345)
+--   Heap Fetches: 0  ← This means it didn't touch the table!
+```
+
+### 8.2 Index Maintenance
+
+**Reindexing (PostgreSQL):**
+```sql
+-- Bloated index after many updates
+REINDEX INDEX idx_users_email;
+
+-- Or rebuild all indexes on a table
+REINDEX TABLE users;
+```
+
+**Analyze Statistics:**
+```sql
+ANALYZE users;
+-- Updates table statistics so the query planner makes better decisions
+```
+
+---
+
+## Part 9: The Production Checklist
+
+### 9.1 Query Optimization Workflow
+
+1. **Identify slow queries** (from logs or monitoring)
+2. **Run EXPLAIN ANALYZE** to see the query plan
+3. **Look for "Seq Scan"** (full table scan)
+4. **Create index on WHERE/JOIN columns**
+5. **Re run EXPLAIN ANALYZE** to verify "Index Scan"
+6. **Measure real world impact** (response time monitoring)
+
+### 9.2 Index Strategy by Use Case
+
+| Use Case | Index Type | Example |
+|:---------|:-----------|:--------|
+| Exact match lookups | B-Tree | `WHERE user_id = 123` |
+| Range queries | B-Tree | `WHERE age BETWEEN 18 AND 65` |
+| Full-text search | GIN | `WHERE body @@ to_tsquery('postgres')` |
+| JSONB queries | GIN | `WHERE data @> '{"status": "active"}'` |
+| Time-series logs | BRIN | `WHERE created_at > NOW() - INTERVAL '7 days'` |
+| Geospatial | GiST | `WHERE location <-> point(0,0) < 100` |
+
+---
+
+## Conclusion: The Index Philosophy
+
+Indexes are not "free performance." They're a **trade off between read speed and write speed**. The art of database optimization is knowing which queries deserve an index and which don't.
+
+**The Golden Rules:**
+1. ✅ Index your WHERE and JOIN columns
+2. ✅ Use composite indexes for multi column queries
+3. ✅ Order composite indexes by selectivity
+4. ✅ Use covering indexes for read heavy queries
+5. ❌ Don't index low selectivity columns
+6. ❌ Don't index small tables
+7. ✅ Always EXPLAIN ANALYZE before and after
+
+**The Final Truth:** A well placed index is the difference between a database that scales to 10 users and one that scales to 10 million.

@@ -1,0 +1,554 @@
+---
+title: "Versioning Your API: Header-Based vs. URL-Based Approaches"
+date: '2025-02-12'
+tags: ['API Design', 'REST API', 'Software Architecture', 'Backend Development', 'System Design', 'Microservices', 'API Versioning']
+draft: false
+summary: "Stop breaking your clients with every API change. Learn when to use URL versioning, header versioning, or content negotiation to build APIs that scale across years and millions of users."
+authors: ['default']
+type: 'Blog'
+---
+
+# The $3 Million API Change: When Breaking Compatibility Destroys Revenue
+
+In 2018, a fintech API changed their response format from `user_id` (string) to `userId` (camelCase) without versioning. Within hours, **thousands of mobile apps crashed**. Customers couldn't access their accounts. Payment processing stopped. By the time they rolled back, they'd lost **$3 million in transaction fees** and their enterprise clients demanded penalty clauses.
+
+The root cause? No API versioning strategy.
+
+API versioning isn't about being fancy—it's about **not breaking production systems** when you need to evolve. This guide covers every production tested approach, with real world trade offs from companies scaling to billions of requests.
+
+---
+
+## Part 1: Why API Versioning Matters
+
+### 1.1 The Inevitable Evolution Problem
+
+**Year 1:** Your API returns user data
+```json
+{
+  "id": 123,
+  "name": "John Doe"
+}
+```
+
+**Year 3:** You need to add email verification status
+```json
+{
+  "id": 123,
+  "name": "John Doe",
+  "email_verified": true  // NEW FIELD
+}
+```
+
+This is **backward compatible** (additive change). Old clients ignore the new field.
+
+**But what if you need to change the structure?**
+```json
+{
+  "user": {
+    "id": 123,
+    "profile": {
+      "full_name": "John Doe",  // BREAKING: Was just "name"
+      "email_status": "verified"  // BREAKING: Was "email_verified" boolean
+    }
+  }
+}
+```
+
+**Without versioning:** Every mobile app from the last 3 years crashes.  
+**With versioning:** Old apps use v1, new apps use v2. Everyone's happy.
+
+### 1.2 Real World Breaking Changes
+
+| Change Type | Example | Breaking? |
+|:------------|:--------|:----------|
+| Add field | `{"name": "John", "age": 30}` | ❌ No (clients ignore unknown fields) |
+| Rename field | `user_id` → `userId` | ✅ Yes |
+| Change type | `"123"` (string) → `123` (number) | ✅ Yes |
+| Remove field | Delete deprecated `phone` field | ✅ Yes |
+| Change URL structure | `/users/123` → `/v2/users/123` | ✅ Yes (depends on approach) |
+| Change status codes | `200` → `201` for creates | ⚠️ Maybe (some clients hardcode) |
+
+---
+
+## Part 2: The Four Versioning Strategies
+
+### 2.1 URL Path Versioning (The Industry Standard)
+
+**Format:** Include version in the URL path.
+
+```http
+GET /v1/users/123
+GET /v2/users/123
+GET /v3/users/123
+```
+
+#### Real World Example: Stripe API
+
+```bash
+# Version 1 (2015)
+curl https://api.stripe.com/v1/charges
+
+# Version 2 (2020) - Different response structure
+curl https://api.stripe.com/v2/charges
+```
+
+**Pros:**
+- ✅ **Explicit and visible:** Version is in the URL, impossible to miss
+- ✅ **Easy to test:** Just change URL in browser/Postman
+- ✅ **CDN/cache friendly:** Each version can be cached separately
+- ✅ **Simple routing:** Most frameworks handle `/v1/*` vs `/v2/*` naturally
+
+**Cons:**
+- ❌ **URL pollution:** Every endpoint needs /v1, /v2 prefix
+- ❌ **REST purists hate it:** Violates "resource URI should be unique" principle
+- ❌ **Version couples with resource:** Can't version individual endpoints
+
+**Best For:** Public APIs, mobile APIs, third party integrations
+
+### 2.2 Header Versioning (The REST Purist Approach)
+
+**Format:** Use HTTP headers to specify version.
+
+```http
+GET /users/123
+Accept: application/vnd.myapi.v2+json
+```
+
+OR custom header:
+```http
+GET /users/123
+API-Version: 2
+```
+
+#### Real World Example: GitHub API
+
+```bash
+curl https://api.github.com/user/repos \
+  -H "Accept: application/vnd.github.v3+json"
+```
+
+**Pros:**
+- ✅ **Clean URLs:** `/users/123` stays the same across versions
+- ✅ **RESTful:** Follows HTTP content negotiation standards
+- ✅ **Flexible:** Can version individual resources differently
+
+**Cons:**
+- ❌ **Invisible:** Version hidden in headers (harder to debug)
+- ❌ **Cache complexity:** CDNs must vary cache by header
+- ❌ **Client complexity:** More code to set headers
+- ❌ **Harder to test:** Can't just paste URL in browser
+
+**Best For:** Internal microservices, GraphQL gateways, hypermedia APIs
+
+### 2.3 Query Parameter Versioning
+
+**Format:** Version as query string.
+
+```http
+GET /users/123?version=2
+GET /users/123?api_version=2
+```
+
+**Pros:**
+- ✅ **Simple to implement:** No routing changes needed
+- ✅ **Optional versioning:** Default to latest if parameter missing
+
+**Cons:**
+- ❌ **Pollutes query params:** Conflicts with filtering (e.g., `?version=2&status=active`)
+- ❌ **Caching issues:** Query params are often excluded from cache keys
+- ❌ **Not RESTful:** Mixes metadata with resource filtering
+
+**Best For:** Quick prototypes, internal tools (NOT recommended for production)
+
+### 2.4 Content Negotiation (Media Type Versioning)
+
+**Format:** Use MIME types to specify version.
+
+```http
+GET /users/123
+Accept: application/vnd.company.user.v2+json
+```
+
+**Real World Example: Twitter API**
+
+```bash
+curl https://api.twitter.com/2/tweets \
+  -H "Accept: application/json"
+```
+
+**Pros:**
+- ✅ **HTTP standard:** Uses `Accept` header as designed
+- ✅ **Per resource versioning:** Different resources can evolve independently
+
+**Cons:**
+- ❌ **Overcomplicated:** Media types are verbose
+- ❌ **Poor tooling:** Postman/Swagger support is limited
+- ❌ **Client complexity:** Most developers find it confusing
+
+**Best For:** Hypermedia APIs (HATEOAS), academic REST implementations
+
+---
+
+## Part 3: Deep Dive URL Versioning Implementation
+
+### 3.1 Express.js Implementation
+
+```javascript
+const express = require('express');
+const app = express();
+
+// Version 1 routes
+const v1Router = express.Router();
+v1Router.get('/users/:id', (req, res) => {
+  res.json({
+    id: req.params.id,
+    name: "John Doe"  // Old format
+  });
+});
+
+// Version 2 routes
+const v2Router = express.Router();
+v2Router.get('/users/:id', (req, res) => {
+  res.json({
+    user: {
+      id: req.params.id,
+      profile: {
+        full_name: "John Doe"  // New nested format
+      }
+    }
+  });
+});
+
+app.use('/api/v1', v1Router);
+app.use('/api/v2', v2Router);
+
+app.listen(3000);
+```
+
+### 3.2 Gradual Migration Strategy
+
+**Phase 1: Announce deprecation**
+```javascript
+app.use('/api/v1', (req, res, next) => {
+  res.setHeader('X-API-Deprecation', 'v1 will be sunset on 2025-12-31');
+  res.setHeader('X-API-Deprecation-Link', 'https://docs.api.com/v2-migration');
+  next();
+});
+```
+
+**Phase 2: Log usage (6 months before sunset)**
+```javascript
+app.use('/api/v1', (req, res, next) => {
+  logger.warn({
+    message: 'v1 API usage detected',
+    client_id: req.headers['x-client-id'],
+    endpoint: req.path
+  });
+  next();
+});
+```
+
+**Phase 3: Block new clients**
+```javascript
+app.use('/api/v1', (req, res, next) => {
+  const clientCreatedDate = getClientCreationDate(req.headers['x-client-id']);
+  if (clientCreatedDate > '2025-06-01') {
+    return res.status(410).json({
+      error: 'v1 API no longer available for new clients. Use v2.'
+    });
+  }
+  next();
+});
+```
+
+**Phase 4: Complete sunset**
+```javascript
+app.use('/api/v1', (req, res) => {
+  res.status(410).json({
+    error: 'v1 API has been sunset. Migrate to v2.',
+    migration_guide: 'https://docs.api.com/v2-migration'
+  });
+});
+```
+
+---
+
+## Part 4: Deep Dive - Header Versioning Implementation
+
+### 4.1 Custom Header Approach
+
+```javascript
+const express = require('express');
+const app = express();
+
+// Middleware to extract version
+app.use((req, res, next) => {
+  const version = req.headers['api-version'] || '1';
+  req.apiVersion = parseInt(version);
+  next();
+});
+
+// Single endpoint with version branching
+app.get('/users/:id', (req, res) => {
+  if (req.apiVersion === 1) {
+    return res.json({
+      id: req.params.id,
+      name: "John Doe"
+    });
+  }
+  
+  if (req.apiVersion === 2) {
+    return res.json({
+      user: {
+        id: req.params.id,
+        profile: { full_name: "John Doe" }
+      }
+    });
+  }
+  
+  res.status(400).json({ error: 'Unsupported API version' });
+});
+```
+
+### 4.2 Content Negotiation Approach
+
+```javascript
+app.get('/users/:id', (req, res) => {
+  const acceptHeader = req.headers['accept'];
+  
+  // Parse: application/vnd.myapi.v2+json
+  const versionMatch = acceptHeader.match(/vnd\.myapi\.v(\d+)/);
+  const version = versionMatch ? parseInt(versionMatch[1]) : 1;
+  
+  if (version === 1) {
+    return res.json({ id: req.params.id, name: "John Doe" });
+  }
+  
+  if (version === 2) {
+    return res.json({
+      user: { id: req.params.id, profile: { full_name: "John Doe" } }
+    });
+  }
+});
+```
+
+---
+
+## Part 5: Real World Case Studies
+
+### 5.1 Facebook Graph API: URL Versioning with Date Based Versions
+
+**Strategy:** Version by release date instead of incremental numbers.
+
+```bash
+# 2020 version
+curl https://graph.facebook.com/v8.0/me
+
+# 2024 version
+curl https://graph.facebook.com/v18.0/me
+```
+
+**Why Date Based?**
+- Clear deprecation timeline (versions sunset after 2 years)
+- Matches quarterly release schedule
+- Avoids "version inflation" (v47 sounds scary)
+
+### 5.2 AWS: Multiple Versioning Strategies
+
+**URL versioning for service versions:**
+```bash
+aws s3api list-buckets  # Uses S3 API version 2006-03-01
+```
+
+**Header versioning for API actions:**
+```http
+POST / HTTP/1.1
+Host: dynamodb.us-west-2.amazonaws.com
+X-Amz-Target: DynamoDB_20120810.GetItem
+```
+
+**Why Both?**
+- URL versioning for major service redesigns
+- Header versioning for backward compatible action changes
+
+### 5.3 Stripe: URL Versioning + Dated Migration
+
+**Philosophy:** Every client is on a "version date" instead of v1/v2.
+
+```bash
+# Client created on 2020-08-27 always gets that API version
+curl https://api.stripe.com/v1/charges \
+  -H "Stripe-Version: 2020-08-27"
+```
+
+**Benefits:**
+- Gradual rollout of breaking changes
+- Clients opt in to upgrades (no forced migrations)
+- Old behavior frozen forever (no surprise breaks)
+
+---
+
+## Part 6: The Migration Playbook
+
+### 6.1 Versioning Decision Tree
+
+```
+1. Is this a breaking change?
+   └─ No → Ship it without version bump (additive is safe)
+   └─ Yes → Continue to step 2
+
+2. Can you make it backward compatible with a feature flag?
+   └─ Yes → Use feature flags instead of versioning
+   └─ No → Continue to step 3
+
+3. Is this a public API or internal?
+   └─ Public → Use URL versioning (/v2)
+   └─ Internal → Use header versioning (API Version)
+
+4. How many clients are affected?
+   └─ < 10 → Contact them directly, coordinate upgrade
+   └─ 10-1000 → Email migration guide, 6 month sunset
+   └─ > 1000 → Support both for 12+ months, gradual sunset
+```
+
+### 6.2 Semantic Versioning for APIs (SemAPI)
+
+**Adapted from SemVer (1.2.3 = MAJOR.MINOR.PATCH):**
+
+- **MAJOR (v1 → v2):** Breaking changes (rename fields, change types)
+- **MINOR (v1.1 → v1.2):** Additive changes (new endpoints, new fields)
+- **PATCH (v1.1.1 → v1.1.2):** Bug fixes (no API surface changes)
+
+**Example:**
+```
+v1.0.0: Initial release
+v1.1.0: Add /users/:id/orders endpoint (additive)
+v1.1.1: Fix bug where orders return 500 (no API change)
+v2.0.0: Rename "user_id" to "userId" (BREAKING)
+```
+
+---
+
+## Part 7: Advanced Patterns
+
+### 7.1 GraphQL: Schema Evolution Instead of Versioning
+
+**Philosophy:** GraphQL doesn't version. It evolves the schema.
+
+```graphql
+type User {
+  id: ID!
+  name: String!  # Original field
+  fullName: String! @deprecated(reason: "Use 'name' instead")
+}
+```
+
+**Deprecation workflow:**
+1. Add new field (`fullName`)
+2. Mark old field as deprecated
+3. Monitor usage via introspection
+4. Remove after 6 months of zero usage
+
+### 7.2 Feature Flags for Gradual Rollout
+
+**Instead of versioning, use flags:**
+
+```javascript
+app.get('/users/:id', async (req, res) => {
+  const user = await getUser(req.params.id);
+  
+  // Check if client has new response format enabled
+  const useNewFormat = await featureFlags.isEnabled(
+    'new_user_response_format',
+    req.headers['x-client-id']
+  );
+  
+  if (useNewFormat) {
+    return res.json({ user: { profile: user } });
+  }
+  
+  return res.json(user);  // Old format
+});
+```
+
+### 7.3 The "Expand Contract" Pattern
+
+**Step 1 (Expand):** Support both old and new formats
+```javascript
+app.post('/users', (req, res) => {
+  // Accept both "name" (old) and "full_name" (new)
+  const name = req.body.full_name || req.body.name;
+  
+  // Return both (redundant but safe)
+  res.json({
+    name: name,
+    full_name: name
+  });
+});
+```
+
+**Step 2 (Contract):** After all clients migrate, remove old format
+```javascript
+app.post('/users', (req, res) => {
+  const name = req.body.full_name;  // Only accept new format
+  res.json({ full_name: name });  // Only return new format
+});
+```
+
+---
+
+## Part 8: The Production Checklist
+
+### 8.1 API Versioning Best Practices
+
+✅ **Choose ONE strategy and stick to it**  
+- Don't mix URL and header versioning
+- Consistency > perfection
+
+✅ **Document your versioning policy**  
+- Sunset timeline (e.g., "v1 supported for 12 months after v2 launch")
+- Migration guides for each major version
+- Changelog with breaking change indicators
+
+✅ **Monitor version usage**  
+```javascript
+app.use((req, res, next) => {
+  metrics.increment('api.version', { version: req.apiVersion });
+  next();
+});
+```
+
+✅ **Use HTTP status codes for deprecation**  
+- `200 + Warning header`: Version works but deprecated
+- `410 Gone`: Version no longer available
+
+✅ **Provide migration tools**  
+- Request/response transformers
+- Automated codemods for client libraries
+
+### 8.2 When NOT to Version
+
+❌ **Bug fixes:** Just ship the fix  
+❌ **Performance improvements:** Faster responses aren't breaking  
+❌ **Adding optional fields:** Backward compatible  
+❌ **Internal microservices:** Use feature flags instead  
+
+---
+
+## Conclusion: The Pragmatic API Versioning Philosophy
+
+**There is no perfect versioning strategy.** The best choice depends on:
+- Who consumes your API (public vs internal)
+- How often you ship changes (weekly vs yearly)
+- How many clients you have (10 vs 10,000)
+
+**The Golden Rules:**
+1. ✅ Use **URL versioning** for public/mobile APIs (simplicity wins)
+2. ✅ Use **header versioning** for internal microservices (flexibility wins)
+3. ✅ Support versions for **at least 12 months** before sunset
+4. ✅ Make versioning **explicit** (don't default to "latest")
+5. ✅ **Document** your deprecation policy upfront
+6. ❌ Don't version if you can make it backward compatible
+7. ❌ Don't sunset without announcing **6+ months** in advance
+
+**The Final Truth:** The best API version is the one your clients never have to think about. Evolve gracefully, deprecate slowly, and never break production.
