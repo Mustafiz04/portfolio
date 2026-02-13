@@ -330,7 +330,7 @@ GET cart:user_12345
 | Service | Database | Why |
 |:--------|:---------|:----|
 | **User Accounts** | PostgreSQL | ACID for sensitive data, complex queries for fraud detection |
-| **Driver Locations** | Redis + Geo Index | In memory with spatial queries, <5ms lookup |
+| **Driver Locations** | Redis + Geo Index | In memory with spatial queries, &lt;5ms lookup |
 | **Trip History** | Cassandra | Billions of trips, write heavy, queried by `user_id` |
 | **Pricing Surge Model** | PostgreSQL (Time Series Extension) | Complex calculations, historical analysis |
 | **Fraud Detection Graph** | Neo4j | Detect patterns like "10 accounts from same device" |
