@@ -19,8 +19,7 @@ export default function Footer() {
           <SocialIcon kind="chess" href={siteMetadata.chess} size={6} />
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-          <div>{siteMetadata.author}</div>
-          <div>{`© ${new Date().getFullYear()}`}</div>
+          <div>{`© ${new Date().getFullYear()} ${siteMetadata.author}. All rights reserved.`}</div>
         </div>
       </div>
     </footer>

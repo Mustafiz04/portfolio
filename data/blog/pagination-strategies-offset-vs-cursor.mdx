@@ -1,0 +1,236 @@
+---
+title: "Mastering Pagination: Offset vs. Cursor-based Strategies"
+date: '2026-02-22'
+tags: ['Backend Development', 'Java', 'Spring Boot', 'Dropwizard', 'Database', 'API Design', 'System Design', 'Performance']
+draft: false
+summary: "Choosing the right pagination strategy can make or break your application's performance. Learn the deep differences between Offset and Cursor-based pagination, with production-grade Java (Spring Boot & Dropwizard) implementations."
+authors: ['default']
+type: 'Blog'
+---
+
+
+
+# The Paging Paradox: Why Your Application Slows Down as it Grows
+
+Imagine you're building a social media feed or a high-traffic e-commerce site. In the beginning, everything is fast. But as your database hits 1 million, 10 million, or 100 million rows, your "Next Page" button starts taking seconds to load. 
+
+This is the **Pagination Pitfall**. 
+
+In this guide, we’ll do a deep dive into the two industry-standard strategies: **Offset-based** and **Cursor-based** pagination. We’ll explore the trade-offs, performance benchmarks, and provide full **Java (Spring Boot & Dropwizard)** implementations for both.
+
+---
+
+## Part 1: Offset-based Pagination (The Traditional Way)
+
+Offset pagination is the most common method. You specify a **limit** (page size) and an **offset** (number of records to skip).
+
+### How it works (SQL)
+```sql
+-- Page 1
+SELECT * FROM products ORDER BY created_at DESC LIMIT 10 OFFSET 0;
+
+-- Page 3 (Skip first 20 records)
+SELECT * FROM products ORDER BY created_at DESC LIMIT 10 OFFSET 20;
+```
+
+### The Java Implementation (Spring Data JPA)
+
+Spring makes offset pagination trivial using the `Pageable` interface.
+
+```java
+@RestController
+@RequestMapping("/api/v1/products")
+public class ProductController {
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @GetMapping
+    public Page<Product> getProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return productRepository.findAll(pageable);
+    }
+}
+```
+
+### The Java Implementation (Dropwizard / JDBI)
+
+In Dropwizard, we often use JDBI. Here is how you handle offsets manually in a resource.
+
+```java
+@Path("/products")
+@Produces(MediaType.APPLICATION_JSON)
+public class ProductResource {
+    private final ProductDAO dao;
+
+    @GET
+    public List<Product> getProducts(
+            @QueryParam("limit") @DefaultValue("10") int limit,
+            @QueryParam("offset") @DefaultValue("0") int offset) {
+        return dao.findAll(limit, offset);
+    }
+}
+
+// In your DAO
+@SqlUpdate("SELECT * FROM products ORDER BY id LIMIT :limit OFFSET :offset")
+List<Product> findAll(@Bind("limit") int limit, @Bind("offset") int offset);
+```
+
+### Advantages ✅
+- **Jump to Page X:** Users can easily jump to page 10, 50, or the last page.
+- **Easy to Implement:** Native support in almost every web framework and database.
+- **Total Count:** Usually provides a `totalElements` count, allowing you to show "Page 1 of 500".
+
+### Disadvantages ❌
+- **Performance Leak (O(N)):** To skip 1,000,000 rows, the database must still read them from disk and discard them. High offsets are incredibly slow.
+- **Data Drift (The Duplicate Entry Problem):** If a new record is inserted while a user is on page 1, the last item on page 1 "shifts" to page 2. When the user clicks "Next", they see the same item again.
+
+---
+
+## Part 2: Cursor-based Pagination (The Modern Standard)
+
+Cursor-based pagination (also known as Keyset pagination) uses a "pointer" to a specific record in the dataset. Instead of saying "skip 20 items," you say "give me 10 items *after* this specific record."
+
+### How it works (SQL)
+Instead of an offset, we use a unique, sequential column as a cursor (usually the ID or a timestamp).
+
+```sql
+-- Page 1 (No cursor yet)
+SELECT * FROM products 
+ORDER BY id DESC 
+LIMIT 10;
+
+-- Page 2 (Assume the last ID from Page 1 was 5432)
+SELECT * FROM products 
+WHERE id < 5432 
+ORDER BY id DESC 
+LIMIT 10;
+```
+
+### The Java Implementation (Custom Implementation)
+
+Since Spring Data JPA’s `Page` is offset-indexed, you usually implement cursor pagination manually for maximum performance.
+
+#### The Response DTO
+```java
+@Data
+@AllArgsConstructor
+public class CursorPage<T> {
+    private List<T> data;
+    private String nextCursor;
+    private String prevCursor;
+    private boolean hasMore;
+}
+```
+
+#### The Repository
+```java
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    
+    // Forward Pagination
+    @Query("SELECT p FROM Product p WHERE p.id < :cursor ORDER BY p.id DESC")
+    List<Product> findForward(Long cursor, Pageable limit);
+
+    // Backward Pagination
+    @Query("SELECT p FROM Product p WHERE p.id > :cursor ORDER BY p.id ASC")
+    List<Product> findBackward(Long cursor, Pageable limit);
+}
+```
+
+#### The Service
+```java
+@Service
+public class ProductService {
+
+    public CursorPage<Product> getProducts(Long cursor, int limit, String direction) {
+        List<Product> products;
+        Pageable pageable = PageRequest.of(0, limit + 1); // Fetch limit + 1 to check for hasMore
+
+        if ("backward".equalsIgnoreCase(direction)) {
+            products = productRepository.findBackward(cursor, pageable);
+            Collections.reverse(products); // Maintain DESC order for UI
+        } else {
+            products = productRepository.findForward(cursor != null ? cursor : Long.MAX_VALUE, pageable);
+        }
+
+        boolean hasMore = products.size() > limit;
+        if (hasMore) {
+            products = products.subList(0, limit);
+        }
+
+        String nextCursor = products.isEmpty() ? null : products.get(products.size() - 1).getId().toString();
+        String prevCursor = products.isEmpty() ? null : products.get(0).getId().toString();
+
+        return new CursorPage<>(products, nextCursor, prevCursor, hasMore);
+    }
+}
+```
+
+#### The Dropwizard Logic (JDBI)
+
+```java
+@GET
+@Path("/cursor")
+public Response getProductsCursor(@QueryParam("cursor") Long cursor, 
+                                 @QueryParam("limit") @DefaultValue("10") int limit) {
+    long effectiveCursor = (cursor == null) ? Long.MAX_VALUE : cursor;
+    List<Product> products = dao.findForward(effectiveCursor, limit + 1);
+    
+    boolean hasMore = products.size() > limit;
+    String nextCursor = hasMore ? products.get(limit - 1).getId().toString() : null;
+    
+    return Response.ok(new CursorResponse(products.subList(0, Math.min(products.size(), limit)), nextCursor)).build();
+}
+```
+
+### Advantages ✅
+- **High Performance (O(log N)):** Uses indexes effectively. Skipping 1 million rows is as fast as skipping 10.
+- **No Data Drift:** Even if items are added or deleted, the cursor points to a fixed location in the dataset. No more duplicate items during infinite scroll.
+- **Infinite Scroll Friendly:** Ideal for mobile apps and modern web feeds (Facebook, Twitter, Slack).
+
+### Disadvantages ❌
+- **No Jumping:** You cannot jump to "Page 10" because you don't know where Page 9 ends without fetching it.
+- **Complex Implementation:** Handling sorting on non-unique columns (like `name`) requires complex cursors (e.g., `(name, id)` tuples).
+- **No Total Count:** You generally don't know the total number of items without a separate, expensive `COUNT(*)` query.
+
+---
+
+## Part 3: Head-to-Head Comparison
+
+| Feature | Offset-based | Cursor-based |
+| :--- | :--- | :--- |
+| **Search Engine Friendly** | ✅ Yes (Fixed URLs like `?page=3`) | ❌ No (Temporary cursors) |
+| **Performance** | 📉 Degrades with size | 🚀 Constant regardless of size |
+| **Stable Results** | ❌ No (Affected by inserts/deletes) | ✅ Yes (Stable against changes) |
+| **UX Style** | Classic Pagination (1, 2, 3...) | Infinite Scroll / "Load More" |
+| **Ease of implementation**| Very Easy | Moderate to Difficult |
+
+---
+
+## Part 4: When to Use Which?
+
+### Use Offset-based Pagination if:
+1. You have a **small dataset** (e.g., < 50,000 records).
+2. Your UI requires **explicit page numbers**.
+3. You need to **jump to specific pages**.
+4. You are building an **admin dashboard** or internal tools.
+
+### Use Cursor-based Pagination if:
+1. You have a **massive dataset** (millions of rows).
+2. You are building an **infinite scroll** feed.
+3. Your data is **highly dynamic** (new content every second).
+4. Performance is your **Absolute Priority**.
+
+---
+
+## Conclusion
+
+Pagination isn't just about UI; it's a critical architectural decision. While **Offset** is fine for your local blog, **Cursor-based** pagination is what powers the scaled systems of the web. 
+
+**Pro Tip:** If you're using Postgres, look into the `seek method` library or specialized Spring Data libraries that handle cursor logic for you to avoid the manual boilerplate!
+
+---
+*Happy Coding!* 🚀

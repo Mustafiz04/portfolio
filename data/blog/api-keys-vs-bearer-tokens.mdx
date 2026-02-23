@@ -1,0 +1,168 @@
+---
+title: "API Keys vs. Bearer Tokens: Choosing the Right Security for Your API"
+date: '2026-02-21'
+tags: ['API Security', 'Java', 'Dropwizard', 'Authentication', 'Bearer Token', 'JWT', 'Software Architecture']
+draft: false
+summary: "Understand the fundamental differences between API Keys and Bearer Tokens. Learn when to use long-lived identification vs. short-lived authorization, with full Java Dropwizard implementations."
+authors: ['default']
+type: 'Blog'
+---
+
+# Identity vs. Permission: The Great Authentication Divide
+
+In the world of API security, two giants dominate the conversation: **API Keys** and **Bearer Tokens**. While they both travel in HTTP headers and look like random strings of characters, they serve completely different masters. 
+
+Choosing the wrong one is like using a padlock where you need a biometric scanner—or using a high-security vault for a locker.
+
+In this guide, we’ll break down their architecture, use cases, and how to implement both in **Java using the Dropwizard framework**.
+
+---
+
+## Part 1: API Keys (The Passport)
+
+An API Key is a long-lived, static identifier. It tells the server **who** is calling, but not necessarily **what** they are allowed to do beyond the broadest scope.
+
+### Characteristics
+-   **Static:** Rarely expires.
+-   **Simple:** Easy to generate and transmit.
+-   **Identification focused:** Aimed at tracking usage, rate limiting, and basic access.
+
+### Best For
+-   Server-to-server communication (M2M).
+-   Usage tracking (e.g., Stripe, AWS, Google Maps).
+-   Public APIs with public data.
+
+### 🛠️ Java Dropwizard Implementation: API Key Authenticator
+
+In Dropwizard, we can implement a custom `Authenticator` for API Keys.
+
+```java
+public class ApiKeyAuthenticator implements Authenticator<String, User> {
+    private final Map<String, User> validKeys = Map.of(
+        "sk_test_123456789", new User("System_Service")
+    );
+
+    @Override
+    public Optional<User> authenticate(String credentials) throws AuthenticationException {
+        // In production, check your database or cache
+        if (validKeys.containsKey(credentials)) {
+            return Optional.of(validKeys.get(credentials));
+        }
+        return Optional.empty();
+    }
+}
+```
+
+**Registering in the Application:**
+```java
+@Override
+public void run(Configuration configuration, Environment environment) {
+    environment.jersey().register(new AuthDynamicFeature(
+        new OAuthAuthenticator.Builder<User>()
+            .setAuthenticator(new ApiKeyAuthenticator())
+            .setPrefix("ApiKey") // Used as: Authorization: ApiKey <your_key>
+            .setAuthorizer(new UserAuthorizer())
+            .buildAuthFilter()));
+}
+```
+
+---
+
+## Part 2: Bearer Tokens (The Keycard)
+
+A Bearer Token (most commonly a **JWT - JSON Web Token**) is a short-lived, cryptographically signed credential. It carries claims about the user and their permissions.
+
+### Characteristics
+-   **Short-lived:** Expires frequently (e.g., 15 minutes to 1 hour).
+-   **Stateless:** The server can verify the token without checking a database (using its secret key).
+-   **Authorization focused:** Contains "scopes" or "roles".
+
+### Best For
+-   User-facing applications (Mobile, Web).
+-   Fine-grained permissions.
+-   Single-sign-on (SSO).
+
+### 🛠️ Java Dropwizard Implementation: JWT Bearer Token
+
+Dropwizard works perfectly with the `jjwt` library for token validation.
+
+```java
+public class JwtAuthenticator implements Authenticator<String, User> {
+    private final String secretKey;
+
+    public JwtAuthenticator(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+    @Override
+    public Optional<User> authenticate(String token) throws AuthenticationException {
+        try {
+            Claims claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
+
+            String username = claims.getSubject();
+            List<String> roles = (List<String>) claims.get("roles");
+            
+            return Optional.of(new User(username, roles));
+        } catch (JwtException e) {
+            return Optional.empty();
+        }
+    }
+}
+```
+
+---
+
+## Part 3: The Comparison Table
+
+| Feature | API Key | Bearer Token (JWT) |
+| :--- | :--- | :--- |
+| **Duration** | Long-lived (Days/Years) | Short-lived (Minutes/Hours) |
+| **Storage** | Database lookup usually required | Self-contained (Stateless) |
+| **Revocation** | Easy (Delete from DB) | Hard (Need blacklisting or wait for expiry) |
+| **Security Risk** | High if leaked (it lasts forever) | Lower (expires soon) |
+| **Scope** | Typically broad | Can be extremely specific (Scopes) |
+| **Standard** | No strict standard | RFC 7519 (JWT) / RFC 6750 |
+
+---
+
+## Part 4: When to Choose Which?
+
+### Choice 1: API Keys
+**Choose API Keys when** you are building a service used by other developers (B2B). If you are Stripe, you give your users an API key. They store it securely in their backend environment variables and use it for every request.
+
+### Choice 2: Bearer Tokens
+**Choose Bearer Tokens when** you are building a frontend (React, Swift, Android) that talks to your backend. The user logs in with a password, you give them a short-lived token, and if their phone gets stolen, the token expires quickly, protecting their data.
+
+---
+
+## Part 5: Hybrid Security (The Pro Move)
+
+Many modern enterprise APIs use **both**. 
+1.  **API Key** for identifying the "Client Application" (Product A vs Product B).
+2.  **Bearer Token** for identifying the "User" currently using that application.
+
+### Dropwizard Multi-Auth Filter
+You can chain multiple authenticators in Dropwizard:
+```java
+PolymorphicAuthDynamicFeature authFeature = new PolymorphicAuthDynamicFeature(
+    Map.of(
+        User.class, new ChainedAuthFilter<>(List.of(jwtFilter, apiKeyFilter))
+    )
+);
+```
+
+---
+
+## Conclusion
+
+API Keys are for **Services**; Bearer Tokens are for **Users**. 
+
+If you need simplicity and the ability to track usage over months, go with **API Keys**. If you need stateless security and fine-grained permissions for humans, **Bearer Tokens** are your best friend.
+
+Whatever you choose, remember: **Never** log these values and **Always** use HTTPS.
+
+---
+*Happy Securing!* 🔒

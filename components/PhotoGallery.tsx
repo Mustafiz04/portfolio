@@ -124,7 +124,7 @@ export default function PhotoGallery({ photos }: { photos: MediaItem[] }) {
                 activeFilter === country
                   ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30'
                   : 'bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700'
-              } capitalize`}
+              } uppercase`}
             >
               <span className="text-lg">{COUNTRY_FLAGS[country] || '📍'}</span>
               <span>{country}</span>
