@@ -1,8 +1,9 @@
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import { allBlogs } from 'contentlayer/generated'
+import { allBlogs, allSnippets } from 'contentlayer/generated'
 import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
+import { getAllTags } from '@/lib/utils/tag-utils'
 
 const POSTS_PER_PAGE = 5
 
@@ -15,6 +16,7 @@ export const generateStaticParams = async () => {
 
 export default function Page({ params }: { params: { page: string } }) {
   const posts = allCoreContent(sortPosts(allBlogs))
+  const tagCounts = getAllTags(allBlogs, allSnippets)
   const pageNumber = parseInt(params.page as string)
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
@@ -32,6 +34,7 @@ export default function Page({ params }: { params: { page: string } }) {
         posts={posts}
         initialDisplayPosts={initialDisplayPosts}
         pagination={pagination}
+        tagCounts={tagCounts}
         title="All Posts"
       />
     </>
