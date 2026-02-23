@@ -104,10 +104,11 @@ export default function ListLayoutWithTags({
               <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
                 <Link
                   href="/blog"
-                  className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === '/blog'
+                  className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                    pathname === '/blog'
                       ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/20 dark:text-primary-400'
                       : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800/50'
-                    }`}
+                  }`}
                 >
                   All Posts
                 </Link>
@@ -117,10 +118,11 @@ export default function ListLayoutWithTags({
                     <Link
                       key={t}
                       href={`/tags/${slug(t)}`}
-                      className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors ${isActive
+                      className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                        isActive
                           ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/20 dark:text-primary-400'
                           : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800/50'
-                        }`}
+                      }`}
                     >
                       <span className="truncate">{t}</span>
                       <span className="ml-2 text-xs text-gray-400">({tagCounts[t]})</span>
@@ -154,6 +156,7 @@ export default function ListLayoutWithTags({
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-20">
             {/* Backdrop */}
             <button
+              type="button"
               className="fixed inset-0 h-full w-full cursor-default bg-gray-900/60 backdrop-blur-sm transition-opacity focus:outline-none"
               onClick={() => setIsModalOpen(false)}
               aria-label="Close modal"
@@ -230,10 +233,11 @@ export default function ListLayoutWithTags({
                           key={t}
                           href={`/tags/${slug(t)}`}
                           onClick={() => setIsModalOpen(false)}
-                          className={`group flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-semibold transition-all hover:-translate-y-0.5 ${isActive
+                          className={`group flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
+                            isActive
                               ? 'border-primary-500 bg-primary-50 text-primary-600 dark:bg-primary-900/20 dark:text-primary-400'
                               : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-primary-200 hover:bg-white hover:text-primary-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:border-primary-800 dark:hover:bg-gray-950'
-                            }`}
+                          }`}
                         >
                           <span>{t}</span>
                           <span className="text-xs opacity-50">({tagCounts[t]})</span>
