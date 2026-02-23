@@ -3,7 +3,7 @@ import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allBlogs } from 'contentlayer/generated'
-import tagData from 'app/tag-data.json'
+import { getAllTags } from '@/lib/utils/tag-utils'
 import { genPageMetadata } from 'app/seo'
 import { Metadata } from 'next'
 import { TagSEO } from '@/components/SEO'
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
 }
 
 export const generateStaticParams = async () => {
-  const tagCounts = tagData as Record<string, number>
+  const tagCounts = getAllTags(allBlogs)
   const tagKeys = Object.keys(tagCounts)
   const paths = tagKeys.map((tag) => ({
     tag: encodeURI(tag),
@@ -35,16 +35,18 @@ export default function TagPage({ params }: { params: { tag: string } }) {
   const tag = decodeURI(params.tag)
   // Capitalize first letter and convert space to dash
   const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)
+
   const filteredPosts = allCoreContent(
     sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
   )
+  const tagCounts = getAllTags(allBlogs)
   return (
     <>
       <TagSEO
         title={`${tag} - ${siteMetadata.title}`}
         description={`${tag} tags - ${siteMetadata.author}`}
       />
-      <ListLayout posts={filteredPosts} title={title} />
+      <ListLayout posts={filteredPosts} title={title} tagCounts={tagCounts} />
     </>
   )
 }

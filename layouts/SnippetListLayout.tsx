@@ -9,7 +9,6 @@ import type { Blog, Snippet } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import tagData from 'app/tag-data.json'
 import { SnippetCard } from '@/components/SnippetCard'
 
 interface PaginationProps {
