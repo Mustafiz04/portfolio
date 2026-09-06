@@ -911,5 +911,5 @@ export const travelPhotos: MediaItem[] = [
   { src: '/static/images/japan/cars.jpg', alt: 'JDM Cars in Tokyo 🇯🇵' },
   { src: '/static/images/japan/senojiTemple.jpg', alt: 'Senoji Temple' },
   { src: '/static/images/japan/tokyoSkyTree.jpg', alt: 'Tokyo Sky Tree' },
-  { src: '/static/images/japan/tokyoTower.jpg', alt: 'Tokyo Tower' }
+  { src: '/static/images/japan/tokyoTower.jpg', alt: 'Tokyo Tower' },
 ]
