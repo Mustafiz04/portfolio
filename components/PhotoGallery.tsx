@@ -2,7 +2,14 @@
 
 import { useState, useEffect, useCallback, useMemo, Fragment } from 'react'
 import Image from 'next/image'
-import { Dialog, Transition } from '@headlessui/react'
+import {
+  Dialog,
+  Transition,
+  Listbox,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+} from '@headlessui/react'
 import {
   XMarkIcon,
   ChevronLeftIcon,
@@ -11,6 +18,8 @@ import {
   ArrowsPointingOutIcon,
   ShareIcon,
   ArrowDownTrayIcon,
+  ChevronDownIcon,
+  CheckIcon,
 } from '@heroicons/react/24/outline'
 
 interface MediaItem {
@@ -52,6 +61,24 @@ const COUNTRY_FLAGS: Record<string, string> = {
   saudiarabia: '🇸🇦',
   oman: '🇴🇲',
   egypt: '🇪🇬',
+  japan: '🇯🇵',
+}
+
+const COUNTRY_NAMES: Record<string, string> = {
+  All: 'All Destinations',
+  uae: 'UAE',
+  turkiye: 'Türkiye',
+  singapore: 'Singapore',
+  malaysia: 'Malaysia',
+  saudiarabia: 'Saudi Arabia',
+  oman: 'Oman',
+  egypt: 'Egypt',
+  japan: 'Japan',
+}
+
+function getCountryName(countryKey: string): string {
+  if (COUNTRY_NAMES[countryKey]) return COUNTRY_NAMES[countryKey]
+  return countryKey.charAt(0).toUpperCase() + countryKey.slice(1)
 }
 
 export default function PhotoGallery({ photos }: { photos: MediaItem[] }) {
@@ -68,6 +95,17 @@ export default function PhotoGallery({ photos }: { photos: MediaItem[] }) {
       return parts[3] || 'Other'
     })
     return ['All', ...Array.from(new Set(extracted))]
+  }, [photos])
+
+  // Count photos per country filter
+  const countryCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: photos.length }
+    photos.forEach((p) => {
+      const parts = p.src.split('/')
+      const countryKey = parts[3] || 'Other'
+      counts[countryKey] = (counts[countryKey] || 0) + 1
+    })
+    return counts
   }, [photos])
 
   useEffect(() => {
@@ -110,26 +148,117 @@ export default function PhotoGallery({ photos }: { photos: MediaItem[] }) {
 
   return (
     <div className="my-8 w-full outline-none">
-      {/* Filter Bar */}
-      <div className="no-scrollbar mb-12 flex w-full overflow-x-auto pb-4 sm:pb-0">
-        <div className="mx-auto flex flex-nowrap gap-3 px-4">
-          {countries.map((country) => (
-            <button
-              key={country}
-              onClick={() => {
-                setActiveFilter(country)
-                setSelectedImage(null)
-              }}
-              className={`flex items-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold tracking-wide transition-all duration-300 ${
-                activeFilter === country
-                  ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30'
-                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700'
-              } uppercase`}
-            >
-              <span className="text-lg">{COUNTRY_FLAGS[country] || '📍'}</span>
-              <span>{country}</span>
-            </button>
-          ))}
+      {/* Filter Section */}
+      <div className="mb-10 w-full">
+        {/* Mobile Dropdown View (< sm) */}
+        <div className="relative mx-auto max-w-xs sm:hidden">
+          <Listbox
+            value={activeFilter}
+            onChange={(val) => {
+              setActiveFilter(val)
+              setSelectedImage(null)
+            }}
+          >
+            <div className="relative">
+              <ListboxButton className="relative flex w-full cursor-pointer items-center justify-between rounded-2xl border border-gray-200 bg-white/90 px-4 py-3 text-left shadow-sm backdrop-blur-md transition-all duration-300 hover:border-primary-500/50 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/90 dark:hover:border-primary-500/50">
+                <div className="flex items-center gap-3 truncate">
+                  <span className="text-xl">{COUNTRY_FLAGS[activeFilter] || '📍'}</span>
+                  <span className="truncate text-sm font-bold uppercase tracking-wide text-gray-900 dark:text-gray-100">
+                    {getCountryName(activeFilter)}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="rounded-full bg-primary-500/10 px-2.5 py-0.5 text-xs font-bold text-primary-600 dark:bg-primary-500/20 dark:text-primary-400">
+                    {countryCounts[activeFilter] || 0}
+                  </span>
+                  <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                </div>
+              </ListboxButton>
+
+              <Transition
+                as={Fragment}
+                leave="transition ease-in duration-100"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <ListboxOptions className="absolute z-30 mt-2 max-h-72 w-full overflow-auto rounded-2xl border border-gray-200 bg-white/95 p-1.5 shadow-2xl backdrop-blur-xl focus:outline-none dark:border-gray-800 dark:bg-gray-900/95 sm:text-sm">
+                  {countries.map((country) => (
+                    <ListboxOption
+                      key={country}
+                      value={country}
+                      className={({ active, selected }) =>
+                        `relative flex cursor-pointer select-none items-center justify-between rounded-xl px-3.5 py-2.5 transition-all duration-150 ${
+                          selected
+                            ? 'bg-primary-500 font-bold text-white'
+                            : active
+                              ? 'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100'
+                              : 'text-gray-700 dark:text-gray-300'
+                        }`
+                      }
+                    >
+                      {({ selected }) => (
+                        <>
+                          <div className="flex items-center gap-3 truncate">
+                            <span className="text-lg">{COUNTRY_FLAGS[country] || '📍'}</span>
+                            <span className="truncate text-xs font-semibold uppercase tracking-wider">
+                              {getCountryName(country)}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                                selected
+                                  ? 'bg-white/20 text-white'
+                                  : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+                              }`}
+                            >
+                              {countryCounts[country] || 0}
+                            </span>
+                            {selected && (
+                              <CheckIcon className="h-4 w-4 text-white" aria-hidden="true" />
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </ListboxOption>
+                  ))}
+                </ListboxOptions>
+              </Transition>
+            </div>
+          </Listbox>
+        </div>
+
+        {/* Desktop Wrapped Pill Bar (>= sm) */}
+        <div className="hidden w-full flex-wrap justify-center gap-2.5 px-4 sm:flex">
+          {countries.map((country) => {
+            const isSelected = activeFilter === country
+            return (
+              <button
+                key={country}
+                onClick={() => {
+                  setActiveFilter(country)
+                  setSelectedImage(null)
+                }}
+                className={`group flex items-center gap-2.5 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                  isSelected
+                    ? 'scale-105 bg-primary-500 text-white shadow-md shadow-primary-500/25'
+                    : 'bg-gray-100/80 text-gray-600 hover:bg-gray-200/80 hover:text-gray-900 dark:bg-gray-800/80 dark:text-gray-300 dark:hover:bg-gray-700/80 dark:hover:text-white'
+                }`}
+              >
+                <span className="text-base">{COUNTRY_FLAGS[country] || '📍'}</span>
+                <span>{getCountryName(country)}</span>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-[10px] font-extrabold transition-colors ${
+                    isSelected
+                      ? 'bg-white/20 text-white'
+                      : 'bg-gray-200/80 text-gray-500 group-hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:group-hover:bg-gray-600'
+                  }`}
+                >
+                  {countryCounts[country] || 0}
+                </span>
+              </button>
+            )
+          })}
         </div>
       </div>
 

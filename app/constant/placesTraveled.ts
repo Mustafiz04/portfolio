@@ -214,4 +214,22 @@ export const allVisitedPlace: {
     markerColor: '#C8102E',
     country: 'Egypt',
   },
+  {
+    coordinates: [139.6917, 35.6895],
+    name: 'Tokyo',
+    markerColor: '#BC002D',
+    country: 'Japan',
+  },
+  {
+    coordinates: [138.73137, 35.36064],
+    name: 'Mt. Fuji',
+    markerColor: '#BC002D',
+    country: 'Japan',
+  },
+  {
+    coordinates: [139.5468, 35.3192],
+    name: 'Kamakura',
+    markerColor: '#BC002D',
+    country: 'Japan',
+  },
 ]
