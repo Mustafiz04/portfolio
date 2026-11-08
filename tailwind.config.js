@@ -22,10 +22,28 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
+        sans: ['var(--font-outfit)', ...fontFamily.sans],
+        display: ['var(--font-syne)', ...fontFamily.sans],
       },
       colors: {
-        primary: colors.green,
+        primary: {
+          50: '#E8F5EC',
+          100: '#D1EBD9',
+          200: '#A3D7B3',
+          300: '#75C38D',
+          400: '#47AF67',
+          500: '#1AA14B',
+          600: '#158A3F',
+          700: '#107332',
+          800: '#0B5C26',
+          900: '#064519',
+          950: '#032E10',
+        },
+        ink: {
+          paper: '#FAF8F4',
+          DEFAULT: '#0B0C0E',
+          raised: '#14161A',
+        },
         gray: colors.neutral,
       },
       typography: ({ theme }) => ({
@@ -46,7 +64,7 @@ module.exports = {
               fontWeight: '600',
             },
             code: {
-              color: theme('colors.indigo.500'),
+              color: theme('colors.primary.400'),
             },
           },
         },

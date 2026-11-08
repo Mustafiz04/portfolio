@@ -8,13 +8,12 @@ interface StackListProps {
 function StackList(props: StackListProps): React.ReactElement {
   const { stack } = props
 
-  const renderList = useCallback((stack) => {
-    const { value, color } = StackInfo[stack]
+  const renderList = useCallback((stack: Stack) => {
+    const { value } = StackInfo[stack]
 
     return (
       <span
-        className="mb-2 mr-2 rounded-sm px-2 py-1 text-xs font-medium text-white"
-        style={{ background: color }}
+        className="mb-2 mr-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 font-display text-xs font-semibold text-gray-600 transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-primary-700 dark:hover:bg-primary-900/30 dark:hover:text-primary-400"
         key={stack}
       >
         {value}
@@ -22,7 +21,7 @@ function StackList(props: StackListProps): React.ReactElement {
     )
   }, [])
 
-  return <div className="mb-2 flex flex-wrap">{React.Children.toArray(stack.map(renderList))}</div>
+  return <div className="flex flex-wrap gap-1">{React.Children.toArray(stack.map(renderList))}</div>
 }
 
 export default StackList

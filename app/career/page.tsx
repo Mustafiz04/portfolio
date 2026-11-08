@@ -4,6 +4,7 @@ import { InlineWidget } from 'react-calendly'
 import { contact } from 'config/contact'
 import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
+import ScrollReveal from '@/components/ScrollReveal'
 
 export default function Career() {
   const careerData = [
@@ -89,9 +90,14 @@ export default function Career() {
 
         <div className="space-y-12">
           {careerData.map((item, index) => (
-            <div key={index} className="relative flex flex-col md:flex-row md:justify-between">
+            <ScrollReveal
+              as="div"
+              key={index}
+              delay={(index % 4) * 80}
+              className="relative flex flex-col md:flex-row md:justify-between"
+            >
               {/* Timeline Node */}
-              <div className="absolute left-4 z-10 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-primary-500 ring-4 ring-primary-500/10 dark:border-gray-950 md:left-1/2" />
+              <div className="absolute left-4 z-10 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-4 border-ink-paper bg-primary-500 ring-4 ring-primary-500/10 dark:border-ink md:left-1/2" />
 
               {/* Date Column (Left on Desktop) */}
               <div
@@ -126,7 +132,7 @@ export default function Career() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

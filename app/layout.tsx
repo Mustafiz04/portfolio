@@ -1,7 +1,7 @@
 import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 
-import { Space_Grotesk } from 'next/font/google'
+import { Syne, Outfit } from 'next/font/google'
 // import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
@@ -12,10 +12,18 @@ import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 
-const space_grotesk = Space_Grotesk({
+const syne = Syne({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-space-grotesk',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-syne',
+})
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-outfit',
 })
 
 export const metadata: Metadata = {
@@ -62,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`${syne.variable} ${outfit.variable} scroll-smooth`}
       suppressHydrationWarning
     >
       <link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png" />
@@ -104,22 +112,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="icon" type="image/png" sizes="96x96" href="/static/favicons//favicon-96x96.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons//favicon-16x16.png" />
       <link rel="manifest" href="/static/favicons//manifest.json" />
-      <meta name="msapplication-TileColor" content="#ffffff" />
+      <meta name="msapplication-TileColor" content="#FAF8F4" />
       <meta name="msapplication-TileImage" content="/static/favicons//ms-icon-144x144.png" />
-      <meta name="theme-color" content="#ffffff" />
+      <meta name="theme-color" content="#FAF8F4" />
       {/* <meta name="msapplication-TileColor" content="#000000" /> */}
-      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
-      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
+      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF8F4" />
+      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0C0E" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <Analytics />
 
-      <body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white">
+      <body className="bg-ink-paper text-black antialiased dark:bg-ink dark:text-white">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <ThemeProviders>
           <SectionContainer>
             <div className="flex h-screen flex-col justify-between font-sans">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                 <Header />
-                <main className="mb-auto">{children}</main>
+                <main id="main-content" className="mb-auto">
+                  {children}
+                </main>
               </SearchProvider>
               <Footer />
             </div>
